@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.cohort.cohort-unity-client": "file:/Users/jacobniedz/Dropbox/CohortEnsemble/Cohort Unity/cohort-unity-client",
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.ext.nunit": "1.0.0",
     "com.unity.ide.rider": "1.1.0",
