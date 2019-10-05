@@ -1,11 +1,8 @@
 # Cohort Unity Client Demo
 
-This Unity project includes the (Cohort Unity Client)[https://github.com/jakemoves/cohort-unity-client] asset package and is useful as a template or for testing Cohort.
+This Unity project includes the [Cohort Unity Client asset package](https://github.com/jakemoves/cohort-unity-client) and is useful as a template or for testing Cohort.
 
 ## Getting started
-
-### Before starting
-- make sure your platform is set to iOS (Build Settings > select iOS on left > Switch Platform)
 
 ### Import (paid) dependencies from Unity Asset Store
 - [BestHTTP](https://assetstore.unity.com/packages/tools/network/best-http-10872)
@@ -36,7 +33,6 @@ This Unity project includes the (Cohort Unity Client)[https://github.com/jakemov
 ### Back in Unity...
 - under CH Session, enter the following values:
 
-| | |
 |-|-|
 | Server URL      | localhost                             |
 | Http Port       | 3000                                  |
@@ -58,4 +54,5 @@ This Unity project includes the (Cohort Unity Client)[https://github.com/jakemov
     "targetTags": ["all"]
   }
   ```
+- a 'meow' sound should play
     
