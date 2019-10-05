@@ -33,6 +33,7 @@ This Unity project includes the [Cohort Unity Client asset package](https://gith
 ### Back in Unity...
 - under CH Session, enter the following values:
 
+| | |
 |-|-|
 | Server URL      | localhost                             |
 | Http Port       | 3000                                  |
