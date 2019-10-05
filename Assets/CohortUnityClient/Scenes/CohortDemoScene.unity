@@ -467,9 +467,9 @@ MonoBehaviour:
   serverURL: localhost
   httpPort: 3000
   webSocketPath: /sockets
-  eventId: 7
+  eventId: 4
   pushN10nEndpoint: 
-  clientOccasion: 23
+  clientOccasion: 1
   clientTag: any
   audioPlayer: {fileID: 1392766431}
   soundCues:
