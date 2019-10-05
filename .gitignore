@@ -18,6 +18,7 @@
 /**/*.meta
 
 # For Cohort
+/builds
 /**/Best HTTP (Pro)
 /**/FlashLight
 

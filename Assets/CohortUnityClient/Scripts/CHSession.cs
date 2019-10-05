@@ -162,10 +162,10 @@ namespace Cohort {
         deviceGUID = "unity-editor-jn";
       }
 
-      HideGroupingUI();
-      HideOccasionUI();
+      //HideGroupingUI();
+      //HideOccasionUI();
 
-      videoPlayer.loopPointReached += onVideoEnded;
+      //videoPlayer.loopPointReached += onVideoEnded;
 
       if(clientOccasion != 0 && clientTag != null){
         Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientTag: " + clientTag);

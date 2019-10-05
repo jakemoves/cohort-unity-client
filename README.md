@@ -3,6 +3,7 @@
 This Unity project includes the [Cohort Unity Client asset package](https://github.com/jakemoves/cohort-unity-client) and is useful as a template or for testing Cohort.
 
 ## Getting started
+- download the Cohort Unity Client asset package and import it into your Unity project
 
 ### Import (paid) dependencies from Unity Asset Store
 - [BestHTTP](https://assetstore.unity.com/packages/tools/network/best-http-10872)
@@ -33,8 +34,8 @@ This Unity project includes the [Cohort Unity Client asset package](https://gith
 ### Back in Unity...
 - under CH Session, enter the following values:
 
-| | |
-|-|-|
+| Field           | Value                                 |
+| --------------- | ------------------------------------- |
 | Server URL      | localhost                             |
 | Http Port       | 3000                                  |
 | Web Socket Path | /sockets                              |
@@ -45,7 +46,7 @@ This Unity project includes the [Cohort Unity Client asset package](https://gith
 - enter Play mode
 - you should see console messages saying "req 1 complete", "req 1.5 complete", and "req 2 complete", as well as "opened websocket connection"
 
-### Playing sound...
+### Triggering sound cue playback
 - use a tool like [Postman](https://www.getpostman.com) to send the following JSON as a POST request to 'http://localhost:3000/api/v1/events/4/broadcast' (set the `Content-Type` header to `application/json`): 
   ```
   {
@@ -57,3 +58,7 @@ This Unity project includes the [Cohort Unity Client asset package](https://gith
   ```
 - a 'meow' sound should play
     
+### Testing on a device
+- select the CohortManager GameObject
+  - in the Inspector, under CH Session > Server URL, replace 'localhost' with your IP address or computer name (i.e. 'jakemoves.local')
+- build your Unity project and run it on a device from Xcode
