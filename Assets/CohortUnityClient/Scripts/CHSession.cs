@@ -31,7 +31,7 @@ namespace Cohort {
 
     [SerializeField]
     private int clientOccasion;
-
+    
     [SerializeField]
     private string clientTag;
 
@@ -149,8 +149,12 @@ namespace Cohort {
 
     void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");
-      fullscreenVideoSurface.SetActive(false);
-    }
+      if (fullscreenVideoSurface) { 
+        fullscreenVideoSurface.SetActive(false);
+      } else {
+        videoPlayer.clip = null;
+      }
+}
 
     // Use this for initialization
     void Start() {
@@ -165,9 +169,9 @@ namespace Cohort {
       //HideGroupingUI();
       //HideOccasionUI();
 
-      //videoPlayer.loopPointReached += onVideoEnded;
+      videoPlayer.loopPointReached += onVideoEnded;
 
-      if(clientOccasion != 0 && clientTag != null){
+      if (clientOccasion != 0 && clientTag != null){
         Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientTag: " + clientTag);
         PlayerPrefs.SetString("cohortOccasion", clientOccasion.ToString());
         PlayerPrefs.SetString("cohortTag", clientTag);
@@ -579,7 +583,9 @@ namespace Cohort {
 
             switch (msg.cueAction) {
               case CueAction.play:
-                fullscreenVideoSurface.SetActive(true);
+                if (fullscreenVideoSurface) {
+                  fullscreenVideoSurface.SetActive(true);
+                }
                 videoPlayer.Play();
                 break;
               case CueAction.pause:

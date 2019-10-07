@@ -5,7 +5,7 @@ This asset package allows a Cohort server to trigger playback of sound, video, a
 An example project for this Unity asset package is available [here.](https://github.com/jakemoves/cohort-unity-client-demo)
 
 ## Getting started
-- download the Cohort Unity Client asset package and import it into your Unity project
+- download the [Cohort Unity Client asset package]() and import it into your Unity project
 
 ### Import (paid) dependencies from Unity Asset Store
 - [BestHTTP](https://assetstore.unity.com/packages/tools/network/best-http-10872)
