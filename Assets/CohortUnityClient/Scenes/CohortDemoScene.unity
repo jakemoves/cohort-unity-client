@@ -541,6 +541,12 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: b315f72ccd9ab45feb25173f1d7cba9b, type: 3}
     cueNumber: 1
     accessibleAlternative: '[cat meowing angrily]'
+  - audioClip: {fileID: 8300000, guid: a5680815715fd4f3293b87ac428af7a3, type: 3}
+    cueNumber: 2
+    accessibleAlternative: '[latin hip-hop music]'
+  - audioClip: {fileID: 8300000, guid: 54483b6a87255442f8b6317b00bf18f6, type: 3}
+    cueNumber: 3
+    accessibleAlternative: '[downtempo percussion and male vocals]'
   videoPlayer: {fileID: 1357722706}
   fullscreenVideoSurface: {fileID: 0}
   videoCues:
