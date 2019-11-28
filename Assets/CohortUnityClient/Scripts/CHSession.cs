@@ -123,29 +123,29 @@ namespace Cohort {
     //  textCueArea.text = selectAShowCopy;
     //}
 
-    public void OnBtnOccasionAClicked() {
-      PlayerPrefs.SetString("cohortOccasion", occasionIDs[0]);
-      HideOccasionUI();
-      LoadOccasionAndTag();
-      textCueArea.text = "Loading...";
-      SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    }
+    //public void OnBtnOccasionAClicked() {
+    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[0]);
+    //  HideOccasionUI();
+    //  LoadOccasionAndTag();
+    //  textCueArea.text = "Loading...";
+    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
+    //}
 
-    public void OnBtnOccasionBClicked() {
-      PlayerPrefs.SetString("cohortOccasion", occasionIDs[1]);
-      HideOccasionUI();
-      LoadOccasionAndTag();
-      textCueArea.text = "Loading...";
-      SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    }
+    //public void OnBtnOccasionBClicked() {
+    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[1]);
+    //  HideOccasionUI();
+    //  LoadOccasionAndTag();
+    //  textCueArea.text = "Loading...";
+    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
+    //}
 
-    public void OnBtnOccasionCClicked() {
-      PlayerPrefs.SetString("cohortOccasion", occasionIDs[2]);
-      HideOccasionUI();
-      LoadOccasionAndTag();
-      textCueArea.text = "Loading...";
-      SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    }
+    //public void OnBtnOccasionCClicked() {
+    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[2]);
+    //  HideOccasionUI();
+    //  LoadOccasionAndTag();
+    //  textCueArea.text = "Loading...";
+    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
+    //}
 
     void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");
@@ -154,7 +154,7 @@ namespace Cohort {
       } else {
         videoPlayer.clip = null;
       }
-}
+    }
 
     // Use this for initialization
     void Start() {
@@ -199,131 +199,8 @@ namespace Cohort {
        * Create a new device on the server 
        */
       if (!string.IsNullOrEmpty(serverURL)) {
-
-
-        System.UriBuilder devicesCreateURL = UriWithOptionalPort(httpPort, "api/v1/devices");
-        Debug.Log(devicesCreateURL.Uri);
-        HTTPRequest req = new HTTPRequest(
-          devicesCreateURL.Uri,
-          HTTPMethods.Post,
-          (request, response) => {
-
-            Debug.Log("req 1 complete");
-            if (response.IsSuccess) {
-              var device = JsonMapper.ToObject(response.DataAsText);
-              this.deviceID = (int)device["id"]; // eventually moves to CHDevice
-              this.grouping = this.deviceID.ToString();
-              //UpdateAndShowGroupingLabel();
-              Debug.Log("got ID");
-              if (automaticCheckin) {
-                Debug.Log("automatic checkin");
-                SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-              } else {
-                //// show grouping selection UI
-                //ShowGroupingUI();
-
-                Debug.Log("manual occasion checkin");
-                PlayerPrefs.SetString("cohortTag", grouping);
-                ShowOccasionUI();
-                //textCueArea.text = "Select your group ID code";
-              }
-            } else {
-              Debug.Log("Error " + response.StatusCode + ": " + response.Message);
-
-            }
-          }
-        );
-        req.SetHeader("Content-Type", "application/json");
-        string jsonToSend = "{ \"guid\": \"" + deviceGUID + "\"}";
-        Debug.Log(jsonToSend);
-        req.RawData = new System.Text.UTF8Encoding().GetBytes(jsonToSend);
-        Debug.Log("sending req 1");
-        req.Send();
+        openWebSocketConnection();
       }
-    }
-
-
-
-    void SetDeviceTagAndCheckInToEvent(string deviceTag, int eventID, int occasionID) {
-      System.UriBuilder setTagsURL = UriWithOptionalPort(httpPort, "api/v1/devices/" + deviceID + "/set-tags");
-      HTTPRequest req = new HTTPRequest(
-        setTagsURL.Uri,
-        HTTPMethods.Patch,
-        (request, response) => {
-          Debug.Log("req 1.5 complete");
-          if (response.IsSuccess) {
-            CheckInToEventOccasion(eventID, occasionID);
-          } else {
-            Debug.Log("Error " + response.StatusCode + ": " + response.Message);
-          }
-        }
-      );
-      req.SetHeader("Content-Type", "application/json");
-      string jsonToSend = "{ \"tags\": [ \"" + deviceTag + "\"] }";
-      req.RawData = new System.Text.UTF8Encoding().GetBytes(jsonToSend);
-      Debug.Log("sending req 1.5");
-      req.Send();
-    }
-
-    void CheckInToEvent(int eventID) {
-      System.UriBuilder eventCheckInURL = UriWithOptionalPort(httpPort, "api/v1/events/" + eventID + "/check-in");
-      Debug.Log(eventCheckInURL.Uri);
-      HTTPRequest req = new HTTPRequest(
-        eventCheckInURL.Uri,
-          HTTPMethods.Patch,
-          (request, response) => {
-            Debug.Log("req 2 complete");
-            if (response.IsSuccess) {
-              PlayerPrefs.SetInt("checkedIntoJacqueries", 1);
-              textCueArea.text = checkedInPlaceholder;
-              registerForRemoteNotifications();
-              openWebSocketConnection();
-            } else {
-              Debug.Log("Error " + response.StatusCode + ": " + response.Message);
-            }
-          }
-        );
-      req.SetHeader("Content-Type", "application/json");
-      string jsonToSend = "{ \"guid\": \"" + deviceGUID + "\"}";
-      req.RawData = new System.Text.UTF8Encoding().GetBytes(jsonToSend);
-      Debug.Log("sending req 2");
-      req.Send();
-    }
-
-    // NB this is NOT the same as the above more general method
-    void CheckInToEventOccasion(int eventID, int occasionID) {
-      System.UriBuilder eventCheckInURL = UriWithOptionalPort(
-        httpPort, 
-        "api/v1/events/" + eventID + "/occasions/" + occasionID + "/check-in"
-      );
-      Debug.Log("check in URL: " + eventCheckInURL.Uri);
-      HTTPRequest req = new HTTPRequest(
-        eventCheckInURL.Uri,
-          HTTPMethods.Patch,
-          (request, response) => {
-            Debug.Log("req 2 complete");
-            if (response.IsSuccess) {
-              PlayerPrefs.SetInt("checkedIntoJacqueries", 1);
-              //UpdateAndShowGroupingLabel();
-
-              if (!Application.isEditor) {
-                //registerForRemoteNotifications();
-                openWebSocketConnection();
-              } else {
-                //textCueArea.text = "CHECKED IN\n\n" + grouping + "\n\n(but not registered for notifications)";
-                //UpdateAndShowGroupingLabel();
-                openWebSocketConnection();
-              }
-            } else {
-              Debug.Log("Error " + response.StatusCode + ": " + response.Message);
-            }
-          }
-        );
-      req.SetHeader("Content-Type", "application/json");
-      string jsonToSend = "{ \"guid\": \"" + deviceGUID + "\"}";
-      req.RawData = new System.Text.UTF8Encoding().GetBytes(jsonToSend);
-      Debug.Log("sending req 2");
-      req.Send();
     }
 
     void HandleOnRequestFinishedDelegate(HTTPRequest originalRequest, HTTPResponse response) {
@@ -345,10 +222,10 @@ namespace Cohort {
     }
 
     void OnWebSocketOpen(WebSocket cs) {
-      // this is a handshake with the server; the device must be registered (POST to /devices) and checked into an event (PATCH to /events/id/check-in) before trying to open a websocket connection
+      // this is a handshake with the server
       CHSocketAuth msg = new CHSocketAuth();
       msg.guid = deviceGUID;
-      msg.eventId = eventId;
+      msg.occasionId = occasion;
       string message = JsonMapper.ToJson(msg);
 
       cs.Send(message);
@@ -801,7 +678,7 @@ namespace Cohort {
 
   public class CHSocketAuth {
     public string guid;
-    public int eventId;
+    public int occasionId;
   }
 
 }

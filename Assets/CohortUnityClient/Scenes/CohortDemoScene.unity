@@ -529,12 +529,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202f157f33e844f9796b7a82e6543b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverURL: jakemoves-old.local
-  httpPort: 3000
+  serverURL: https://staging.cohort.rocks
+  httpPort: 0
   webSocketPath: /sockets
-  eventId: 4
+  eventId: 2
   pushN10nEndpoint: 
-  clientOccasion: 1
+  clientOccasion: 3
   clientTag: any
   audioPlayer: {fileID: 1392766431}
   soundCues:
