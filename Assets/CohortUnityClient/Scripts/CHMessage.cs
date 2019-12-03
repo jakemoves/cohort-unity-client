@@ -10,6 +10,7 @@ namespace Cohort {
     public float cueNumber;
     public CueAction cueAction;
     public int id;
+    public string cueContent;
 
     public static string FormattedMessage(CHMessage msg) {
       string tagsForPrint = "";

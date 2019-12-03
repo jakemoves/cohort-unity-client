@@ -54,9 +54,6 @@ namespace Cohort {
     private VideoClip nullVideo;
 
     [SerializeField]
-    private TextMeshProUGUI textCueArea;
-
-    [SerializeField]
     private List<CHTextCue> textCues;
 
     [SerializeField]
@@ -89,63 +86,12 @@ namespace Cohort {
 
     private bool socketConnectionActive = false;
 
+    public delegate void OnTextCue(CueAction cueAction, string cueContent);
+    public event OnTextCue onTextCue;
 
-
-    //public void OnBtn07_07Clicked() {
-    //  grouping = "07_07";
-    //  PlayerPrefs.SetString("cohortTag", grouping);
-    //  HideGroupingUI();
-    //  ShowOccasionUI();
-    //  textCueArea.text = selectAShowCopy;
-    //}
-
-    //public void OnBtn22Clicked() {
-    //  grouping = "22";
-    //  PlayerPrefs.SetString("cohortTag", grouping);
-    //  HideGroupingUI();
-    //  ShowOccasionUI();
-    //  textCueArea.text = selectAShowCopy;
-    //}
-
-    //public void OnBtn9_14Clicked() {
-    //  grouping = "9-14";
-    //  PlayerPrefs.SetString("cohortTag", grouping);
-    //  HideGroupingUI();
-    //  ShowOccasionUI();
-    //  textCueArea.text = selectAShowCopy;
-    //}
-
-    //public void OnBtn1984Clicked() {
-    //  grouping = "1984";
-    //  PlayerPrefs.SetString("cohortTag", grouping);
-    //  HideGroupingUI();
-    //  ShowOccasionUI();
-    //  textCueArea.text = selectAShowCopy;
-    //}
-
-    //public void OnBtnOccasionAClicked() {
-    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[0]);
-    //  HideOccasionUI();
-    //  LoadOccasionAndTag();
-    //  textCueArea.text = "Loading...";
-    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    //}
-
-    //public void OnBtnOccasionBClicked() {
-    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[1]);
-    //  HideOccasionUI();
-    //  LoadOccasionAndTag();
-    //  textCueArea.text = "Loading...";
-    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    //}
-
-    //public void OnBtnOccasionCClicked() {
-    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[2]);
-    //  HideOccasionUI();
-    //  LoadOccasionAndTag();
-    //  textCueArea.text = "Loading...";
-    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    //}
+    public string getDeviceGUID() {
+      return deviceGUID;
+    }
 
     void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");
@@ -165,9 +111,6 @@ namespace Cohort {
       } else {
         deviceGUID = "unity-editor-jn";
       }
-
-      //HideGroupingUI();
-      //HideOccasionUI();
 
       videoPlayer.loopPointReached += onVideoEnded;
 
@@ -191,9 +134,6 @@ namespace Cohort {
       //  // display it
       //  return;
       //}
-
-      // disabled for packaging
-      //textCueArea.text = checkingInPlaceholder;
 
       /*
        * Create a new device on the server 
@@ -243,7 +183,6 @@ namespace Cohort {
           Debug.Log("opened websocket connnection");
           socketConnectionActive = true;
           //connectionIndicator.SetActive(true);
-          //textCueArea.text = "READY";
         }
       } else
       // this is an ugly way to make sure it's a CHMessage, ugh
@@ -315,10 +254,6 @@ namespace Cohort {
     public void OnRegisteredForRemoteNotifications(bool result) {
       Debug.Log("CHSession: reg'd for remote n10n");
       PlayerPrefs.SetInt("registeredForNotifications", 1);
-      if(textCueArea.text == checkingInPlaceholder || textCueArea.text == checkedInPlaceholder) {
-        textCueArea.text = checkedInPlaceholder + "\n\n" + grouping;
-      }
-      //UpdateAndShowGroupingLabel();
     }
 
     void OnRemoteNotificationReceived(UnityEngine.iOS.RemoteNotification n10n) {
@@ -335,9 +270,7 @@ namespace Cohort {
       } else {
         Debug.Log("notification had no cohortMessage, displaying text");
         // minor hack to mirror notification text in the text cue display area
-        textCueArea.text = n10n.alertBody;
-        textCueArea.gameObject.SetActive(true);
-        UnityEngine.Handheld.Vibrate();
+        onTextCue(CueAction.play, n10n.alertBody);
         if(n10n.soundName != "default.caf") {
           soundCues.ForEach(cue => {
             if(cue.audioClip.name == n10n.soundName) {
@@ -493,13 +426,23 @@ namespace Cohort {
         case MediaDomain.text:
           CHTextCue textCue = textCues.Find((CHTextCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
           Debug.Log(textCue);
-          if(textCue != null){
-            textCueArea.text = textCue.text;
-            UnityEngine.Handheld.Vibrate();
+          if(textCue == null && msg.cueContent == null){
+            return;
           }
+          string textOfCue;
+          if(msg.cueContent != null){
+            textOfCue = msg.cueContent;
+          } else if(textCue.text != null) {
+            textOfCue = textCue.text;
+          } else {
+            Debug.Log("Error: Failed to find text for text cue in onboard text cues or in remote cue");
+            return;
+          }
+
           switch (msg.cueAction) {
             case CueAction.play:
-              textCueArea.gameObject.SetActive(true);
+              UnityEngine.Handheld.Vibrate();
+              onTextCue(CueAction.play, textOfCue);
               break;
             case CueAction.pause:
               Debug.Log("action 'pause' is not defined for text cues");
@@ -508,7 +451,7 @@ namespace Cohort {
               Debug.Log("action 'restart' is not defined for text cues");
               break;
             case CueAction.stop:
-              textCueArea.gameObject.SetActive(false);
+              onTextCue(CueAction.stop, textOfCue);
               break;
           }
           break;
