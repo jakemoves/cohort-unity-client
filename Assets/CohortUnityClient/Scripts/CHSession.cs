@@ -223,6 +223,7 @@ namespace Cohort {
 
     void OnWebSocketOpen(WebSocket cs) {
       // this is a handshake with the server
+      Debug.Log("socket open, sending handshake");
       CHSocketAuth msg = new CHSocketAuth();
       msg.guid = deviceGUID;
       msg.occasionId = occasion;
@@ -263,7 +264,7 @@ namespace Cohort {
     }
 
     void OnWebSocketClosed(WebSocket cs, ushort code, string msg) {
-      Debug.Log("closed websocket connection");
+      Debug.Log("closed websocket connection, code: " + code.ToString() + ", reason: " + msg);
       socketConnectionActive = false;
       //connectionIndicator.SetActive(false);
     }
