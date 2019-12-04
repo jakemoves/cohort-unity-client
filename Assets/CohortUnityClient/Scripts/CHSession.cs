@@ -105,6 +105,11 @@ namespace Cohort {
     // Use this for initialization
     void Start() {
       Debug.Log("CHSession:Start()");
+
+      // Universal links
+      Application.deepLinkActivated += handleDeepLinkEvent;
+      parseDeeplinkURL(new UriBuilder("https://staging.cohort.rocks/join/occasions/4"));
+
       //DontDestroyOnLoad(transform.gameObject);
       if (!Application.isEditor) {
         deviceGUID = UnityEngine.iOS.Device.vendorIdentifier;
@@ -144,6 +149,90 @@ namespace Cohort {
     }
 
     void HandleOnRequestFinishedDelegate(HTTPRequest originalRequest, HTTPResponse response) {
+    }
+
+    void handleDeepLinkEvent(string url){
+      Debug.Log("deep link");
+      Debug.Log(url);
+
+			System.UriBuilder newServerURL;
+			try {
+        newServerURL = new System.UriBuilder(url);
+			}
+			catch (FormatException ex){
+        Debug.Log("deep link url parse failed");
+        return;
+			}
+      Debug.Log("deep link url parse succeeded");
+    }
+
+    void parseDeeplinkURL(UriBuilder newServerURL) { 
+      Debug.Log(newServerURL.Uri.ToString());
+      string pathString = newServerURL.Path;
+
+      Debug.Log(pathString);
+
+      if (pathString.Substring(0,1) == "/") {
+        pathString = pathString.Substring(1);
+      }
+
+      Debug.Log(pathString);
+
+      string[] pathComponents = pathString.Split('/');
+      
+      //foreach(string el in pathComponents) {
+      //  Debug.Log(el);
+      //}
+
+      Debug.Log("pathComponents[]:");
+      for (int i = 0; i < pathComponents.Length; i++) {
+        Debug.Log(pathComponents[i]);
+      }
+      Debug.Log(pathComponents.Length);
+
+      string join = "join";
+
+      if(String.Equals(pathComponents[0], join)){
+        Debug.Log("woot");
+      } else {
+        Debug.Log(pathComponents[0]);
+        Debug.Log(join);
+      }
+
+      if(pathComponents[0] == "join" && pathComponents.Length == 3) {
+        Debug.Log("deep link is a join link");
+        End();
+        serverURL = "" + newServerURL.Scheme + newServerURL.Host;
+
+        if(newServerURL.Port != -1){
+          httpPort = newServerURL.Port;
+        }
+
+        // convert occasion id to int
+        int occasionInt = 0;
+        if (!int.TryParse(pathComponents[2], out occasionInt)) {
+          occasionInt = -1;
+        }
+        if (occasionInt != -1) {
+          occasion = occasionInt;
+        } else {
+          Debug.Log("Error: failed to parse occasion as integer");
+          return;
+        }
+
+        PlayerPrefs.SetString("cohortOccasion", occasion.ToString());
+        openWebSocketConnection();
+
+      } else {
+        Debug.Log("fuck");
+        Debug.Log(pathComponents[0]);
+      }
+		}
+
+    void End() {
+      if(cohortSocket != null) {
+        cohortSocket.Close();
+      }
     }
 
     /* 
@@ -425,7 +514,6 @@ namespace Cohort {
 
         case MediaDomain.text:
           CHTextCue textCue = textCues.Find((CHTextCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
-          Debug.Log(textCue);
           if(textCue == null && msg.cueContent == null){
             return;
           }
