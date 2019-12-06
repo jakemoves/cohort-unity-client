@@ -14,6 +14,10 @@ using LitJson;
 namespace Cohort {
   public class CHSession : MonoBehaviour {
 
+    /*
+     * Editor fields
+     */
+
     [SerializeField]
     private string serverURL;
 
@@ -72,6 +76,24 @@ namespace Cohort {
     [SerializeField]
     private GameObject connectionIndicator;
 
+    /*
+     * Events
+     */
+
+    public delegate void OnTextCue(CueAction cueAction, string cueContent);
+    public event OnTextCue onTextCue;
+
+    public delegate void OnStatusChanged(string statusUpdate); // mostly for logging / debugging
+    public event OnStatusChanged onStatusChanged;
+
+    /*
+     * public methods
+     */
+
+    public string getDeviceGUID() {
+      return deviceGUID;
+    }
+
     private CHRemoteNotificationSession remoteN10nSession;
     private WebSocket cohortSocket;
     private string deviceGUID; // eventually moves to CHDevice
@@ -86,12 +108,7 @@ namespace Cohort {
 
     private bool socketConnectionActive = false;
 
-    public delegate void OnTextCue(CueAction cueAction, string cueContent);
-    public event OnTextCue onTextCue;
-
-    public string getDeviceGUID() {
-      return deviceGUID;
-    }
+    
 
     void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");
@@ -108,7 +125,6 @@ namespace Cohort {
 
       // Universal links
       Application.deepLinkActivated += handleDeepLinkEvent;
-      parseDeeplinkURL(new UriBuilder("https://staging.cohort.rocks/join/occasions/4"));
 
       //DontDestroyOnLoad(transform.gameObject);
       if (!Application.isEditor) {
@@ -154,6 +170,7 @@ namespace Cohort {
     void handleDeepLinkEvent(string url){
       Debug.Log("deep link");
       Debug.Log(url);
+      onStatusChanged("received URL from universal (deep) link: " + url);
 
 			System.UriBuilder newServerURL;
 			try {
@@ -161,9 +178,10 @@ namespace Cohort {
 			}
 			catch (FormatException ex){
         Debug.Log("deep link url parse failed");
+        Debug.Log(ex);
         return;
 			}
-      Debug.Log("deep link url parse succeeded");
+      parseDeeplinkURL(newServerURL);
     }
 
     void parseDeeplinkURL(UriBuilder newServerURL) { 
@@ -176,33 +194,12 @@ namespace Cohort {
         pathString = pathString.Substring(1);
       }
 
-      Debug.Log(pathString);
-
       string[] pathComponents = pathString.Split('/');
-      
-      //foreach(string el in pathComponents) {
-      //  Debug.Log(el);
-      //}
-
-      Debug.Log("pathComponents[]:");
-      for (int i = 0; i < pathComponents.Length; i++) {
-        Debug.Log(pathComponents[i]);
-      }
-      Debug.Log(pathComponents.Length);
-
-      string join = "join";
-
-      if(String.Equals(pathComponents[0], join)){
-        Debug.Log("woot");
-      } else {
-        Debug.Log(pathComponents[0]);
-        Debug.Log(join);
-      }
 
       if(pathComponents[0] == "join" && pathComponents.Length == 3) {
         Debug.Log("deep link is a join link");
         End();
-        serverURL = "" + newServerURL.Scheme + newServerURL.Host;
+        serverURL = "" + newServerURL.Scheme + "://" + newServerURL.Host;
 
         if(newServerURL.Port != -1){
           httpPort = newServerURL.Port;
@@ -214,6 +211,10 @@ namespace Cohort {
           occasionInt = -1;
         }
         if (occasionInt != -1) {
+          if(occasionInt == occasion && socketConnectionActive) {
+            Debug.Log("Already connected to occasion:" + occasion);
+            return;
+          }
           occasion = occasionInt;
         } else {
           Debug.Log("Error: failed to parse occasion as integer");
@@ -224,8 +225,8 @@ namespace Cohort {
         openWebSocketConnection();
 
       } else {
-        Debug.Log("fuck");
-        Debug.Log(pathComponents[0]);
+        Debug.Log("deep link does not match 'join' format");
+        Debug.Log(pathString);
       }
 		}
 
