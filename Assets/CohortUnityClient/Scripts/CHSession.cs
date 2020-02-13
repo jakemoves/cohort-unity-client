@@ -94,7 +94,7 @@ namespace Cohort {
       return deviceGUID;
     }
 
-    private CHRemoteNotificationSession remoteN10nSession;
+    //private CHRemoteNotificationSession remoteN10nSession;
     private WebSocket cohortSocket;
     private string deviceGUID; // eventually moves to CHDevice
     private int deviceID; // eventually moves to CHDevice
@@ -128,7 +128,12 @@ namespace Cohort {
 
       //DontDestroyOnLoad(transform.gameObject);
       if (!Application.isEditor) {
+        #if UNITY_IOS
         deviceGUID = UnityEngine.iOS.Device.vendorIdentifier;
+        #endif
+        #if UNITY_ANDROID
+        deviceGUID = UnityEngine.SystemInfo.deviceUniqueIdentifier; // this should get hashed, we don't need to track it
+        #endif
       } else {
         deviceGUID = "unity-editor-jn";
       }
@@ -308,37 +313,37 @@ namespace Cohort {
      *   Remote notifications 
      */
 
-    void registerForRemoteNotifications(){
-      /*
-       * Register it for remote push notifications
-       */
+    //void registerForRemoteNotifications(){
+    //  /*
+    //   * Register it for remote push notifications
+    //   */
 
-      string endpoint = pushN10nEndpoint.Replace(":id", this.deviceID.ToString());
-      System.UriBuilder remoteN10nURL = UriWithOptionalPort(httpPort, endpoint);
-      Debug.Log("push url: " + remoteN10nURL.Uri.ToString());
+    //  string endpoint = pushN10nEndpoint.Replace(":id", this.deviceID.ToString());
+    //  System.UriBuilder remoteN10nURL = UriWithOptionalPort(httpPort, endpoint);
+    //  Debug.Log("push url: " + remoteN10nURL.Uri.ToString());
 
-      string lastCohortMessageEndpoint = "api/v1/events/" + this.eventId + "/last-cohort-message";
-      string queryForLastCohortMessage = "";//"?tag=" + grouping;
-      System.UriBuilder lastCohortMessageURL = UriWithOptionalPort(httpPort, lastCohortMessageEndpoint, queryForLastCohortMessage);
+    //  string lastCohortMessageEndpoint = "api/v1/events/" + this.eventId + "/last-cohort-message";
+    //  string queryForLastCohortMessage = "";//"?tag=" + grouping;
+    //  System.UriBuilder lastCohortMessageURL = UriWithOptionalPort(httpPort, lastCohortMessageEndpoint, queryForLastCohortMessage);
 
-      remoteN10nSession = new CHRemoteNotificationSession(
-          remoteN10nURL.Uri,
-          lastCohortMessageURL.Uri,
-          deviceGUID,
-          OnRemoteNotificationReceived,
-          ValidateCohortMessage
-      );
+    //  remoteN10nSession = new CHRemoteNotificationSession(
+    //      remoteN10nURL.Uri,
+    //      lastCohortMessageURL.Uri,
+    //      deviceGUID,
+    //      OnRemoteNotificationReceived,
+    //      ValidateCohortMessage
+    //  );
 
-      remoteN10nSession.RegisteredForRemoteNotifications += OnRegisteredForRemoteNotifications;
+    //  remoteN10nSession.RegisteredForRemoteNotifications += OnRegisteredForRemoteNotifications;
 
-    }
+    //}
 
     // Update is called once per frame
     void Update() {
       // no callbacks so we have to set up our own observers...
-      if (remoteN10nSession != null) {
-        remoteN10nSession.Update();
-      }
+      //if (remoteN10nSession != null) {
+      //  remoteN10nSession.Update();
+      //}
     }
 
     public void OnRegisteredForRemoteNotifications(bool result) {
@@ -346,32 +351,32 @@ namespace Cohort {
       PlayerPrefs.SetInt("registeredForNotifications", 1);
     }
 
-    void OnRemoteNotificationReceived(UnityEngine.iOS.RemoteNotification n10n) {
-      Debug.Log("received remote notification in CHSession: ");
-      Debug.Log("    " + n10n.alertTitle + ": " + n10n.alertBody);
-      if (n10n.userInfo.Contains("cohortMessage")) {
-        Debug.Log("n10n had a cohortMessage, processing");
-        Hashtable msgHashtable = (Hashtable)n10n.userInfo["cohortMessage"];
-        // process int64s
-        msgHashtable["mediaDomain"] = System.Convert.ToInt32(msgHashtable["mediaDomain"]);
-        msgHashtable["cueAction"] = System.Convert.ToInt32(msgHashtable["cueAction"]);
+    //void OnRemoteNotificationReceived(UnityEngine.iOS.RemoteNotification n10n) {
+    //  Debug.Log("received remote notification in CHSession: ");
+    //  Debug.Log("    " + n10n.alertTitle + ": " + n10n.alertBody);
+    //  if (n10n.userInfo.Contains("cohortMessage")) {
+    //    Debug.Log("n10n had a cohortMessage, processing");
+    //    Hashtable msgHashtable = (Hashtable)n10n.userInfo["cohortMessage"];
+    //    // process int64s
+    //    msgHashtable["mediaDomain"] = System.Convert.ToInt32(msgHashtable["mediaDomain"]);
+    //    msgHashtable["cueAction"] = System.Convert.ToInt32(msgHashtable["cueAction"]);
 
-        ValidateCohortMessage(msgHashtable);
-      } else {
-        Debug.Log("notification had no cohortMessage, displaying text");
-        // minor hack to mirror notification text in the text cue display area
-        onTextCue(CueAction.play, n10n.alertBody);
-        if(n10n.soundName != "default.caf") {
-          soundCues.ForEach(cue => {
-            if(cue.audioClip.name == n10n.soundName) {
-              audioPlayer.clip = cue.audioClip;
-              audioPlayer.Play();
-              return;
-            }
-          });
-        }
-      }
-    }
+    //    ValidateCohortMessage(msgHashtable);
+    //  } else {
+    //    Debug.Log("notification had no cohortMessage, displaying text");
+    //    // minor hack to mirror notification text in the text cue display area
+    //    onTextCue(CueAction.play, n10n.alertBody);
+    //    if(n10n.soundName != "default.caf") {
+    //      soundCues.ForEach(cue => {
+    //        if(cue.audioClip.name == n10n.soundName) {
+    //          audioPlayer.clip = cue.audioClip;
+    //          audioPlayer.Play();
+    //          return;
+    //        }
+    //      });
+    //    }
+    //  }
+    //}
 
     void ValidateCohortMessage(Hashtable msgHashtable) {
       CHMessage msg = new CHMessage();
@@ -591,9 +596,9 @@ namespace Cohort {
       //connectionIndicator.SetActive(false);
       //openWebSocketConnection(); // this has issues -- it creates multiple sockets on the device, on the server
 
-      if(hasFocus && remoteN10nSession.status == CHRemoteNotificationSession.Status.registeredForNotifications.ToString()) {
-        remoteN10nSession.OnFocus();
-      }
+      //if(hasFocus && remoteN10nSession.status == CHRemoteNotificationSession.Status.registeredForNotifications.ToString()) {
+      //  remoteN10nSession.OnFocus();
+      //}
     }
 
     void ShowGroupingUI() {
