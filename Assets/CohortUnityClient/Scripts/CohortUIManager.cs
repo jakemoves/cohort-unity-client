@@ -16,6 +16,7 @@ public class CohortUIManager : MonoBehaviour
     cohortSession.onStatusChanged += onStatusUpdateHandler;
 
     textCueDisplay = GameObject.Find("Text Cue Display").GetComponent<TMPro.TextMeshProUGUI>();
+    textCueDisplay.text = "";
     statusDisplay = GameObject.Find("Status Display").GetComponent<TMPro.TextMeshProUGUI>();
   }
 
@@ -26,7 +27,11 @@ public class CohortUIManager : MonoBehaviour
   }
 
   void onTextCueHandler(CueAction cueAction, string cueText) {
-    textCueDisplay.text = cueText;
+    if(cueAction == CueAction.play) { 
+      textCueDisplay.text = cueText;
+    } else if(cueAction == CueAction.stop) {
+      textCueDisplay.text = "";
+    }
   }
 
   void onStatusUpdateHandler(string message) {

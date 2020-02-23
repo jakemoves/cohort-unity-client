@@ -271,6 +271,7 @@ namespace Cohort {
         Debug.Log(res);
         if (res.response == "success") {
           Debug.Log("opened websocket connnection");
+          onStatusChanged("Connected to Cohort (occasion id:" + clientOccasion + ")");
           socketConnectionActive = true;
           //connectionIndicator.SetActive(true);
         }
@@ -295,12 +296,14 @@ namespace Cohort {
     void OnWebSocketClosed(WebSocket cs, ushort code, string msg) {
       Debug.Log("closed websocket connection, code: " + code.ToString() + ", reason: " + msg);
       socketConnectionActive = false;
+      onStatusChanged("Lost connection. Error code: " + code.ToString() + ", reason: " + msg);
       //connectionIndicator.SetActive(false);
     }
 
     void OnWebSocketErrorDescription(WebSocket cs, string error) {
       Debug.Log("Error: WebSocket: " + error);
       socketConnectionActive = false;
+      onStatusChanged("Lost connection. WebSocket error: " + error);
       //connectionIndicator.SetActive(false);
     }
 
@@ -512,7 +515,6 @@ namespace Cohort {
           }
           break;
         
-
         case MediaDomain.text:
           CHTextCue textCue = textCues.Find((CHTextCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
           if(textCue == null && msg.cueContent == null){
