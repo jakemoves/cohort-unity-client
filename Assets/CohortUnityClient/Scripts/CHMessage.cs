@@ -27,6 +27,7 @@ namespace Cohort {
   public enum MediaDomain {
     sound,
     video,
+    image,
     text,
     light,
     haptic

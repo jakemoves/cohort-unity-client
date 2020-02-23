@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// Copyright Jacob Niedzwiecki, 2020
+// Released under the MIT License (see /LICENSE)
+
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
@@ -55,7 +58,10 @@ namespace Cohort {
     private List<CHVideoCue> videoCues;
 
     [SerializeField]
-    private VideoClip nullVideo;
+    private UnityEngine.UI.Image imageCueSurface;
+
+    [SerializeField]
+    private List<CHImageCue> imageCues;
 
     [SerializeField]
     private List<CHTextCue> textCues;
@@ -94,6 +100,7 @@ namespace Cohort {
       return deviceGUID;
     }
 
+    private VideoClip nullVideo;
     private CHRemoteNotificationSession remoteN10nSession;
     private WebSocket cohortSocket;
     private string deviceGUID; // eventually moves to CHDevice
@@ -133,8 +140,6 @@ namespace Cohort {
         deviceGUID = "unity-editor-jn";
       }
 
-      videoPlayer.loopPointReached += onVideoEnded;
-
       if (clientOccasion != 0 && clientTag != null){
         Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientTag: " + clientTag);
         PlayerPrefs.SetString("cohortOccasion", clientOccasion.ToString());
@@ -156,8 +161,16 @@ namespace Cohort {
       //  return;
       //}
 
+      // setup for specific cue types
+      videoPlayer.loopPointReached += onVideoEnded;
+
+      // this value is set to transparent in the editor to avoid showing a big white rectangle when the imageCueDisplay is empty
+      // so we set it back to opaque here
+      imageCueSurface.gameObject.SetActive(false);
+      imageCueSurface.color = Color.white;
+
       /*
-       * Create a new device on the server 
+       * Connect to a Cohort occasion and start listening for cues
        */
       if (!string.IsNullOrEmpty(serverURL)) {
         openWebSocketConnection();
@@ -514,7 +527,29 @@ namespace Cohort {
             Debug.Log("Error: cue number not valid");
           }
           break;
-        
+
+        case MediaDomain.image:
+          CHImageCue imageCue = imageCues.Find((CHImageCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
+          if(imageCue != null) {
+            switch (msg.cueAction) { 
+            case CueAction.play:
+                Debug.Log("got image cue");
+              imageCueSurface.sprite = imageCue.image;
+                imageCueSurface.gameObject.SetActive(true);
+              break;
+            case CueAction.stop:
+                imageCueSurface.gameObject.SetActive(false);
+                imageCueSurface.sprite = null;
+              break;
+             default:
+              Debug.Log("Error: cue action not implemented");
+              break;
+            }
+          } else {
+            Debug.Log("Error: cue number not valid");
+          }
+          break;
+
         case MediaDomain.text:
           CHTextCue textCue = textCues.Find((CHTextCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
           if(textCue == null && msg.cueContent == null){
