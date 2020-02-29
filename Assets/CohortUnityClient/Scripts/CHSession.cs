@@ -4,18 +4,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Video;
-using UnityEngine.SceneManagement;
 using TMPro;
 using BestHTTP;
 using BestHTTP.WebSocket;
 using LitJson;
+using UnityEditor;
+using UnityEngine.Networking;
 
 
-namespace Cohort {
-  public class CHSession : MonoBehaviour {
+namespace Cohort
+{
+    public class CHSession : MonoBehaviour {
 
     /*
      * Editor fields
@@ -115,9 +116,54 @@ namespace Cohort {
 
     private bool socketConnectionActive = false;
 
-    
+    private string cohortUpdateEventURL;
+    private UnityWebRequest cohortUpdateEventRequest;
+   
 
-    void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
+     void OnValidate()
+        {
+            Debug.Log("OnValidate");
+            UpdateRemoteInfo();
+        }
+        void UpdateRemoteInfo()
+        {
+            Request();
+            EditorApplication.update += EditorUpdate;
+        }
+        void Request()
+        {
+            cohortUpdateEventURL = serverURL;
+            if(cohortUpdateEventURL == "http://localhost")
+            {
+                cohortUpdateEventURL = serverURL + ":" + httpPort + "/api/v2";
+            }
+            else
+            {
+                cohortUpdateEventURL = serverURL + "/api/v2";
+            }
+            cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
+            cohortUpdateEventRequest.SendWebRequest();
+        }
+        void EditorUpdate()
+        {
+            if (!cohortUpdateEventRequest.isDone)
+            {
+                return;
+            }
+            if (cohortUpdateEventRequest.isNetworkError)
+            {
+                Debug.Log(cohortUpdateEventRequest.error);
+            }
+            else
+            {
+                Debug.Log(cohortUpdateEventRequest.downloadHandler.text);
+            }
+            EditorApplication.update -= EditorUpdate;
+        }
+
+
+
+        void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");
       if (fullscreenVideoSurface) { 
         fullscreenVideoSurface.SetActive(false);
@@ -128,6 +174,7 @@ namespace Cohort {
 
     // Use this for initialization
     void Start() {
+        
       Debug.Log("CHSession:Start()");
 
       // Universal links
@@ -351,6 +398,8 @@ namespace Cohort {
 
     // Update is called once per frame
     void Update() {
+      //check to see if editor changes, if so update server
+       OnValidate();
       // no callbacks so we have to set up our own observers...
       if (remoteN10nSession != null) {
         remoteN10nSession.Update();
