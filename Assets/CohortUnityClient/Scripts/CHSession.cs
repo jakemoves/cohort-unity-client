@@ -118,12 +118,35 @@ namespace Cohort
 
     private string cohortUpdateEventURL;
     private UnityWebRequest cohortUpdateEventRequest;
-   
+    private UnityWebRequest cohortUpdateEventRequestPatch;
+    private string episodeJson;
 
-     void OnValidate()
+    [Serializable]
+    public class EpisodeClass
+    {
+        public int episodeNumber;
+        public string label;
+        public float[] cues;
+    }
+
+
+            void OnValidate()
         {
             Debug.Log("OnValidate");
+            PopulateClass();
             UpdateRemoteInfo();
+        }
+            void PopulateClass()
+        {
+            EpisodeClass episode = new EpisodeClass();
+            episode.episodeNumber = 2;
+            episode.label = "Act 2";
+            episode.cues = new float [0];
+
+            episodeJson = JsonUtility.ToJson(episode);
+            Debug.Log(episodeJson);
+
+
         }
         void UpdateRemoteInfo()
         {
@@ -132,8 +155,8 @@ namespace Cohort
         }
         void Request()
         {
-            cohortUpdateEventURL = serverURL;
-            if(cohortUpdateEventURL == "http://localhost")
+            
+            if(serverURL == "http://localhost")
             {
                 cohortUpdateEventURL = serverURL + ":" + httpPort + "/api/v2";
             }
@@ -143,6 +166,10 @@ namespace Cohort
             }
             cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
             cohortUpdateEventRequest.SendWebRequest();
+            //cohortUpdateEventRequestPatch = UnityWebRequest.Put(cohortUpdateEventURL + "/events/" + eventId + "/episodes/", );
+            //cohortUpdateEventRequestPatch.method = "PATCH";
+            //cohortUpdateEventRequestPatch.SetRequestHeader("Content-Type", "application/json");
+
         }
         void EditorUpdate()
         {
