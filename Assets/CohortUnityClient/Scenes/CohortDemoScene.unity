@@ -1251,7 +1251,7 @@ MonoBehaviour:
   serverURL: http://localhost
   httpPort: 3000
   webSocketPath: /sockets
-  eventId: 0
+  eventId: 1
   pushN10nEndpoint: 
   clientOccasion: 0
   clientTag: any

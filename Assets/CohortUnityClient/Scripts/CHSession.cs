@@ -121,18 +121,31 @@ namespace Cohort
     private UnityWebRequest cohortUpdateEventRequest;
     private UnityWebRequest cohortUpdateEventRequestPost;
     private string episodeJson;
+    private Boolean successfulServerRequest;
 
     [Serializable]
     public class CHEpisode
         {
         public int episodeNumber;
         public string label;
-        public List <CHMessage> cues;
+            //also tried this as a list of CHMessages
+        public List <CHCue> cues;
         }
+
+    [Serializable]
+    public class CHCue
+    {
+        public List<string> targetTags;
+        public MediaDomain mediaDomain;
+        public float cueNumber;
+        public CueAction cueAction;
+
+    }
 
 
         void OnValidate()
         {
+            successfulServerRequest = false;
             Debug.Log("OnValidate");
             PopulateCHEpisode();
             UpdateRemoteInfo();
@@ -141,22 +154,26 @@ namespace Cohort
 
         void PopulateCHEpisode()
         {
-            //setting up a new episode
+
+             //setting up a new episode
             CHEpisode episode = new CHEpisode();
-            episode.episodeNumber = 1;
+            episode.episodeNumber = 0;
             episode.label = "Act 2";
-            episode.cues = new List<CHMessage>();
+            episode.cues = new List<CHCue>();
 
             //adding all the cues to episode.cues
             soundCues.ForEach(cue =>
            {
                
-               CHMessage soundCue = new CHMessage();
+               CHCue soundCue = new CHCue();
                soundCue.cueNumber = cue.cueNumber;
                soundCue.mediaDomain = MediaDomain.sound;
+               soundCue.cueAction = CueAction.play;
                soundCue.targetTags = new List<string>();
                soundCue.targetTags.Add("all");
-               Debug.Log(soundCue);
+
+
+
                episode.cues.Add(soundCue); 
 
            });
@@ -165,9 +182,10 @@ namespace Cohort
             videoCues.ForEach(cue =>
             {
 
-                CHMessage videoCue = new CHMessage();
+                CHCue videoCue = new CHCue();
                 videoCue.cueNumber = cue.cueNumber;
                 videoCue.mediaDomain = MediaDomain.video;
+                videoCue.cueAction = CueAction.play;
                 videoCue.targetTags = new List<string>();
                 videoCue.targetTags.Add("all");
 
@@ -178,9 +196,10 @@ namespace Cohort
             imageCues.ForEach(cue =>
             {
 
-                CHMessage imageCue = new CHMessage();
+                CHCue imageCue = new CHCue();
                 imageCue.cueNumber = cue.cueNumber;
                 imageCue.mediaDomain = MediaDomain.image;
+                imageCue.cueAction = CueAction.play;
                 imageCue.targetTags = new List<string>();
                 imageCue.targetTags.Add("all");
 
@@ -190,7 +209,6 @@ namespace Cohort
 
             //convert episode to JSON 
             episodeJson = JsonUtility.ToJson(episode);
-            
 
 
         }
@@ -223,33 +241,46 @@ namespace Cohort
                 cohortUpdateEventURL = serverURL + "/api/v2";
             }
 
-            //Verify json body. Currently outputting a body that contains id and cueContent parameters that are different from our usual cue body  
+            //Verify json body. 
             Debug.Log(episodeJson);
 
             //cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
             //cohortUpdateEventRequest.SendWebRequest();
-            cohortUpdateEventRequest = UnityWebRequest.Post(cohortUpdateEventURL + "/events/" + eventId + "/episodes/", episodeJson);
+            //cohortUpdateEventURL + "/events/" + eventId + "/episodes/"
+            cohortUpdateEventRequest = UnityWebRequest.Post("http://localhost:3000/api/v2/events/0/episodes/", episodeJson);
             cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT" + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3RfYWRtaW5fdXNlciIsImlhdCI6MTU4MzAzNDkxN30.PZea8EmwjrcOTSpYum7cPJ_WEUZHGNdB_W1lx_IWS7k");
             cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
             cohortUpdateEventRequest.SendWebRequest();
+
         }
+
         void EditorUpdate()
         {
+            
             if (!cohortUpdateEventRequest.isDone)
             {
                 return;
             }
+
+            if (cohortUpdateEventRequest.isHttpError)
+            {
+                Debug.Log(cohortUpdateEventRequest.responseCode);
+            } else
+            {
+                successfulServerRequest = true;
+            }
+
             if (cohortUpdateEventRequest.isNetworkError)
             {
                 Debug.Log(cohortUpdateEventRequest.error);
-                
-    //currently this is firing a SyntaxError: Unexpected token % in JSON at position 0 from json.js in node modules
 
             }
             else
             {
                 Debug.Log(cohortUpdateEventRequest.downloadHandler.text);
+                //this is firing an error indicating JSON issues 
             }
+
             EditorApplication.update -= EditorUpdate;
         }
 
