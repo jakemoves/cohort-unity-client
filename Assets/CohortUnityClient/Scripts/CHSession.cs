@@ -119,7 +119,7 @@ namespace Cohort
 
     private string cohortUpdateEventURL;
     private UnityWebRequest cohortUpdateEventRequest;
-    private UnityWebRequest cohortUpdateEventRequestPatch;
+    private UnityWebRequest cohortUpdateEventRequestPost;
     private string episodeJson;
 
         //[Serializable]
@@ -189,7 +189,6 @@ namespace Cohort
 
             });
 
-            Debug.Log(episode.cues.Count);
             //convert episode to JSON 
             episodeJson = JsonUtility.ToJson(episode);
             
@@ -224,12 +223,16 @@ namespace Cohort
             {
                 cohortUpdateEventURL = serverURL + "/api/v2";
             }
-            cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
-            cohortUpdateEventRequest.SendWebRequest();
-            //cohortUpdateEventRequestPatch = UnityWebRequest.Put(cohortUpdateEventURL + "/events/" + eventId + "/episodes/", episodeJson );
-            //cohortUpdateEventRequestPatch.method = "PATCH";
-            //cohortUpdateEventRequestPatch.SetRequestHeader("Content-Type", "application/json");
+            //currently getting "SyntaxError: Unexpected token % in JSON at position 0<br> &nbsp; &nbsp;at JSON.parse" message in
+            //console
 
+
+            //cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
+            //cohortUpdateEventRequest.SendWebRequest();
+            cohortUpdateEventRequest = UnityWebRequest.Post(cohortUpdateEventURL + "/events/" + eventId + "/episodes/", episodeJson);
+            cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT" + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3RfYWRtaW5fdXNlciIsImlhdCI6MTU4MzAzNDkxN30.PZea8EmwjrcOTSpYum7cPJ_WEUZHGNdB_W1lx_IWS7k");
+            cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
+            cohortUpdateEventRequest.SendWebRequest();
         }
         void EditorUpdate()
         {
@@ -240,6 +243,9 @@ namespace Cohort
             if (cohortUpdateEventRequest.isNetworkError)
             {
                 Debug.Log(cohortUpdateEventRequest.error);
+                
+    //currently this is firing a SyntaxError: Unexpected token % in JSON at position 0 from json.js in node modules
+
             }
             else
             {
