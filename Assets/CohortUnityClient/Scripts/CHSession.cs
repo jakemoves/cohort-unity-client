@@ -122,14 +122,7 @@ namespace Cohort
     private UnityWebRequest cohortUpdateEventRequestPost;
     private string episodeJson;
 
-        //[Serializable]
-        //public class cues
-        //{
-        //    public int cueNumber;
-        //    public int mediaDomain;
-        //}
-
-            [Serializable]
+    [Serializable]
     public class CHEpisode
         {
         public int episodeNumber;
@@ -160,7 +153,9 @@ namespace Cohort
                
                CHMessage soundCue = new CHMessage();
                soundCue.cueNumber = cue.cueNumber;
-               soundCue.mediaDomain = 0;
+               soundCue.mediaDomain = MediaDomain.sound;
+               soundCue.targetTags = new List<string>();
+               soundCue.targetTags.Add("all");
                Debug.Log(soundCue);
                episode.cues.Add(soundCue); 
 
@@ -173,7 +168,9 @@ namespace Cohort
                 CHMessage videoCue = new CHMessage();
                 videoCue.cueNumber = cue.cueNumber;
                 videoCue.mediaDomain = MediaDomain.video;
-               
+                videoCue.targetTags = new List<string>();
+                videoCue.targetTags.Add("all");
+
                 episode.cues.Add(videoCue);
 
             });
@@ -184,6 +181,8 @@ namespace Cohort
                 CHMessage imageCue = new CHMessage();
                 imageCue.cueNumber = cue.cueNumber;
                 imageCue.mediaDomain = MediaDomain.image;
+                imageCue.targetTags = new List<string>();
+                imageCue.targetTags.Add("all");
 
                 episode.cues.Add(imageCue);
 
@@ -223,9 +222,9 @@ namespace Cohort
             {
                 cohortUpdateEventURL = serverURL + "/api/v2";
             }
-            //currently getting "SyntaxError: Unexpected token % in JSON at position 0<br> &nbsp; &nbsp;at JSON.parse" message in
-            //console
 
+            //Verify json body. Currently outputting a body that contains id and cueContent parameters that are different from our usual cue body  
+            Debug.Log(episodeJson);
 
             //cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
             //cohortUpdateEventRequest.SendWebRequest();
