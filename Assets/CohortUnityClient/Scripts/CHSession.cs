@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Video;
 using TMPro;
@@ -121,33 +122,81 @@ namespace Cohort
     private UnityWebRequest cohortUpdateEventRequestPatch;
     private string episodeJson;
 
-    [Serializable]
-    public class EpisodeClass
-    {
+        //[Serializable]
+        //public class cues
+        //{
+        //    public int cueNumber;
+        //    public int mediaDomain;
+        //}
+
+            [Serializable]
+    public class CHEpisode
+        {
         public int episodeNumber;
         public string label;
-        public float[] cues;
-    }
+        public List <CHMessage> cues;
+        }
 
 
-            void OnValidate()
+        void OnValidate()
         {
             Debug.Log("OnValidate");
-            PopulateClass();
+            PopulateCHEpisode();
             UpdateRemoteInfo();
+     
         }
-            void PopulateClass()
+
+        void PopulateCHEpisode()
         {
-            EpisodeClass episode = new EpisodeClass();
-            episode.episodeNumber = 2;
+            //setting up a new episode
+            CHEpisode episode = new CHEpisode();
+            episode.episodeNumber = 1;
             episode.label = "Act 2";
-            episode.cues = new float [0];
+            episode.cues = new List<CHMessage>();
 
+            //adding all the cues to episode.cues
+            soundCues.ForEach(cue =>
+           {
+               
+               CHMessage soundCue = new CHMessage();
+               soundCue.cueNumber = cue.cueNumber;
+               soundCue.mediaDomain = 0;
+               Debug.Log(soundCue);
+               episode.cues.Add(soundCue); 
+
+           });
+
+
+            videoCues.ForEach(cue =>
+            {
+
+                CHMessage videoCue = new CHMessage();
+                videoCue.cueNumber = cue.cueNumber;
+                videoCue.mediaDomain = MediaDomain.video;
+               
+                episode.cues.Add(videoCue);
+
+            });
+
+            imageCues.ForEach(cue =>
+            {
+
+                CHMessage imageCue = new CHMessage();
+                imageCue.cueNumber = cue.cueNumber;
+                imageCue.mediaDomain = MediaDomain.image;
+
+                episode.cues.Add(imageCue);
+
+            });
+
+            Debug.Log(episode.cues.Count);
+            //convert episode to JSON 
             episodeJson = JsonUtility.ToJson(episode);
-            Debug.Log(episodeJson);
+            
 
 
         }
+
         void UpdateRemoteInfo()
         {
             Request();
@@ -155,9 +204,20 @@ namespace Cohort
         }
         void Request()
         {
-            
-            if(serverURL == "http://localhost")
-            {
+            //Compare urlInput with string entered in serverURL field to see if they contain
+            //local or 192. This could be refined further and even moved to OnValidate if we only want to
+            //start server requests when an appropriate URL gets entered.
+            string urlInput = "(local|192)";
+
+            // Instantiate the regular expression objects.
+            Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);
+
+            // Match the regular expression pattern against our URL string.
+            Match matchUrl = compareUrl.Match(serverURL);
+
+            //if serverURL contains local or 192 add port number
+            if (matchUrl.Length > 0)
+            { 
                 cohortUpdateEventURL = serverURL + ":" + httpPort + "/api/v2";
             }
             else
@@ -166,7 +226,7 @@ namespace Cohort
             }
             cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
             cohortUpdateEventRequest.SendWebRequest();
-            //cohortUpdateEventRequestPatch = UnityWebRequest.Put(cohortUpdateEventURL + "/events/" + eventId + "/episodes/", );
+            //cohortUpdateEventRequestPatch = UnityWebRequest.Put(cohortUpdateEventURL + "/events/" + eventId + "/episodes/", episodeJson );
             //cohortUpdateEventRequestPatch.method = "PATCH";
             //cohortUpdateEventRequestPatch.SetRequestHeader("Content-Type", "application/json");
 
@@ -425,8 +485,7 @@ namespace Cohort
 
     // Update is called once per frame
     void Update() {
-      //check to see if editor changes, if so update server
-       OnValidate();
+     
       // no callbacks so we have to set up our own observers...
       if (remoteN10nSession != null) {
         remoteN10nSession.Update();

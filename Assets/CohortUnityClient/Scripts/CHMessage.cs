@@ -1,10 +1,13 @@
 ﻿// Copyright Jacob Niedzwiecki, 2019
 // Released under the MIT License (see /LICENSE)
 
+using System;
 using System.Collections.Generic;
 
+
 namespace Cohort {
-  public class CHMessage {
+    [Serializable]
+    public class CHMessage {
     public List<string> targetTags;
     public MediaDomain mediaDomain;
     public float cueNumber;
