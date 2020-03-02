@@ -1253,7 +1253,7 @@ MonoBehaviour:
   webSocketPath: /sockets
   eventId: 1
   pushN10nEndpoint: 
-  clientOccasion: 0
+  clientOccasion: 1
   clientTag: any
   audioPlayer: {fileID: 1392766431}
   soundCues:

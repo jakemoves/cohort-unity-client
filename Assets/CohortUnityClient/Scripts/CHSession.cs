@@ -15,9 +15,11 @@ using UnityEditor;
 using UnityEngine.Networking;
 
 
+
+
 namespace Cohort
 {
-    public class CHSession : MonoBehaviour {
+  public class CHSession : MonoBehaviour {
 
     /*
      * Editor fields
@@ -25,6 +27,12 @@ namespace Cohort
 
     [SerializeField]
     private string serverURL;
+
+    [SerializeField]
+    private string username;
+
+    [SerializeField]
+    private string password;
 
     [SerializeField]
     private int httpPort;
@@ -40,7 +48,7 @@ namespace Cohort
 
     [SerializeField]
     private int clientOccasion;
-    
+
     [SerializeField]
     private string clientTag;
 
@@ -117,42 +125,66 @@ namespace Cohort
 
     private bool socketConnectionActive = false;
 
+    private string jwtToken = "";
     private string cohortUpdateEventURL;
     private UnityWebRequest cohortUpdateEventRequest;
-    private UnityWebRequest cohortUpdateEventRequestPost;
+
     private string episodeJson;
     private Boolean successfulServerRequest;
 
-    [Serializable]
-    public class CHEpisode
-        {
-        public int episodeNumber;
-        public string label;
-            //also tried this as a list of CHMessages
-        public List <CHCue> cues;
-        }
+
 
     [Serializable]
     public class CHCue
     {
-            public MediaDomain mediaDomain;
-            public int cueNumber;
-            public CueAction cueAction;
-            public List<string> targetTags;
+      public MediaDomain mediaDomain { get; set; }
+      public int cueNumber { get; set; }
+      public CueAction cueAction { get; set; }
+      public List<string> targetTags { get; set; }
 
     }
+    [Serializable]
+    public class CHEpisode
+    {
+      public int episodeNumber { get; set; }
+      public string label { get; set; }
+      //also tried this as a list of CHMessages
+      public List<CHCue> cues { get; set; }
+    }
+
+    public List<CHEpisode> episodesArray;
 
 
-        void OnValidate()
-        {
-            successfulServerRequest = false;
-            Debug.Log("OnValidate");
-            CreateEpisode();
-            UpdateRemoteInfo();
-     
-        }
 
-        void CreateEpisode()
+    void OnValidate(){
+      //first check if we need to authenticate
+      if (jwtToken == "")
+      {
+        Credentials userCredentials = new Credentials();
+        userCredentials.username = username;
+        userCredentials.password = password;
+        string loginJson = JsonMapper.ToJson(userCredentials);
+        UnityWebRequest cohortLoginRequest = UnityWebRequest.Put(serverURL + "/login?sendToken=true", loginJson);
+
+
+        cohortLoginRequest.SetRequestHeader("Content-Type", "application/json");
+        cohortLoginRequest.method = "POST";
+        cohortLoginRequest.SendWebRequest();
+        //figure out how to handle this with a coroutine
+        //extract an error and show to user (if they enter wrong credentials)
+        //if a success, grab the token
+
+      }
+      else
+      {
+        successfulServerRequest = false;
+        Debug.Log("OnValidate");
+        string cuesJson = jsonFromCues();
+        updateRemoteInfo(cuesJson);
+      }
+    }
+
+        string jsonFromCues()
         {
 
              //setting up a new episode
@@ -166,6 +198,7 @@ namespace Cohort
            {
                
                CHCue soundCue = new CHCue();
+               //should be a float
                int number = Convert.ToInt32(cue.cueNumber);
                soundCue.cueNumber = number;
                soundCue.mediaDomain = MediaDomain.sound;
@@ -208,22 +241,24 @@ namespace Cohort
 
             });
 
-            //convert episode to JSON 
-            episodeJson = JsonUtility.ToJson(episode, true);
+            episodesArray = new List<CHEpisode>();
+            episodesArray.Add(episode);
+           
+
+            //convert episode to JSON
+            return JsonMapper.ToJson(episodesArray);
+            //episodeJson = JsonUtility.ToJson(episode, true);
+
+            ///
 
         }
 
-        void UpdateRemoteInfo()
-        {
-            Request();
-            EditorApplication.update += EditorUpdate;
-        }
-        void Request()
+        void updateRemoteInfo(string jsonPayload)
         {
             //Compare urlInput with string entered in serverURL field to see if they contain
             //local or 192. This could be refined further and even moved to OnValidate if we only want to
             //start server requests when an appropriate URL gets entered.
-            string urlInput = "(local|192)";
+            string urlInput = "(local|192)"; // prob safest with the one jake sent
 
             // Instantiate the regular expression objects.
             Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);
@@ -241,18 +276,28 @@ namespace Cohort
                 cohortUpdateEventURL = serverURL + "/api/v2";
             }
 
+            //episodeJson = "{\"name\": \"bob\"}";
             //Verify json body. 
-            Debug.Log(episodeJson);
+            //Debug.Log(episodeJson);
+            //Debug.Log(cohortUpdateEventURL);
 
             //cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
             //cohortUpdateEventRequest.SendWebRequest();
-            
-            cohortUpdateEventRequest = UnityWebRequest.Post(cohortUpdateEventURL + " / events / " + eventId + " / episodes / ", episodeJson);
-            cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT" + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3RfYWRtaW5fdXNlciIsImlhdCI6MTU4MzAzNDkxN30.PZea8EmwjrcOTSpYum7cPJ_WEUZHGNdB_W1lx_IWS7k");
+
+
+            cohortUpdateEventRequest = UnityWebRequest.Put(cohortUpdateEventURL + "/events/" + eventId + "/episodes",
+                jsonPayload);
+
+
+            //cohortUpdateEventRequest.RawData = System.Text.Encoding.UTF8.GetBytes(reqString);
             cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
+            cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT " + jwtToken);
+            cohortUpdateEventRequest.method = "POST";
             cohortUpdateEventRequest.SendWebRequest();
 
-        }
+      EditorApplication.update += EditorUpdate;
+
+    }
 
         void EditorUpdate()
         {
@@ -920,6 +965,12 @@ namespace Cohort
   public class CHSocketAuth {
     public string guid;
     public int occasionId;
+  }
+
+  public struct Credentials
+  {
+    public string username;
+    public string password;
   }
 
 }
