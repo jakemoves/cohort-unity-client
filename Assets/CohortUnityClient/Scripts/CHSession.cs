@@ -135,10 +135,10 @@ namespace Cohort
     [Serializable]
     public class CHCue
     {
-        public List<string> targetTags;
-        public MediaDomain mediaDomain;
-        public float cueNumber;
-        public CueAction cueAction;
+            public MediaDomain mediaDomain;
+            public int cueNumber;
+            public CueAction cueAction;
+            public List<string> targetTags;
 
     }
 
@@ -147,12 +147,12 @@ namespace Cohort
         {
             successfulServerRequest = false;
             Debug.Log("OnValidate");
-            PopulateCHEpisode();
+            CreateEpisode();
             UpdateRemoteInfo();
      
         }
 
-        void PopulateCHEpisode()
+        void CreateEpisode()
         {
 
              //setting up a new episode
@@ -166,13 +166,12 @@ namespace Cohort
            {
                
                CHCue soundCue = new CHCue();
-               soundCue.cueNumber = cue.cueNumber;
+               int number = Convert.ToInt32(cue.cueNumber);
+               soundCue.cueNumber = number;
                soundCue.mediaDomain = MediaDomain.sound;
                soundCue.cueAction = CueAction.play;
                soundCue.targetTags = new List<string>();
                soundCue.targetTags.Add("all");
-
-
 
                episode.cues.Add(soundCue); 
 
@@ -183,7 +182,8 @@ namespace Cohort
             {
 
                 CHCue videoCue = new CHCue();
-                videoCue.cueNumber = cue.cueNumber;
+                int number = Convert.ToInt32(cue.cueNumber);
+                videoCue.cueNumber = number;
                 videoCue.mediaDomain = MediaDomain.video;
                 videoCue.cueAction = CueAction.play;
                 videoCue.targetTags = new List<string>();
@@ -197,7 +197,8 @@ namespace Cohort
             {
 
                 CHCue imageCue = new CHCue();
-                imageCue.cueNumber = cue.cueNumber;
+                int number = Convert.ToInt32(cue.cueNumber);
+                imageCue.cueNumber = number;
                 imageCue.mediaDomain = MediaDomain.image;
                 imageCue.cueAction = CueAction.play;
                 imageCue.targetTags = new List<string>();
@@ -208,8 +209,7 @@ namespace Cohort
             });
 
             //convert episode to JSON 
-            episodeJson = JsonUtility.ToJson(episode);
-
+            episodeJson = JsonUtility.ToJson(episode, true);
 
         }
 
@@ -246,8 +246,8 @@ namespace Cohort
 
             //cohortUpdateEventRequest = UnityWebRequest.Get(cohortUpdateEventURL);
             //cohortUpdateEventRequest.SendWebRequest();
-            //cohortUpdateEventURL + "/events/" + eventId + "/episodes/"
-            cohortUpdateEventRequest = UnityWebRequest.Post("http://localhost:3000/api/v2/events/0/episodes/", episodeJson);
+            
+            cohortUpdateEventRequest = UnityWebRequest.Post(cohortUpdateEventURL + " / events / " + eventId + " / episodes / ", episodeJson);
             cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT" + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3RfYWRtaW5fdXNlciIsImlhdCI6MTU4MzAzNDkxN30.PZea8EmwjrcOTSpYum7cPJ_WEUZHGNdB_W1lx_IWS7k");
             cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
             cohortUpdateEventRequest.SendWebRequest();
