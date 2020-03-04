@@ -11,7 +11,7 @@ namespace Cohort {
 
         public List<string> targetTags;
         public MediaDomain mediaDomain;
-        public float cueNumber;
+        public double cueNumber;
         public CueAction cueAction;
         public int id;
         public string cueContent;
@@ -28,25 +28,65 @@ namespace Cohort {
         }
 
         public CHMessage FromSoundCue(CHSoundCue cue) {
-            Cue parsedCue;
-            parsedCue.cueNumber = cue.cueNumber;
-            return cueToCHMessage(parsedCue);
+          Cue parsedCue;
+          parsedCue.mediaDomain = MediaDomain.sound;
+          parsedCue.cueNumber = cue.cueNumber;
+          parsedCue.cueAction = CueAction.play;
+          parsedCue.targetTags =  new List<string>();
+          parsedCue.targetTags.Add("all");
+          
+          return cueToCHMessage(parsedCue);
         }
 
-        CHMessage cueToCHMessage(Cue cue)
+        public CHMessage FromVideoCue(CHVideoCue cue)
+        {
+          Cue parsedCue;
+          parsedCue.mediaDomain = MediaDomain.video;
+          parsedCue.cueNumber = cue.cueNumber;
+          parsedCue.cueAction = CueAction.play;
+          parsedCue.targetTags = new List<string>();
+          parsedCue.targetTags.Add("all");
+
+          return cueToCHMessage(parsedCue);
+        }
+
+        public CHMessage FromImageCue(CHImageCue cue)
+        {
+          Cue parsedCue;
+          parsedCue.mediaDomain = MediaDomain.image;
+          parsedCue.cueNumber = cue.cueNumber;
+          parsedCue.cueAction = CueAction.play;
+          parsedCue.targetTags = new List<string>();
+          parsedCue.targetTags.Add("all");
+
+          return cueToCHMessage(parsedCue);
+        }
+
+
+
+    CHMessage cueToCHMessage(Cue cue)
         {
           CHMessage msg = new CHMessage();
+          msg.mediaDomain = cue.mediaDomain;
           msg.cueNumber = cue.cueNumber;
+          msg.cueAction = cue.cueAction;
+          msg.targetTags = cue.targetTags;
+        
           return msg;
         }
 
         struct Cue
         {
-          public float cueNumber;
-        }
-
+      // float is throwing a Json Mapper max allowed depth error
+          public MediaDomain mediaDomain;
+          public double cueNumber;
+          public CueAction cueAction;
+          public List<string> targetTags;
 
     }
+
+
+  }
 
     
 

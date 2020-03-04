@@ -19,20 +19,16 @@ using UnityEngine.Networking;
 
 namespace Cohort
 {
-  public class CHSession : MonoBehaviour {
+  public class CHSession : MonoBehaviour
+  {
 
     /*
      * Editor fields
      */
 
+    [Header("Server Info")]
     [SerializeField]
     private string serverURL;
-
-    [SerializeField]
-    private string username;
-
-    [SerializeField]
-    private string password;
 
     [SerializeField]
     private int httpPort;
@@ -40,6 +36,16 @@ namespace Cohort
     [SerializeField]
     private string webSocketPath;
 
+    [Header("Authentication")]
+    [SerializeField]
+    private string username;
+
+    [SerializeField]
+    private string password;
+
+    public EditorGUILayout authenticationCheck;
+
+    [Header("Event Info")]
     [SerializeField]
     private int eventId;
 
@@ -52,11 +58,14 @@ namespace Cohort
     [SerializeField]
     private string clientTag;
 
+    [Header("Audio Cues")]
     [SerializeField]
     private AudioSource audioPlayer;
 
     [SerializeField]
     private List<CHSoundCue> soundCues;
+
+    [Header("Video Cues")]
 
     [SerializeField]
     private VideoPlayer videoPlayer;
@@ -67,17 +76,23 @@ namespace Cohort
     [SerializeField]
     private List<CHVideoCue> videoCues;
 
+    [Header("Image Cues")]
+
     [SerializeField]
     private UnityEngine.UI.Image imageCueSurface;
 
     [SerializeField]
     private List<CHImageCue> imageCues;
 
+    [Header("Other Cues")]
+
     [SerializeField]
     private List<CHTextCue> textCues;
 
     [SerializeField]
     private FlashlightController flashlightController;
+
+    [Header("Groups")]
 
     [SerializeField]
     private GameObject[] groupingUI;
@@ -129,6 +144,8 @@ namespace Cohort
     //private string cohortUpdatedEventURL;
     private UnityWebRequest cohortUpdateEventRequest;
 
+    private List<CHEpisode> episodesArray;
+
     private string episodeJson;
     private Boolean successfulServerRequest;
 
@@ -140,31 +157,31 @@ namespace Cohort
 
 
 
-    [Serializable]
-    public class CHCue
-    {
-      public MediaDomain mediaDomain { get; set; }
-      public float cueNumber { get; set; }
-      public CueAction cueAction { get; set; }
-      public List<string> targetTags { get; set; }
+    //[Serializable]
+    //public class CHCue
+    //{
+    //  public MediaDomain mediaDomain { get; set; }
+    //  public double cueNumber { get; set; }
+    //  public CueAction cueAction { get; set; }
+    //  public List<string> targetTags { get; set; }
 
-    }
+    //}
+
     [Serializable]
     public class CHEpisode
     {
       public int episodeNumber { get; set; }
       public string label { get; set; }
       //also tried this as a list of CHMessages
-      public List<CHCue> cues { get; set; }
+      public List<CHMessage> cues { get; set; }
     }
 
-    public List<CHEpisode> episodesArray;
 
 
-    string UpdatedUrl(string url)
+    string UpdateUrl(string url)
     {
-      //this may still not be correct but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
-      string urlInput = "localhost|.local|192.168."; 
+      //this checks for any us of the following words, but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
+      string urlInput = "(localhost|.local|192.168.)"; 
       string cohortUpdatedEventURL;
 
       // Instantiate the regular expression objects.
@@ -176,7 +193,7 @@ namespace Cohort
       //if match occurs add port number
       if (matchUrl.Length > 0)
       {
-        cohortUpdatedEventURL = url + ":" + httpPort + "/api/v2";
+        cohortUpdatedEventURL = url + ":" + httpPort + " /api/v2";
       }
       else
       {
@@ -186,11 +203,13 @@ namespace Cohort
       return cohortUpdatedEventURL;
 
     }
+      
 
 
 
     void OnValidate(){
-      UpdatedUrl(serverURL);
+      UpdateUrl(serverURL);
+      Debug.Log(UpdateUrl(serverURL));
       //first check if we need to authenticate
       if (jwtToken == ""){
         Credentials userCredentials = new Credentials();
@@ -199,15 +218,15 @@ namespace Cohort
         string loginJson = JsonMapper.ToJson(userCredentials);
 
         StartCoroutine(authenticationRequest(serverURL + ":" + httpPort + "/api/v2" + "/login?sendToken=true", loginJson));
-        //figure out how to handle this with a coroutine
-        //extract an error and show to user (if they enter wrong credentials)
-        //if a success, grab the token
 
       } else {
           successfulServerRequest = false;
           Debug.Log("OnValidate");
           string cuesJson = jsonFromCues();
-          updateRemoteInfo(cuesJson);
+          //uncomment to verify Json getting sent
+          //Debug.Log(jsonFromCues());
+
+        updateRemoteInfo(cuesJson);
         }
     }
 
@@ -222,6 +241,8 @@ namespace Cohort
 
         if (cohortLoginRequest.isNetworkError){
           Debug.Log(" Error: " + cohortLoginRequest.error);
+          //Editor messages can be enabled in a custom editor
+          //EditorGUILayout.HelpBox(cohortLoginRequest.error, MessageType.Warning);
 
         } else {
           //if package returned from the server
@@ -242,58 +263,33 @@ namespace Cohort
       CHEpisode episode = new CHEpisode();
       episode.episodeNumber = 0;
       episode.label = "Act 2";
-      episode.cues = new List<CHCue>();
+      episode.cues = new List<CHMessage>();
 
       //adding all the cues to episode.cues
       soundCues.ForEach(cue =>
-      {   
-      
-
-        CHCue soundCue = new CHCue();
-        soundCue.cueNumber = cue.cueNumber;
-        soundCue.mediaDomain = MediaDomain.video;
-        soundCue.cueAction = CueAction.play;
-        soundCue.targetTags = new List<string>();
-        soundCue.targetTags.Add("all");
-
-        episode.cues.Add(soundCue);
-
-
+      {
+        CHMessage soundCue = new CHMessage();
+        episode.cues.Add(soundCue.FromSoundCue(cue));
 
       });
 
 
       videoCues.ForEach(cue =>
       {
-
-        CHCue videoCue = new CHCue();
-        videoCue.cueNumber = cue.cueNumber;
-        videoCue.mediaDomain = MediaDomain.video;
-        videoCue.cueAction = CueAction.play;
-        videoCue.targetTags = new List<string>();
-        videoCue.targetTags.Add("all");
-
-        episode.cues.Add(videoCue);
+        CHMessage videoCue = new CHMessage();
+        episode.cues.Add(videoCue.FromVideoCue(cue));
 
       });
 
       imageCues.ForEach(cue =>
       {
-
-        CHCue imageCue = new CHCue();
-        imageCue.cueNumber = cue.cueNumber;
-        imageCue.mediaDomain = MediaDomain.image;
-        imageCue.cueAction = CueAction.play;
-        imageCue.targetTags = new List<string>();
-        imageCue.targetTags.Add("all");
-
-        episode.cues.Add(imageCue);
+        CHMessage imageCue = new CHMessage();
+        episode.cues.Add(imageCue.FromImageCue(cue));
 
       });
 
       episodesArray = new List<CHEpisode>();
       episodesArray.Add(episode);
-           
 
       //convert episode to JSON
       return JsonMapper.ToJson(episodesArray);
@@ -302,29 +298,8 @@ namespace Cohort
 
     void updateRemoteInfo(string jsonPayload)
       {
-      //Compare urlInput with string entered in serverURL field to see if they contain
-      //local or 192. This could be refined further and even moved to OnValidate if we only want to
-      //start server requests when an appropriate URL gets entered.
-      //string urlInput = "/(localhost|.local|192.168.)/mi"; // prob safest with the one jake sent
 
-      //// Instantiate the regular expression objects.
-      //Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);
-
-      //// Match the regular expression pattern against our URL string.
-      //Match matchUrl = compareUrl.Match(serverURL);
-
-      ////if serverURL contains local or 192 add port number
-      //if (matchUrl.Length > 0)
-      //{ 
-      //    cohortUpdateEventURL = serverURL + ":" + httpPort + "/api/v2";
-      //}
-      //else
-      //{
-      //    cohortUpdateEventURL = serverURL + "/api/v2";
-      //}
-      Debug.Log(UpdatedUrl(serverURL));
-
-        cohortUpdateEventRequest = UnityWebRequest.Put(UpdatedUrl(serverURL) + "/events/" + eventId + "/episodes",
+        cohortUpdateEventRequest = UnityWebRequest.Put(UpdateUrl(serverURL) + "/events/" + eventId + "/episodes",
             jsonPayload);
 
 
