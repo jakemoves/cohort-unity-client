@@ -198,7 +198,7 @@ namespace Cohort
         userCredentials.password = password;
         string loginJson = JsonMapper.ToJson(userCredentials);
 
-        StartCoroutine(postRequest(serverURL + ":" + httpPort + "/api/v2" + "/login?sendToken=true", loginJson));
+        StartCoroutine(authenticationRequest(serverURL + ":" + httpPort + "/api/v2" + "/login?sendToken=true", loginJson));
         //figure out how to handle this with a coroutine
         //extract an error and show to user (if they enter wrong credentials)
         //if a success, grab the token
@@ -211,7 +211,7 @@ namespace Cohort
         }
     }
 
-    IEnumerator postRequest(string uri, string json)
+    IEnumerator authenticationRequest(string uri, string json)
     {
       using (UnityWebRequest cohortLoginRequest = UnityWebRequest.Put(uri, json))
       {
