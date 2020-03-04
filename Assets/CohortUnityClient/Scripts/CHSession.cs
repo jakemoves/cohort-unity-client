@@ -165,8 +165,8 @@ namespace Cohort
 
 
 
-    string updateUrl(string url) {
-      //this checks for any us of the following words, but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
+    string serverToEventUrl(string url) {
+      //this checks for any of the following words/letter sequences, but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
       string urlInput = "(localhost|.local|192.168.)"; 
       string cohortUpdatedEventURL;
 
@@ -186,6 +186,7 @@ namespace Cohort
         cohortUpdatedEventURL = url + "/api/v2";
       }
 
+      Debug.Log(cohortUpdatedEventURL);
       return cohortUpdatedEventURL;
 
     }
@@ -199,7 +200,7 @@ namespace Cohort
         string loginJson = JsonMapper.ToJson(userCredentials);
 
         //
-        StartCoroutine(authenticationRequest(updateUrl(serverURL) + "/login?sendToken=true", loginJson));
+        StartCoroutine(authenticationRequest(serverToEventUrl(serverURL) + "/login?sendToken=true", loginJson));
 
       } else {
         
@@ -279,7 +280,7 @@ namespace Cohort
 
     void updateRemoteInfo(string jsonPayload){
         //we could convert this to a coroutine like above
-        cohortUpdateEventRequest = UnityWebRequest.Put(updateUrl(serverURL) + "/events/" + eventId + "/episodes",
+        cohortUpdateEventRequest = UnityWebRequest.Put(serverToEventUrl(serverURL) + "/events/" + eventId + "/episodes",
             jsonPayload);
 
         cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
