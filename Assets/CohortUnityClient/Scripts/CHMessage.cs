@@ -35,14 +35,14 @@ namespace Cohort {
 
         CHMessage cueToCHMessage(Cue cue)
         {
-            CHMessage msg = new CHMessage();
-            msg.cueNumber = cue.cueNumber;
-            return msg;
+          CHMessage msg = new CHMessage();
+          msg.cueNumber = cue.cueNumber;
+          return msg;
         }
 
         struct Cue
         {
-            public float cueNumber;
+          public float cueNumber;
         }
 
 

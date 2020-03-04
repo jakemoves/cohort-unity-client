@@ -1249,11 +1249,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverURL: http://localhost
+  username: 
+  password: 
   httpPort: 3000
   webSocketPath: /sockets
-  eventId: 1
+  eventId: 0
   pushN10nEndpoint: 
-  clientOccasion: 1
+  clientOccasion: 0
   clientTag: any
   audioPlayer: {fileID: 1392766431}
   soundCues:
@@ -1285,6 +1287,7 @@ MonoBehaviour:
   occasionUI: []
   groupingLabel: {fileID: 0}
   connectionIndicator: {fileID: 0}
+  episodesArray: []
 --- !u!1 &1766668481
 GameObject:
   m_ObjectHideFlags: 0
