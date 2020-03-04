@@ -165,7 +165,7 @@ namespace Cohort
 
 
 
-    string UpdateUrl(string url) {
+    string updateUrl(string url) {
       //this checks for any us of the following words, but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
       string urlInput = "(localhost|.local|192.168.)"; 
       string cohortUpdatedEventURL;
@@ -191,8 +191,6 @@ namespace Cohort
     }
       
     void OnValidate(){
-      UpdateUrl(serverURL);
-      
       //first check if we need to authenticate
       if (jwtToken == ""){
         Credentials userCredentials = new Credentials();
@@ -200,9 +198,11 @@ namespace Cohort
         userCredentials.password = password;
         string loginJson = JsonMapper.ToJson(userCredentials);
 
-        StartCoroutine(authenticationRequest(serverURL + ":" + httpPort + "/api/v2" + "/login?sendToken=true", loginJson));
+        //
+        StartCoroutine(authenticationRequest(updateUrl(serverURL) + "/login?sendToken=true", loginJson));
 
       } else {
+        
           successfulServerRequest = false;
           Debug.Log("OnValidate");
           string cuesJson = jsonFromCues();
@@ -224,11 +224,11 @@ namespace Cohort
 
         if (cohortLoginRequest.isNetworkError){
           Debug.Log(" Error: " + cohortLoginRequest.error);
-          //Editor messages can be enabled in a custom editor
+          //Editor messages can be created in a custom editor with a line like below
           //EditorGUILayout.HelpBox(cohortLoginRequest.error, MessageType.Warning);
 
         } else {
-          //if package returned from the server
+          //if package returned from the server successfully
           Debug.Log("Received: " + cohortLoginRequest.downloadHandler.text);
           JwtToken serverToken = new JwtToken();
           serverToken = JsonUtility.FromJson<JwtToken>(cohortLoginRequest.downloadHandler.text);
@@ -268,7 +268,7 @@ namespace Cohort
         episode.cues.Add(cueDetails);
 
       });
-
+      //server requires an array of episodes
       episodesArray = new List<CHEpisode>();
       episodesArray.Add(episode);
 
@@ -278,8 +278,8 @@ namespace Cohort
     
 
     void updateRemoteInfo(string jsonPayload){
-        //we can convert this to a coroutine like above
-        cohortUpdateEventRequest = UnityWebRequest.Put(UpdateUrl(serverURL) + "/events/" + eventId + "/episodes",
+        //we could convert this to a coroutine like above
+        cohortUpdateEventRequest = UnityWebRequest.Put(updateUrl(serverURL) + "/events/" + eventId + "/episodes",
             jsonPayload);
 
         cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");

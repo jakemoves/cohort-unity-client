@@ -83,7 +83,7 @@ namespace Cohort {
           public CueAction cueAction;
           public List<string> targetTags;
 
-    }
+        }
 
 
   }
