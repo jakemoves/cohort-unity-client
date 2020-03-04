@@ -141,7 +141,6 @@ namespace Cohort
     private bool socketConnectionActive = false;
 
     private string jwtToken = "";
-    //private string cohortUpdatedEventURL;
     private UnityWebRequest cohortUpdateEventRequest;
 
     private List<CHEpisode> episodesArray;
@@ -156,30 +155,17 @@ namespace Cohort
     }
 
 
-
-    //[Serializable]
-    //public class CHCue
-    //{
-    //  public MediaDomain mediaDomain { get; set; }
-    //  public double cueNumber { get; set; }
-    //  public CueAction cueAction { get; set; }
-    //  public List<string> targetTags { get; set; }
-
-    //}
-
     [Serializable]
     public class CHEpisode
     {
       public int episodeNumber { get; set; }
       public string label { get; set; }
-      //also tried this as a list of CHMessages
       public List<CHMessage> cues { get; set; }
     }
 
 
 
-    string UpdateUrl(string url)
-    {
+    string UpdateUrl(string url) {
       //this checks for any us of the following words, but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
       string urlInput = "(localhost|.local|192.168.)"; 
       string cohortUpdatedEventURL;
@@ -193,7 +179,7 @@ namespace Cohort
       //if match occurs add port number
       if (matchUrl.Length > 0)
       {
-        cohortUpdatedEventURL = url + ":" + httpPort + " /api/v2";
+        cohortUpdatedEventURL = url + ":" + httpPort + "/api/v2";
       }
       else
       {
@@ -204,12 +190,9 @@ namespace Cohort
 
     }
       
-
-
-
     void OnValidate(){
       UpdateUrl(serverURL);
-      Debug.Log(UpdateUrl(serverURL));
+      
       //first check if we need to authenticate
       if (jwtToken == ""){
         Credentials userCredentials = new Credentials();
@@ -223,8 +206,8 @@ namespace Cohort
           successfulServerRequest = false;
           Debug.Log("OnValidate");
           string cuesJson = jsonFromCues();
-          //uncomment to verify Json getting sent
-          //Debug.Log(jsonFromCues());
+        //uncomment to verify Json getting sent
+        //Debug.Log(jsonFromCues());
 
         updateRemoteInfo(cuesJson);
         }
@@ -266,25 +249,23 @@ namespace Cohort
       episode.cues = new List<CHMessage>();
 
       //adding all the cues to episode.cues
-      soundCues.ForEach(cue =>
-      {
+      soundCues.ForEach(cue => {
         CHMessage soundCue = new CHMessage();
-        episode.cues.Add(soundCue.FromSoundCue(cue));
-
+        CHMessage cueDetails = soundCue.FromSoundCue(cue);
+        episode.cues.Add(cueDetails);
       });
 
 
-      videoCues.ForEach(cue =>
-      {
+      videoCues.ForEach(cue => {
         CHMessage videoCue = new CHMessage();
-        episode.cues.Add(videoCue.FromVideoCue(cue));
-
+        CHMessage cueDetails = videoCue.FromVideoCue(cue);
+        episode.cues.Add(cueDetails);
       });
 
-      imageCues.ForEach(cue =>
-      {
+      imageCues.ForEach(cue => {
         CHMessage imageCue = new CHMessage();
-        episode.cues.Add(imageCue.FromImageCue(cue));
+        CHMessage cueDetails = imageCue.FromImageCue(cue);
+        episode.cues.Add(cueDetails);
 
       });
 
@@ -296,14 +277,11 @@ namespace Cohort
     }
     
 
-    void updateRemoteInfo(string jsonPayload)
-      {
-
+    void updateRemoteInfo(string jsonPayload){
+        //we can convert this to a coroutine like above
         cohortUpdateEventRequest = UnityWebRequest.Put(UpdateUrl(serverURL) + "/events/" + eventId + "/episodes",
             jsonPayload);
 
-
-        //cohortUpdateEventRequest.RawData = System.Text.Encoding.UTF8.GetBytes(reqString);
         cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
         cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT " + jwtToken);
         cohortUpdateEventRequest.method = "POST";
@@ -311,41 +289,32 @@ namespace Cohort
 
         EditorApplication.update += EditorUpdate;
 
+      }
+
+    void EditorUpdate(){    
+      if (!cohortUpdateEventRequest.isDone){
+          return;
+      }
+
+      if (cohortUpdateEventRequest.isHttpError){
+          Debug.Log(cohortUpdateEventRequest.responseCode);
+      } else {
+          successfulServerRequest = true;
+      }
+
+      if (cohortUpdateEventRequest.isNetworkError){
+          Debug.Log(cohortUpdateEventRequest.error);
+      } else {
+          Debug.Log(cohortUpdateEventRequest.downloadHandler.text);
+          //this is firing an error indicating JSON issues 
+      }
+
+      EditorApplication.update -= EditorUpdate;
     }
 
-        void EditorUpdate()
-        {
-            
-            if (!cohortUpdateEventRequest.isDone)
-            {
-                return;
-            }
-
-            if (cohortUpdateEventRequest.isHttpError)
-            {
-                Debug.Log(cohortUpdateEventRequest.responseCode);
-            } else
-            {
-                successfulServerRequest = true;
-            }
-
-            if (cohortUpdateEventRequest.isNetworkError)
-            {
-                Debug.Log(cohortUpdateEventRequest.error);
-
-            }
-            else
-            {
-                Debug.Log(cohortUpdateEventRequest.downloadHandler.text);
-                //this is firing an error indicating JSON issues 
-            }
-
-            EditorApplication.update -= EditorUpdate;
-        }
 
 
-
-        void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
+    void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");
       if (fullscreenVideoSurface) { 
         fullscreenVideoSurface.SetActive(false);
