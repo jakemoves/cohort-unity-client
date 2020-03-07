@@ -1,4 +1,4 @@
-﻿// Copyright Jacob Niedzwiecki, 2020
+// Copyright Jacob Niedzwiecki, 2020
 // Released under the MIT License (see /LICENSE)
 
 using System.Collections;
@@ -58,23 +58,14 @@ namespace Cohort
     [Header("Audio Cues")]
 
     [SerializeField]
-    private AudioSource audioPlayer;
-
-    [SerializeField]
     private List<CHSoundCue> soundCues;
 
     [Header("Video Cues")]
 
     [SerializeField]
-    private VideoPlayer videoPlayer;
-
-    [SerializeField]
     private List<CHVideoCue> videoCues;
 
     [Header("Image Cues")]
-
-    [SerializeField]
-    private UnityEngine.UI.Image imageCueSurface;
 
     [SerializeField]
     private List<CHImageCue> imageCues;
@@ -84,29 +75,37 @@ namespace Cohort
     [SerializeField]
     private List<CHTextCue> textCues;
 
-
-    [Header("Untested Features (use at your own risk)")]
-
-    [SerializeField]
-    private string pushN10nEndpoint;
+    [Header("Settings")]
 
     [SerializeField]
-    private GameObject fullscreenVideoSurface;
+    private AudioSource audioPlayer;
 
     [SerializeField]
-    private FlashlightController flashlightController;
+    private VideoPlayer videoPlayer;
 
     [SerializeField]
+    private UnityEngine.UI.Image imageCueSurface;
+
+
+    //[Header("Untested Features (use at your own risk)")]
+
+    //[SerializeField]
+    //private string pushN10nEndpoint;
+
+    //[SerializeField]
+    //private FlashlightController flashlightController;
+
+    //[SerializeField]
     private GameObject[] groupingUI;
 
-    [SerializeField]
+    //[SerializeField]
     private GameObject[] occasionUI;
     private string[] occasionIDs;
 
-    [SerializeField]
+    //[SerializeField]
     private TextMeshProUGUI groupingLabel;
 
-    [SerializeField]
+    //[SerializeField]
     private GameObject connectionIndicator;
 
     /*
@@ -127,7 +126,7 @@ namespace Cohort
       return deviceGUID;
     }
 
-    private string webSocketPath;
+    private string webSocketPath = "/sockets";
     private VideoClip nullVideo;
     private CHRemoteNotificationSession remoteN10nSession;
     private WebSocket cohortSocket;
@@ -235,11 +234,11 @@ namespace Cohort
 
           //Editor messages can be created in a custom editor with a line like below
           //EditorGUILayout.HelpBox(cohortLoginRequest.error, MessageType.Warning);
-          if (Application.isEditor){
-            Debug.Log("Incredibly the credentials lack credibility. Please double check spelling and letter case.");
-          }
+          //if (Application.isEditor){
+          //  Debug.Log("Incredibly the credentials lack credibility. Please double check spelling and letter case.");
+          //}
 
-          Debug.Log("Error: " + cohortLoginRequest.responseCode + " | " + cohortLoginRequest.downloadHandler.text);
+          Debug.Log("Error: " + cohortLoginRequest.downloadHandler.text + " (Error code " + cohortLoginRequest.responseCode + ")" );
 
         } else {
           // happy path - we got a token from the server
@@ -263,13 +262,16 @@ namespace Cohort
         // Request and wait for the desired page.
         yield return cohortUpdateEventRequest.SendWebRequest();
 
-        if (cohortUpdateEventRequest.isNetworkError){
-          Debug.Log(" Error: " + cohortUpdateEventRequest.error);
-        }
-        else {
+        if (cohortUpdateEventRequest.isNetworkError) {
+          Debug.Log("Error: " + cohortUpdateEventRequest.error);
+
+        } else if (cohortUpdateEventRequest.isHttpError || cohortUpdateEventRequest.responseCode != 200) {
+          Debug.Log("Error: " + cohortUpdateEventRequest.downloadHandler.text + " (code " + cohortUpdateEventRequest.responseCode + ")");
+        } else {
           //if package returned from the server successfully
-          Debug.Log("Received: " + cohortUpdateEventRequest.downloadHandler.text);
+          //Debug.Log("Received: " + cohortUpdateEventRequest.downloadHandler.text);
           successfulServerRequest = true;
+          Debug.Log("Save complete");
         }
 
       }
@@ -313,11 +315,7 @@ namespace Cohort
 
     void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");
-      if (fullscreenVideoSurface) { 
-        fullscreenVideoSurface.SetActive(false);
-      } else {
-        videoPlayer.clip = null;
-      }
+      videoPlayer.clip = null;
     }
 
     // Use this for initialization
@@ -335,14 +333,17 @@ namespace Cohort
         deviceGUID = "unity-editor-jn";
       }
 
-      if (clientOccasion != 0 && clientGrouping != null){
+      if (clientOccasion != 0){
         Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientGrouping: " + clientGrouping);
         PlayerPrefs.SetString("cohortOccasion", clientOccasion.ToString());
-        PlayerPrefs.SetString("cohortGrouping", clientGrouping);
+
+        if (clientGrouping != null && clientGrouping != "") {
+          PlayerPrefs.SetString("cohortGrouping", clientGrouping);
+        }
       }
 
-      bool occasionAndTagSet = LoadOccasionAndTag();
-      if (occasionAndTagSet) {
+      bool occasionAndGroupingSet = LoadOccasionAndGrouping();
+      if (occasionAndGroupingSet) {
         automaticCheckin = true;
       } else {
         automaticCheckin = false;
@@ -419,11 +420,11 @@ namespace Cohort
           occasionInt = -1;
         }
         if (occasionInt != -1) {
-          if(occasionInt == occasion && socketConnectionActive) {
-            Debug.Log("Already connected to occasion:" + occasion);
-            return;
-          }
-          occasion = occasionInt;
+          //if(occasionInt == occasion && socketConnectionActive) {
+          //  Debug.Log("Already connected to occasion:" + occasion);
+          //  return;
+          //} // this caused issues because socketConnectionActive is not always correct (esp after switching away and back to app
+          occasion = occasionInt; // <-- happy path 
         } else {
           Debug.Log("Error: failed to parse occasion as integer");
           return;
@@ -432,6 +433,25 @@ namespace Cohort
         PlayerPrefs.SetString("cohortOccasion", occasion.ToString());
         openWebSocketConnection();
 
+
+        /*
+         * Parse and set grouping (optional)
+         */
+
+        string queryString = newServerURL.Query;
+
+        if(queryString != null && queryString != "" ) {
+          queryString = queryString.Replace("?", "");
+          string[] queryParams = queryString.Split('&');
+          foreach(string parameterPair in queryParams) {
+            string[] param = parameterPair.Split('=');
+            if(param[0] == "grouping") {
+              Debug.Log("join URL included a grouping (" + param[1] + ")  ");
+              grouping = param[1];
+              PlayerPrefs.SetString("cohortGrouping", grouping);
+            }
+          }
+        }
       } else {
         Debug.Log("deep link does not match 'join' format");
         Debug.Log(pathString);
@@ -479,7 +499,11 @@ namespace Cohort
         Debug.Log(res);
         if (res.response == "success") {
           Debug.Log("opened websocket connnection");
-          onStatusChanged("Connected to Cohort (occasion id:" + clientOccasion + ")");
+          string groupingStatus = "";
+          if(grouping != null & grouping != "") {
+            groupingStatus = ", grouping: " + grouping;
+          }
+          onStatusChanged("Connected to Cohort (occasion id:" + occasion + groupingStatus + ")");
           socketConnectionActive = true;
           //connectionIndicator.SetActive(true);
         }
@@ -524,29 +548,28 @@ namespace Cohort
        * Register it for remote push notifications
        */
 
-      string endpoint = pushN10nEndpoint.Replace(":id", this.deviceID.ToString());
-      System.UriBuilder remoteN10nURL = UriWithOptionalPort(httpPort, endpoint);
-      Debug.Log("push url: " + remoteN10nURL.Uri.ToString());
+      //string endpoint = pushN10nEndpoint.Replace(":id", this.deviceID.ToString());
+      //System.UriBuilder remoteN10nURL = UriWithOptionalPort(httpPort, endpoint);
+      //Debug.Log("push url: " + remoteN10nURL.Uri.ToString());
 
-      string lastCohortMessageEndpoint = "api/v1/events/" + this.eventId + "/last-cohort-message";
-      string queryForLastCohortMessage = "";//"?tag=" + grouping;
-      System.UriBuilder lastCohortMessageURL = UriWithOptionalPort(httpPort, lastCohortMessageEndpoint, queryForLastCohortMessage);
+      //string lastCohortMessageEndpoint = "api/v1/events/" + this.eventId + "/last-cohort-message";
+      //string queryForLastCohortMessage = "";//"?tag=" + grouping;
+      //System.UriBuilder lastCohortMessageURL = UriWithOptionalPort(httpPort, lastCohortMessageEndpoint, queryForLastCohortMessage);
 
-      remoteN10nSession = new CHRemoteNotificationSession(
-          remoteN10nURL.Uri,
-          lastCohortMessageURL.Uri,
-          deviceGUID,
-          OnRemoteNotificationReceived,
-          ValidateCohortMessage
-      );
+      //remoteN10nSession = new CHRemoteNotificationSession(
+      //    remoteN10nURL.Uri,
+      //    lastCohortMessageURL.Uri,
+      //    deviceGUID,
+      //    OnRemoteNotificationReceived,
+      //    ValidateCohortMessage
+      //);
 
-      remoteN10nSession.RegisteredForRemoteNotifications += OnRegisteredForRemoteNotifications;
+      //remoteN10nSession.RegisteredForRemoteNotifications += OnRegisteredForRemoteNotifications;
 
     }
 
     // Update is called once per frame
     void Update() {
-     
       // no callbacks so we have to set up our own observers...
       if (remoteN10nSession != null) {
         remoteN10nSession.Update();
@@ -645,8 +668,9 @@ namespace Cohort
         PlayerPrefs.SetInt("lastReceivedCohortMessageId", msg.id);
       }
 
+      Debug.Log("current grouping: " + grouping);
       if(!msg.targetTags.Contains(grouping) && !msg.targetTags.Contains("all")) {
-        Debug.Log("cohort message is for another grouping, not processing it");
+        Debug.Log("cohort message is for another grouping (not " + grouping + "), not processing it");
         return;
       }
 
@@ -696,9 +720,6 @@ namespace Cohort
 
             switch (msg.cueAction) {
               case CueAction.play:
-                if (fullscreenVideoSurface) {
-                  fullscreenVideoSurface.SetActive(true);
-                }
                 videoPlayer.Play();
                 break;
               case CueAction.pause:
@@ -778,22 +799,22 @@ namespace Cohort
           }
           break;
 
-        case MediaDomain.light:
-          switch(msg.cueAction) {
-            case CueAction.play:
-              flashlightController.TurnOn();
-              break;
-            case CueAction.stop:
-              flashlightController.TurnOff();
-              break;
-            case CueAction.pause:
-              flashlightController.TurnOff();
-              break;
-            case CueAction.restart:
-              Debug.Log("action 'restart' is not defined for light cues");
-              break;
-          }
-          break;
+        //case MediaDomain.light:
+        //  switch(msg.cueAction) {
+        //    case CueAction.play:
+        //      flashlightController.TurnOn();
+        //      break;
+        //    case CueAction.stop:
+        //      flashlightController.TurnOff();
+        //      break;
+        //    case CueAction.pause:
+        //      flashlightController.TurnOff();
+        //      break;
+        //    case CueAction.restart:
+        //      Debug.Log("action 'restart' is not defined for light cues");
+        //      break;
+        //  }
+        //  break;
 
         case MediaDomain.haptic:
           UnityEngine.Handheld.Vibrate();
@@ -903,7 +924,7 @@ namespace Cohort
       groupingLabel.gameObject.SetActive(true);
     }
 
-    bool LoadOccasionAndTag() {
+    bool LoadOccasionAndGrouping() {
       string occasionPref = PlayerPrefs.GetString("cohortOccasion", "");
       string groupingPref = PlayerPrefs.GetString("cohortGrouping", "");
 

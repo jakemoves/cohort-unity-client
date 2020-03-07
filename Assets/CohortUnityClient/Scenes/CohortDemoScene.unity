@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657856, g: 0.49641234, b: 0.57481724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1250,13 +1250,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverURL: http://localhost
   httpPort: 3000
-  webSocketPath: /sockets
-  username: test_admin_user
-  password: Bbnj6M6BUjvzyxvN
-  eventId: 1
-  pushN10nEndpoint: 
-  clientOccasion: 0
-  clientTag: any
+  username: test_user_1
+  password: SuAQ3xNZFYSM4h9k
+  eventId: 2
+  clientOccasion: 1
+  clientGrouping: all
   audioPlayer: {fileID: 1392766431}
   soundCues:
   - audioClip: {fileID: 8300000, guid: b315f72ccd9ab45feb25173f1d7cba9b, type: 3}
@@ -1269,7 +1267,6 @@ MonoBehaviour:
     cueNumber: 3
     accessibleAlternative: '[downtempo percussion and male vocals]'
   videoPlayer: {fileID: 1357722706}
-  fullscreenVideoSurface: {fileID: 0}
   videoCues:
   - videoClip: {fileID: 32900000, guid: d71ea68e903b947a7bf3381ab2173720, type: 3}
     cueNumber: 1
@@ -1282,6 +1279,8 @@ MonoBehaviour:
   - text: Lorem ipsum dolor sit est.
     cueNumber: 1
     accessibleAlternative: {fileID: 0}
+  pushN10nEndpoint: 
+  fullscreenVideoSurface: {fileID: 0}
   flashlightController: {fileID: 0}
   groupingUI: []
   occasionUI: []
