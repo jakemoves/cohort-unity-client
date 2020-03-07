@@ -33,9 +33,6 @@ namespace Cohort
     [SerializeField]
     private int httpPort;
 
-    [SerializeField]
-    private string webSocketPath;
-
     [Header("Authentication")]
     [SerializeField]
     private string username;
@@ -50,13 +47,10 @@ namespace Cohort
     private int eventId;
 
     [SerializeField]
-    private string pushN10nEndpoint;
-
-    [SerializeField]
     private int clientOccasion;
 
     [SerializeField]
-    private string clientTag;
+    private string clientGrouping;
 
     [Header("Audio Cues")]
     [SerializeField]
@@ -71,9 +65,6 @@ namespace Cohort
     private VideoPlayer videoPlayer;
 
     [SerializeField]
-    private GameObject fullscreenVideoSurface;
-
-    [SerializeField]
     private List<CHVideoCue> videoCues;
 
     [Header("Image Cues")]
@@ -84,15 +75,22 @@ namespace Cohort
     [SerializeField]
     private List<CHImageCue> imageCues;
 
-    [Header("Other Cues")]
+    [Header("Text Cues")]
 
     [SerializeField]
     private List<CHTextCue> textCues;
 
+
+    [Header("Untested Features (use at your own risk)")]
+
+    [SerializeField]
+    private string pushN10nEndpoint;
+
+    [SerializeField]
+    private GameObject fullscreenVideoSurface;
+
     [SerializeField]
     private FlashlightController flashlightController;
-
-    [Header("Groups")]
 
     [SerializeField]
     private GameObject[] groupingUI;
@@ -125,6 +123,7 @@ namespace Cohort
       return deviceGUID;
     }
 
+    private string webSocketPath;
     private VideoClip nullVideo;
     private CHRemoteNotificationSession remoteN10nSession;
     private WebSocket cohortSocket;
@@ -147,6 +146,8 @@ namespace Cohort
 
     private string episodeJson;
     private Boolean successfulServerRequest;
+    private string cachedUsername;
+
 
     [Serializable]
     public class JwtToken
@@ -186,32 +187,32 @@ namespace Cohort
         cohortUpdatedEventURL = url + "/api/v2";
       }
 
-      Debug.Log(cohortUpdatedEventURL);
+      //Debug.Log(cohortUpdatedEventURL);
       return cohortUpdatedEventURL;
 
     }
       
-    void OnValidate(){
+    void OnValidate() {
+      //Debug.Log("OnValidate");
       //first check if we need to authenticate
-      if (jwtToken == ""){
+      if (jwtToken == "" || cachedUsername != username){
+        Debug.Log("Logging into Cohort...");
         Credentials userCredentials = new Credentials();
         userCredentials.username = username;
         userCredentials.password = password;
         string loginJson = JsonMapper.ToJson(userCredentials);
 
-        //
         StartCoroutine(authenticationRequest(serverToEventUrl(serverURL) + "/login?sendToken=true", loginJson));
 
       } else {
         
-          successfulServerRequest = false;
-          Debug.Log("OnValidate");
-          string cuesJson = jsonFromCues();
-        //uncomment to verify Json getting sent
-        //Debug.Log(jsonFromCues());
+        successfulServerRequest = false;
+        string cuesJson = jsonFromCues();
+        // uncomment to verify Json getting sent
+        // Debug.Log(jsonFromCues());
 
         updateRemoteInfo(cuesJson);
-        }
+      }
     }
 
     IEnumerator authenticationRequest(string uri, string json)
@@ -223,20 +224,25 @@ namespace Cohort
         // Request and wait for the desired page.
         yield return cohortLoginRequest.SendWebRequest();
 
-        if (cohortLoginRequest.isNetworkError){
-          Debug.Log(" Error: " + cohortLoginRequest.error);
+        if (cohortLoginRequest.isNetworkError) {
+          Debug.Log("Error: " + cohortLoginRequest.error);
+
+        } else if(cohortLoginRequest.isHttpError || cohortLoginRequest.responseCode != 200) {
+
           //Editor messages can be created in a custom editor with a line like below
           //EditorGUILayout.HelpBox(cohortLoginRequest.error, MessageType.Warning);
 
+          Debug.Log("Error: " + cohortLoginRequest.responseCode + " | " + cohortLoginRequest.downloadHandler.text);
+
         } else {
-          //if package returned from the server successfully
-          Debug.Log("Received: " + cohortLoginRequest.downloadHandler.text);
+          // happy path - we got a token from the server
+          //Debug.Log("Received: " + cohortLoginRequest.downloadHandler.text);
           JwtToken serverToken = new JwtToken();
           serverToken = JsonUtility.FromJson<JwtToken>(cohortLoginRequest.downloadHandler.text);
+          Debug.Log("Login successful");
           jwtToken = serverToken.jwt;
-
+          cachedUsername = username;
         }
-
       }
     }
 
@@ -339,10 +345,10 @@ namespace Cohort
         deviceGUID = "unity-editor-jn";
       }
 
-      if (clientOccasion != 0 && clientTag != null){
-        Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientTag: " + clientTag);
+      if (clientOccasion != 0 && clientGrouping != null){
+        Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientGrouping: " + clientGrouping);
         PlayerPrefs.SetString("cohortOccasion", clientOccasion.ToString());
-        PlayerPrefs.SetString("cohortTag", clientTag);
+        PlayerPrefs.SetString("cohortGrouping", clientGrouping);
       }
 
       bool occasionAndTagSet = LoadOccasionAndTag();
@@ -909,7 +915,7 @@ namespace Cohort
 
     bool LoadOccasionAndTag() {
       string occasionPref = PlayerPrefs.GetString("cohortOccasion", "");
-      string tagPref = PlayerPrefs.GetString("cohortTag", "");
+      string groupingPref = PlayerPrefs.GetString("cohortGrouping", "");
 
       if (occasionPref != "") {
         // convert to int
@@ -928,8 +934,8 @@ namespace Cohort
         return false;
       }
 
-      if (tagPref != "") {
-        //grouping = tagPref;
+      if (groupingPref != "") {
+        grouping = groupingPref;
         return true;
       } else {
         return false;
