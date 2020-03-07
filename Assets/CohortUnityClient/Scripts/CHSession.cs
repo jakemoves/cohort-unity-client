@@ -1,18 +1,32 @@
-﻿using System.Collections;
+// Copyright Jacob Niedzwiecki, 2020
+// Released under the MIT License (see /LICENSE)
+
+using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Video;
-using UnityEngine.SceneManagement;
 using TMPro;
 using BestHTTP;
 using BestHTTP.WebSocket;
 using LitJson;
+using UnityEditor;
+using UnityEngine.Networking;
 
 
-namespace Cohort {
-  public class CHSession : MonoBehaviour {
+
+
+namespace Cohort
+{
+  public class CHSession : MonoBehaviour
+  {
+
+    /*
+     * Editor fields
+     */
+
+    [Header("Server Info")]
 
     [SerializeField]
     private string serverURL;
@@ -20,61 +34,100 @@ namespace Cohort {
     [SerializeField]
     private int httpPort;
 
+    [Header("Authentication")]
+
     [SerializeField]
-    private string webSocketPath;
+    private string username;
+
+    [SerializeField]
+    private string password;
+
+    public EditorGUILayout authenticationCheck;
+
+    [Header("Event Info")]
 
     [SerializeField]
     private int eventId;
 
     [SerializeField]
-    private string pushN10nEndpoint;
+    private int clientOccasion;
 
     [SerializeField]
-    private int clientOccasion;
-    
+    private string clientGrouping;
+
+    [Header("Audio Cues")]
+
     [SerializeField]
-    private string clientTag;
+    private List<CHSoundCue> soundCues;
+
+    [Header("Video Cues")]
+
+    [SerializeField]
+    private List<CHVideoCue> videoCues;
+
+    [Header("Image Cues")]
+
+    [SerializeField]
+    private List<CHImageCue> imageCues;
+
+    [Header("Text Cues")]
+
+    [SerializeField]
+    private List<CHTextCue> textCues;
+
+    [Header("Settings")]
 
     [SerializeField]
     private AudioSource audioPlayer;
 
     [SerializeField]
-    private List<CHSoundCue> soundCues;
-
-    [SerializeField]
     private VideoPlayer videoPlayer;
 
     [SerializeField]
-    private GameObject fullscreenVideoSurface;
+    private UnityEngine.UI.Image imageCueSurface;
 
-    [SerializeField]
-    private List<CHVideoCue> videoCues;
 
-    [SerializeField]
-    private VideoClip nullVideo;
+    //[Header("Untested Features (use at your own risk)")]
 
-    [SerializeField]
-    private TextMeshProUGUI textCueArea;
+    //[SerializeField]
+    //private string pushN10nEndpoint;
 
-    [SerializeField]
-    private List<CHTextCue> textCues;
+    //[SerializeField]
+    //private FlashlightController flashlightController;
 
-    [SerializeField]
-    private FlashlightController flashlightController;
-
-    [SerializeField]
+    //[SerializeField]
     private GameObject[] groupingUI;
 
-    [SerializeField]
+    //[SerializeField]
     private GameObject[] occasionUI;
     private string[] occasionIDs;
 
-    [SerializeField]
+    //[SerializeField]
     private TextMeshProUGUI groupingLabel;
 
-    [SerializeField]
+    //[SerializeField]
     private GameObject connectionIndicator;
 
+    /*
+     * Events
+     */
+
+    public delegate void OnTextCue(CueAction cueAction, string cueContent);
+    public event OnTextCue onTextCue;
+
+    public delegate void OnStatusChanged(string statusUpdate); // mostly for logging / debugging
+    public event OnStatusChanged onStatusChanged;
+
+    /*
+     * public methods
+     */
+
+    public string getDeviceGUID() {
+      return deviceGUID;
+    }
+
+    private string webSocketPath = "/sockets";
+    private VideoClip nullVideo;
     private CHRemoteNotificationSession remoteN10nSession;
     private WebSocket cohortSocket;
     private string deviceGUID; // eventually moves to CHDevice
@@ -89,76 +142,190 @@ namespace Cohort {
 
     private bool socketConnectionActive = false;
 
+    private string jwtToken = "";
+    //private UnityWebRequest cohortUpdateEventRequest;
+
+    private List<CHEpisode> episodesArray;
+
+    private string episodeJson;
+    private Boolean successfulServerRequest;
+    private string cachedUsername;
 
 
-    //public void OnBtn07_07Clicked() {
-    //  grouping = "07_07";
-    //  PlayerPrefs.SetString("cohortTag", grouping);
-    //  HideGroupingUI();
-    //  ShowOccasionUI();
-    //  textCueArea.text = selectAShowCopy;
-    //}
+    [Serializable]
+    public class JwtToken
+    {
+      public string jwt;
+    }
 
-    //public void OnBtn22Clicked() {
-    //  grouping = "22";
-    //  PlayerPrefs.SetString("cohortTag", grouping);
-    //  HideGroupingUI();
-    //  ShowOccasionUI();
-    //  textCueArea.text = selectAShowCopy;
-    //}
 
-    //public void OnBtn9_14Clicked() {
-    //  grouping = "9-14";
-    //  PlayerPrefs.SetString("cohortTag", grouping);
-    //  HideGroupingUI();
-    //  ShowOccasionUI();
-    //  textCueArea.text = selectAShowCopy;
-    //}
+    [Serializable]
+    public class CHEpisode
+    {
+      public int episodeNumber { get; set; }
+      public string label { get; set; }
+      public List<CHMessage> cues { get; set; }
+    }
 
-    //public void OnBtn1984Clicked() {
-    //  grouping = "1984";
-    //  PlayerPrefs.SetString("cohortTag", grouping);
-    //  HideGroupingUI();
-    //  ShowOccasionUI();
-    //  textCueArea.text = selectAShowCopy;
-    //}
 
-    //public void OnBtnOccasionAClicked() {
-    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[0]);
-    //  HideOccasionUI();
-    //  LoadOccasionAndTag();
-    //  textCueArea.text = "Loading...";
-    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    //}
 
-    //public void OnBtnOccasionBClicked() {
-    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[1]);
-    //  HideOccasionUI();
-    //  LoadOccasionAndTag();
-    //  textCueArea.text = "Loading...";
-    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    //}
+    string cohortApiUrl(string url) {
+      //this checks for any of the following words/letter sequences, but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
+      string urlInput = "(localhost|.local|192.168.)"; 
+      string cohortUpdatedURL;
 
-    //public void OnBtnOccasionCClicked() {
-    //  PlayerPrefs.SetString("cohortOccasion", occasionIDs[2]);
-    //  HideOccasionUI();
-    //  LoadOccasionAndTag();
-    //  textCueArea.text = "Loading...";
-    //  SetDeviceTagAndCheckInToEvent(grouping, eventId, occasion);
-    //}
+      // Instantiate the regular expression objects.
+      Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);
+
+      // Match the regular expression pattern against our URL string.
+      Match matchUrl = compareUrl.Match(url);
+
+      //if match occurs add port number
+      if (matchUrl.Length > 0)
+      {
+        cohortUpdatedURL = url + ":" + httpPort + "/api/v2";
+      }
+      else
+      {
+        cohortUpdatedURL = url + "/api/v2";
+      }
+      return cohortUpdatedURL;
+
+    }
+      
+    void OnValidate() {
+      //Debug.Log("OnValidate");
+      //first check if we need to authenticate
+      if (jwtToken == "" || cachedUsername != username){
+        Debug.Log("Logging into Cohort...");
+        Credentials userCredentials = new Credentials();
+        userCredentials.username = username;
+        userCredentials.password = password;
+        string loginJson = JsonMapper.ToJson(userCredentials);
+
+        StartCoroutine(authenticationRequest(cohortApiUrl(serverURL), loginJson));
+
+      } else {
+        //uncomment to verify validate function is running when editor gets updated
+        //Debug.Log("OnValidate");
+        //uncomment to verify Json getting sent
+        //Debug.Log(jsonFromCues());
+
+        successfulServerRequest = false;
+        string cuesJson = jsonFromCues();
+
+        StartCoroutine(updateRemoteInfo(cohortApiUrl(serverURL), cuesJson));
+      }
+    }
+
+    IEnumerator authenticationRequest(string uri, string json)
+    {
+      using (UnityWebRequest cohortLoginRequest = UnityWebRequest.Put(uri + "/login?sendToken=true", json))
+      {
+        cohortLoginRequest.SetRequestHeader("Content-Type", "application/json");
+        cohortLoginRequest.method = "POST";
+        // Request and wait for the desired page.
+        yield return cohortLoginRequest.SendWebRequest();
+
+        if (cohortLoginRequest.isNetworkError) {
+          Debug.Log("Error: " + cohortLoginRequest.error);
+
+        } else if(cohortLoginRequest.isHttpError || cohortLoginRequest.responseCode != 200) {
+
+          //Editor messages can be created in a custom editor with a line like below
+          //EditorGUILayout.HelpBox(cohortLoginRequest.error, MessageType.Warning);
+          //if (Application.isEditor){
+          //  Debug.Log("Incredibly the credentials lack credibility. Please double check spelling and letter case.");
+          //}
+
+          Debug.Log("Error: " + cohortLoginRequest.downloadHandler.text + " (Error code " + cohortLoginRequest.responseCode + ")" );
+
+        } else {
+          // happy path - we got a token from the server
+          //Debug.Log("Received: " + cohortLoginRequest.downloadHandler.text);
+          JwtToken serverToken = new JwtToken();
+          serverToken = JsonUtility.FromJson<JwtToken>(cohortLoginRequest.downloadHandler.text);
+          Debug.Log("Login successful");
+          jwtToken = serverToken.jwt;
+          cachedUsername = username;
+        }
+      }
+    }
+
+    IEnumerator updateRemoteInfo(string uri, string json)
+    {
+      using (UnityWebRequest cohortUpdateEventRequest = UnityWebRequest.Put(uri + "/events/" + eventId + "/episodes", json))
+      {
+        cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
+        cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT " + jwtToken);
+        cohortUpdateEventRequest.method = "POST";
+        // Request and wait for the desired page.
+        yield return cohortUpdateEventRequest.SendWebRequest();
+
+        if (cohortUpdateEventRequest.isNetworkError) {
+          Debug.Log("Error: " + cohortUpdateEventRequest.error);
+
+        } else if (cohortUpdateEventRequest.isHttpError || cohortUpdateEventRequest.responseCode != 200) {
+          Debug.Log("Error: " + cohortUpdateEventRequest.downloadHandler.text + " (code " + cohortUpdateEventRequest.responseCode + ")");
+        } else {
+          //if package returned from the server successfully
+          //Debug.Log("Received: " + cohortUpdateEventRequest.downloadHandler.text);
+          successfulServerRequest = true;
+          Debug.Log("Save complete");
+        }
+
+      }
+    }
+
+
+    string jsonFromCues(){
+
+      //setting up a new episode
+      CHEpisode episode = new CHEpisode();
+      episode.episodeNumber = 0;
+      episode.label = "Act 2";
+      episode.cues = new List<CHMessage>();
+
+      //adding all the cues to episode.cues
+      soundCues.ForEach(cue => {
+        CHMessage soundCue = new CHMessage();
+        CHMessage cueDetails = soundCue.FromSoundCue(cue);
+        episode.cues.Add(cueDetails);
+      });
+
+
+      videoCues.ForEach(cue => {
+        CHMessage videoCue = new CHMessage();
+        CHMessage cueDetails = videoCue.FromVideoCue(cue);
+        episode.cues.Add(cueDetails);
+      });
+
+      imageCues.ForEach(cue => {
+        CHMessage imageCue = new CHMessage();
+        CHMessage cueDetails = imageCue.FromImageCue(cue);
+        episode.cues.Add(cueDetails);
+      });
+      //server requires an array of episodes
+      episodesArray = new List<CHEpisode>();
+      episodesArray.Add(episode);
+
+      //convert episode to JSON
+      return JsonMapper.ToJson(episodesArray);
+    }
 
     void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");
-      if (fullscreenVideoSurface) { 
-        fullscreenVideoSurface.SetActive(false);
-      } else {
-        videoPlayer.clip = null;
-      }
+      videoPlayer.clip = null;
     }
 
     // Use this for initialization
     void Start() {
+        
       Debug.Log("CHSession:Start()");
+
+      // Universal links
+      Application.deepLinkActivated += handleDeepLinkEvent;
+
       //DontDestroyOnLoad(transform.gameObject);
       if (!Application.isEditor) {
         deviceGUID = UnityEngine.iOS.Device.vendorIdentifier;
@@ -166,19 +333,17 @@ namespace Cohort {
         deviceGUID = "unity-editor-jn";
       }
 
-      //HideGroupingUI();
-      //HideOccasionUI();
-
-      videoPlayer.loopPointReached += onVideoEnded;
-
-      if (clientOccasion != 0 && clientTag != null){
-        Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientTag: " + clientTag);
+      if (clientOccasion != 0){
+        Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientGrouping: " + clientGrouping);
         PlayerPrefs.SetString("cohortOccasion", clientOccasion.ToString());
-        PlayerPrefs.SetString("cohortTag", clientTag);
+
+        if (clientGrouping != null && clientGrouping != "") {
+          PlayerPrefs.SetString("cohortGrouping", clientGrouping);
+        }
       }
 
-      bool occasionAndTagSet = LoadOccasionAndTag();
-      if (occasionAndTagSet) {
+      bool occasionAndGroupingSet = LoadOccasionAndGrouping();
+      if (occasionAndGroupingSet) {
         automaticCheckin = true;
       } else {
         automaticCheckin = false;
@@ -192,11 +357,16 @@ namespace Cohort {
       //  return;
       //}
 
-      // disabled for packaging
-      //textCueArea.text = checkingInPlaceholder;
+      // setup for specific cue types
+      videoPlayer.loopPointReached += onVideoEnded;
+
+      // this value is set to transparent in the editor to avoid showing a big white rectangle when the imageCueDisplay is empty
+      // so we set it back to opaque here
+      imageCueSurface.gameObject.SetActive(false);
+      imageCueSurface.color = Color.white;
 
       /*
-       * Create a new device on the server 
+       * Connect to a Cohort occasion and start listening for cues
        */
       if (!string.IsNullOrEmpty(serverURL)) {
         openWebSocketConnection();
@@ -204,6 +374,94 @@ namespace Cohort {
     }
 
     void HandleOnRequestFinishedDelegate(HTTPRequest originalRequest, HTTPResponse response) {
+    }
+
+    void handleDeepLinkEvent(string url){
+      Debug.Log("deep link");
+      Debug.Log(url);
+      onStatusChanged("received URL from universal (deep) link: " + url);
+
+			System.UriBuilder newServerURL;
+			try {
+        newServerURL = new System.UriBuilder(url);
+			}
+			catch (FormatException ex){
+        Debug.Log("deep link url parse failed");
+        Debug.Log(ex);
+        return;
+			}
+      parseDeeplinkURL(newServerURL);
+    }
+
+    void parseDeeplinkURL(UriBuilder newServerURL) { 
+      Debug.Log(newServerURL.Uri.ToString());
+      string pathString = newServerURL.Path;
+
+      Debug.Log(pathString);
+
+      if (pathString.Substring(0,1) == "/") {
+        pathString = pathString.Substring(1);
+      }
+
+      string[] pathComponents = pathString.Split('/');
+
+      if(pathComponents[0] == "join" && pathComponents.Length == 3) {
+        Debug.Log("deep link is a join link");
+        End();
+        serverURL = "" + newServerURL.Scheme + "://" + newServerURL.Host;
+
+        if(newServerURL.Port != -1){
+          httpPort = newServerURL.Port;
+        }
+
+        // convert occasion id to int
+        int occasionInt = 0;
+        if (!int.TryParse(pathComponents[2], out occasionInt)) {
+          occasionInt = -1;
+        }
+        if (occasionInt != -1) {
+          //if(occasionInt == occasion && socketConnectionActive) {
+          //  Debug.Log("Already connected to occasion:" + occasion);
+          //  return;
+          //} // this caused issues because socketConnectionActive is not always correct (esp after switching away and back to app
+          occasion = occasionInt; // <-- happy path 
+        } else {
+          Debug.Log("Error: failed to parse occasion as integer");
+          return;
+        }
+
+        PlayerPrefs.SetString("cohortOccasion", occasion.ToString());
+        openWebSocketConnection();
+
+
+        /*
+         * Parse and set grouping (optional)
+         */
+
+        string queryString = newServerURL.Query;
+
+        if(queryString != null && queryString != "" ) {
+          queryString = queryString.Replace("?", "");
+          string[] queryParams = queryString.Split('&');
+          foreach(string parameterPair in queryParams) {
+            string[] param = parameterPair.Split('=');
+            if(param[0] == "grouping") {
+              Debug.Log("join URL included a grouping (" + param[1] + ")  ");
+              grouping = param[1];
+              PlayerPrefs.SetString("cohortGrouping", grouping);
+            }
+          }
+        }
+      } else {
+        Debug.Log("deep link does not match 'join' format");
+        Debug.Log(pathString);
+      }
+		}
+
+    void End() {
+      if(cohortSocket != null) {
+        cohortSocket.Close();
+      }
     }
 
     /* 
@@ -223,6 +481,7 @@ namespace Cohort {
 
     void OnWebSocketOpen(WebSocket cs) {
       // this is a handshake with the server
+      Debug.Log("socket open, sending handshake");
       CHSocketAuth msg = new CHSocketAuth();
       msg.guid = deviceGUID;
       msg.occasionId = occasion;
@@ -240,9 +499,13 @@ namespace Cohort {
         Debug.Log(res);
         if (res.response == "success") {
           Debug.Log("opened websocket connnection");
+          string groupingStatus = "";
+          if(grouping != null & grouping != "") {
+            groupingStatus = ", grouping: " + grouping;
+          }
+          onStatusChanged("Connected to Cohort (occasion id:" + occasion + groupingStatus + ")");
           socketConnectionActive = true;
           //connectionIndicator.SetActive(true);
-          //textCueArea.text = "READY";
         }
       } else
       // this is an ugly way to make sure it's a CHMessage, ugh
@@ -263,14 +526,16 @@ namespace Cohort {
     }
 
     void OnWebSocketClosed(WebSocket cs, ushort code, string msg) {
-      Debug.Log("closed websocket connection");
+      Debug.Log("closed websocket connection, code: " + code.ToString() + ", reason: " + msg);
       socketConnectionActive = false;
+      onStatusChanged("Lost connection. Error code: " + code.ToString() + ", reason: " + msg);
       //connectionIndicator.SetActive(false);
     }
 
     void OnWebSocketErrorDescription(WebSocket cs, string error) {
       Debug.Log("Error: WebSocket: " + error);
       socketConnectionActive = false;
+      onStatusChanged("Lost connection. WebSocket error: " + error);
       //connectionIndicator.SetActive(false);
     }
 
@@ -283,23 +548,23 @@ namespace Cohort {
        * Register it for remote push notifications
        */
 
-      string endpoint = pushN10nEndpoint.Replace(":id", this.deviceID.ToString());
-      System.UriBuilder remoteN10nURL = UriWithOptionalPort(httpPort, endpoint);
-      Debug.Log("push url: " + remoteN10nURL.Uri.ToString());
+      //string endpoint = pushN10nEndpoint.Replace(":id", this.deviceID.ToString());
+      //System.UriBuilder remoteN10nURL = UriWithOptionalPort(httpPort, endpoint);
+      //Debug.Log("push url: " + remoteN10nURL.Uri.ToString());
 
-      string lastCohortMessageEndpoint = "api/v1/events/" + this.eventId + "/last-cohort-message";
-      string queryForLastCohortMessage = "";//"?tag=" + grouping;
-      System.UriBuilder lastCohortMessageURL = UriWithOptionalPort(httpPort, lastCohortMessageEndpoint, queryForLastCohortMessage);
+      //string lastCohortMessageEndpoint = "api/v1/events/" + this.eventId + "/last-cohort-message";
+      //string queryForLastCohortMessage = "";//"?tag=" + grouping;
+      //System.UriBuilder lastCohortMessageURL = UriWithOptionalPort(httpPort, lastCohortMessageEndpoint, queryForLastCohortMessage);
 
-      remoteN10nSession = new CHRemoteNotificationSession(
-          remoteN10nURL.Uri,
-          lastCohortMessageURL.Uri,
-          deviceGUID,
-          OnRemoteNotificationReceived,
-          ValidateCohortMessage
-      );
+      //remoteN10nSession = new CHRemoteNotificationSession(
+      //    remoteN10nURL.Uri,
+      //    lastCohortMessageURL.Uri,
+      //    deviceGUID,
+      //    OnRemoteNotificationReceived,
+      //    ValidateCohortMessage
+      //);
 
-      remoteN10nSession.RegisteredForRemoteNotifications += OnRegisteredForRemoteNotifications;
+      //remoteN10nSession.RegisteredForRemoteNotifications += OnRegisteredForRemoteNotifications;
 
     }
 
@@ -314,10 +579,6 @@ namespace Cohort {
     public void OnRegisteredForRemoteNotifications(bool result) {
       Debug.Log("CHSession: reg'd for remote n10n");
       PlayerPrefs.SetInt("registeredForNotifications", 1);
-      if(textCueArea.text == checkingInPlaceholder || textCueArea.text == checkedInPlaceholder) {
-        textCueArea.text = checkedInPlaceholder + "\n\n" + grouping;
-      }
-      //UpdateAndShowGroupingLabel();
     }
 
     void OnRemoteNotificationReceived(UnityEngine.iOS.RemoteNotification n10n) {
@@ -334,9 +595,7 @@ namespace Cohort {
       } else {
         Debug.Log("notification had no cohortMessage, displaying text");
         // minor hack to mirror notification text in the text cue display area
-        textCueArea.text = n10n.alertBody;
-        textCueArea.gameObject.SetActive(true);
-        UnityEngine.Handheld.Vibrate();
+        onTextCue(CueAction.play, n10n.alertBody);
         if(n10n.soundName != "default.caf") {
           soundCues.ForEach(cue => {
             if(cue.audioClip.name == n10n.soundName) {
@@ -409,8 +668,9 @@ namespace Cohort {
         PlayerPrefs.SetInt("lastReceivedCohortMessageId", msg.id);
       }
 
+      Debug.Log("current grouping: " + grouping);
       if(!msg.targetTags.Contains(grouping) && !msg.targetTags.Contains("all")) {
-        Debug.Log("cohort message is for another grouping, not processing it");
+        Debug.Log("cohort message is for another grouping (not " + grouping + "), not processing it");
         return;
       }
 
@@ -460,9 +720,6 @@ namespace Cohort {
 
             switch (msg.cueAction) {
               case CueAction.play:
-                if (fullscreenVideoSurface) {
-                  fullscreenVideoSurface.SetActive(true);
-                }
                 videoPlayer.Play();
                 break;
               case CueAction.pause:
@@ -487,18 +744,48 @@ namespace Cohort {
             Debug.Log("Error: cue number not valid");
           }
           break;
-        
+
+        case MediaDomain.image:
+          CHImageCue imageCue = imageCues.Find((CHImageCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
+          if(imageCue != null) {
+            switch (msg.cueAction) { 
+            case CueAction.play:
+                Debug.Log("got image cue");
+              imageCueSurface.sprite = imageCue.image;
+                imageCueSurface.gameObject.SetActive(true);
+              break;
+            case CueAction.stop:
+                imageCueSurface.gameObject.SetActive(false);
+                imageCueSurface.sprite = null;
+              break;
+             default:
+              Debug.Log("Error: cue action not implemented");
+              break;
+            }
+          } else {
+            Debug.Log("Error: cue number not valid");
+          }
+          break;
 
         case MediaDomain.text:
           CHTextCue textCue = textCues.Find((CHTextCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
-          Debug.Log(textCue);
-          if(textCue != null){
-            textCueArea.text = textCue.text;
-            UnityEngine.Handheld.Vibrate();
+          if(textCue == null && msg.cueContent == null){
+            return;
           }
+          string textOfCue;
+          if(msg.cueContent != null){
+            textOfCue = msg.cueContent;
+          } else if(textCue.text != null) {
+            textOfCue = textCue.text;
+          } else {
+            Debug.Log("Error: Failed to find text for text cue in onboard text cues or in remote cue");
+            return;
+          }
+
           switch (msg.cueAction) {
             case CueAction.play:
-              textCueArea.gameObject.SetActive(true);
+              UnityEngine.Handheld.Vibrate();
+              onTextCue(CueAction.play, textOfCue);
               break;
             case CueAction.pause:
               Debug.Log("action 'pause' is not defined for text cues");
@@ -507,27 +794,27 @@ namespace Cohort {
               Debug.Log("action 'restart' is not defined for text cues");
               break;
             case CueAction.stop:
-              textCueArea.gameObject.SetActive(false);
+              onTextCue(CueAction.stop, textOfCue);
               break;
           }
           break;
 
-        case MediaDomain.light:
-          switch(msg.cueAction) {
-            case CueAction.play:
-              flashlightController.TurnOn();
-              break;
-            case CueAction.stop:
-              flashlightController.TurnOff();
-              break;
-            case CueAction.pause:
-              flashlightController.TurnOff();
-              break;
-            case CueAction.restart:
-              Debug.Log("action 'restart' is not defined for light cues");
-              break;
-          }
-          break;
+        //case MediaDomain.light:
+        //  switch(msg.cueAction) {
+        //    case CueAction.play:
+        //      flashlightController.TurnOn();
+        //      break;
+        //    case CueAction.stop:
+        //      flashlightController.TurnOff();
+        //      break;
+        //    case CueAction.pause:
+        //      flashlightController.TurnOff();
+        //      break;
+        //    case CueAction.restart:
+        //      Debug.Log("action 'restart' is not defined for light cues");
+        //      break;
+        //  }
+        //  break;
 
         case MediaDomain.haptic:
           UnityEngine.Handheld.Vibrate();
@@ -637,9 +924,9 @@ namespace Cohort {
       groupingLabel.gameObject.SetActive(true);
     }
 
-    bool LoadOccasionAndTag() {
+    bool LoadOccasionAndGrouping() {
       string occasionPref = PlayerPrefs.GetString("cohortOccasion", "");
-      string tagPref = PlayerPrefs.GetString("cohortTag", "");
+      string groupingPref = PlayerPrefs.GetString("cohortGrouping", "");
 
       if (occasionPref != "") {
         // convert to int
@@ -658,8 +945,8 @@ namespace Cohort {
         return false;
       }
 
-      if (tagPref != "") {
-        //grouping = tagPref;
+      if (groupingPref != "") {
+        grouping = groupingPref;
         return true;
       } else {
         return false;
@@ -679,6 +966,12 @@ namespace Cohort {
   public class CHSocketAuth {
     public string guid;
     public int occasionId;
+  }
+
+  public struct Credentials
+  {
+    public string username;
+    public string password;
   }
 
 }
