@@ -27,6 +27,7 @@ namespace Cohort
      */
 
     [Header("Server Info")]
+
     [SerializeField]
     private string serverURL;
 
@@ -37,6 +38,7 @@ namespace Cohort
     private string webSocketPath;
 
     [Header("Authentication")]
+
     [SerializeField]
     private string username;
 
@@ -46,6 +48,7 @@ namespace Cohort
     public EditorGUILayout authenticationCheck;
 
     [Header("Event Info")]
+
     [SerializeField]
     private int eventId;
 
@@ -59,6 +62,7 @@ namespace Cohort
     private string clientTag;
 
     [Header("Audio Cues")]
+
     [SerializeField]
     private AudioSource audioPlayer;
 
@@ -141,7 +145,7 @@ namespace Cohort
     private bool socketConnectionActive = false;
 
     private string jwtToken = "";
-    private UnityWebRequest cohortUpdateEventRequest;
+    //private UnityWebRequest cohortUpdateEventRequest;
 
     private List<CHEpisode> episodesArray;
 
@@ -165,10 +169,10 @@ namespace Cohort
 
 
 
-    string serverToEventUrl(string url) {
+    string cohortApiUrl(string url) {
       //this checks for any of the following words/letter sequences, but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
       string urlInput = "(localhost|.local|192.168.)"; 
-      string cohortUpdatedEventURL;
+      string cohortUpdatedURL;
 
       // Instantiate the regular expression objects.
       Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);
@@ -179,15 +183,14 @@ namespace Cohort
       //if match occurs add port number
       if (matchUrl.Length > 0)
       {
-        cohortUpdatedEventURL = url + ":" + httpPort + "/api/v2";
+        cohortUpdatedURL = url + ":" + httpPort + "/api/v2";
       }
       else
       {
-        cohortUpdatedEventURL = url + "/api/v2";
+        cohortUpdatedURL = url + "/api/v2";
       }
 
-      Debug.Log(cohortUpdatedEventURL);
-      return cohortUpdatedEventURL;
+      return cohortUpdatedURL;
 
     }
       
@@ -199,24 +202,24 @@ namespace Cohort
         userCredentials.password = password;
         string loginJson = JsonMapper.ToJson(userCredentials);
 
-        //
-        StartCoroutine(authenticationRequest(serverToEventUrl(serverURL) + "/login?sendToken=true", loginJson));
+        StartCoroutine(authenticationRequest(cohortApiUrl(serverURL), loginJson));
 
       } else {
-        
-          successfulServerRequest = false;
-          Debug.Log("OnValidate");
-          string cuesJson = jsonFromCues();
+        //uncomment to verify validate function is running when editor gets updated
+        //Debug.Log("OnValidate");
         //uncomment to verify Json getting sent
         //Debug.Log(jsonFromCues());
 
-        updateRemoteInfo(cuesJson);
-        }
+        successfulServerRequest = false;
+        string cuesJson = jsonFromCues();
+
+        StartCoroutine(updateRemoteInfo(cohortApiUrl(serverURL), cuesJson));
+      }
     }
 
     IEnumerator authenticationRequest(string uri, string json)
     {
-      using (UnityWebRequest cohortLoginRequest = UnityWebRequest.Put(uri, json))
+      using (UnityWebRequest cohortLoginRequest = UnityWebRequest.Put(uri + "/login?sendToken=true", json))
       {
         cohortLoginRequest.SetRequestHeader("Content-Type", "application/json");
         cohortLoginRequest.method = "POST";
@@ -227,14 +230,39 @@ namespace Cohort
           Debug.Log(" Error: " + cohortLoginRequest.error);
           //Editor messages can be created in a custom editor with a line like below
           //EditorGUILayout.HelpBox(cohortLoginRequest.error, MessageType.Warning);
+          if (Application.isEditor){
+            Debug.Log("Incredibly the credentials lack credibility. Please double check spelling and letter case.");
+          }
 
-        } else {
+          } else {
           //if package returned from the server successfully
           Debug.Log("Received: " + cohortLoginRequest.downloadHandler.text);
           JwtToken serverToken = new JwtToken();
           serverToken = JsonUtility.FromJson<JwtToken>(cohortLoginRequest.downloadHandler.text);
           jwtToken = serverToken.jwt;
 
+        }
+
+      }
+    }
+
+    IEnumerator updateRemoteInfo(string uri, string json)
+    {
+      using (UnityWebRequest cohortUpdateEventRequest = UnityWebRequest.Put(uri + "/events/" + eventId + "/episodes", json))
+      {
+        cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
+        cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT " + jwtToken);
+        cohortUpdateEventRequest.method = "POST";
+        // Request and wait for the desired page.
+        yield return cohortUpdateEventRequest.SendWebRequest();
+
+        if (cohortUpdateEventRequest.isNetworkError){
+          Debug.Log(" Error: " + cohortUpdateEventRequest.error);
+        }
+        else {
+          //if package returned from the server successfully
+          Debug.Log("Received: " + cohortUpdateEventRequest.downloadHandler.text);
+          successfulServerRequest = true;
         }
 
       }
@@ -267,7 +295,6 @@ namespace Cohort
         CHMessage imageCue = new CHMessage();
         CHMessage cueDetails = imageCue.FromImageCue(cue);
         episode.cues.Add(cueDetails);
-
       });
       //server requires an array of episodes
       episodesArray = new List<CHEpisode>();
@@ -276,44 +303,6 @@ namespace Cohort
       //convert episode to JSON
       return JsonMapper.ToJson(episodesArray);
     }
-    
-
-    void updateRemoteInfo(string jsonPayload){
-        //we could convert this to a coroutine like above
-        cohortUpdateEventRequest = UnityWebRequest.Put(serverToEventUrl(serverURL) + "/events/" + eventId + "/episodes",
-            jsonPayload);
-
-        cohortUpdateEventRequest.SetRequestHeader("Content-Type", "application/json");
-        cohortUpdateEventRequest.SetRequestHeader("Authorization", "JWT " + jwtToken);
-        cohortUpdateEventRequest.method = "POST";
-        cohortUpdateEventRequest.SendWebRequest();
-
-        EditorApplication.update += EditorUpdate;
-
-      }
-
-    void EditorUpdate(){    
-      if (!cohortUpdateEventRequest.isDone){
-          return;
-      }
-
-      if (cohortUpdateEventRequest.isHttpError){
-          Debug.Log(cohortUpdateEventRequest.responseCode);
-      } else {
-          successfulServerRequest = true;
-      }
-
-      if (cohortUpdateEventRequest.isNetworkError){
-          Debug.Log(cohortUpdateEventRequest.error);
-      } else {
-          Debug.Log(cohortUpdateEventRequest.downloadHandler.text);
-          //this is firing an error indicating JSON issues 
-      }
-
-      EditorApplication.update -= EditorUpdate;
-    }
-
-
 
     void onVideoEnded(UnityEngine.Video.VideoPlayer source) {
       Debug.Log("video cue ended");

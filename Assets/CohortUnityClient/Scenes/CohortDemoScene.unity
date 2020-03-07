@@ -1249,11 +1249,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverURL: http://localhost
-  username: 
-  password: 
   httpPort: 3000
   webSocketPath: /sockets
-  eventId: 0
+  username: test_admin_user
+  password: Bbnj6M6BUjvzyxvN
+  eventId: 1
   pushN10nEndpoint: 
   clientOccasion: 0
   clientTag: any
@@ -1287,7 +1287,6 @@ MonoBehaviour:
   occasionUI: []
   groupingLabel: {fileID: 0}
   connectionIndicator: {fileID: 0}
-  episodesArray: []
 --- !u!1 &1766668481
 GameObject:
   m_ObjectHideFlags: 0
