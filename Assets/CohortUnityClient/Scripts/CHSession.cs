@@ -42,8 +42,6 @@ namespace Cohort
     [SerializeField]
     private string password;
 
-    public EditorGUILayout authenticationCheck;
-
     [Header("Event Info")]
 
     [SerializeField]
