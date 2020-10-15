@@ -13,8 +13,27 @@ If you already have a Unity app, and you want to integrate Cohort functionality,
 - clone or download this repo and open it in Unity
 - open up CohortUnityClient/Scenes/CohortDemoScene and have a look at the CohortManager GameObject
 - it connects to a Cohort server (online or local), keeps track of sound and video cues, and triggers them in response to Cohort messages received over the network
-- in the Unity console, you should see "Logging into Cohort..." followed by "Login successful" (the example project is set up with a shared 'demo' account on https://cohort.rocks/admin: username 'demouser', password 'demodemo')
-- 
+- in the Unity console, you should see "Logging into Cohort..." followed by "Login successful"
+- switch to the Game tab to preview Cohort functionality in the Unity Editor
+- the example project is set up with a shared 'demo' account on the Cohort Admin website 
+- in a web browser, go to https://cohort.rocks/admin and sign in with username 'demouser' and password 'demodemo'
+- click 'Details' next to Demo Event
+- click 'Demo Occasion'
+- if you see an 'Open Occasion' button, click it
+- back in Unity, click the Play button to run your app in the Editor
+- you should see a message in the preview window saying "Connected to Cohort (occasion id:9, grouping: all)"
+- on the Cohort Admin website, drag the slider to the right to trigger sound cue 1. You should hear this cue (a cat meowing) play from Unity.
+- click the 'next' button to see the other demo cues, and drag the slider to test them out
+
+### Testing the example app on a device
+- Android devices are easy to test with, iOS devices take a little more work. We'll start with Android.
+- In Unity, go to File > Build Settings
+- Make sure 'Android' is selected from the list of platforms on the left
+- Plug in an Android device to your computer. (We've tested as far back as Android 9 'Pie')
+- Select this device from the 'Run Device' dropdown menu (if it's not showing up, try hitting the Refresh button next to the dropdown)
+- Click Build and Run. The app should install to your Android device and launch.
+- Try sending some cues from the Cohort Admin site — you should see the results on your device.
+
 ---
 
 ### Setting up cues
