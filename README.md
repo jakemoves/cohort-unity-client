@@ -3,7 +3,7 @@ Cohort's Unity Client allows you to easily create Android and iOS apps that can 
 - play audio
 - play video
 - display images
-- make a phone vibrate (also known as haptics)
+- display text
 
 If you are starting from scratch, skip ahead to the section "Using the example Unity project".
 
@@ -13,6 +13,9 @@ If you already have a Unity app, and you want to integrate Cohort functionality,
 - clone or download this repo and open it in Unity
 - open up CohortUnityClient/Scenes/CohortDemoScene and have a look at the CohortManager GameObject
 - it connects to a Cohort server (online or local), keeps track of sound and video cues, and triggers them in response to Cohort messages received over the network
+- in the Unity console, you should see "Logging into Cohort..." followed by "Login successful" (the example project is set up with a shared 'demo' account on https://cohort.rocks/admin: username 'demouser', password 'demodemo')
+- 
+---
 
 ### Setting up cues
 - create a plain GameObject and name it 'CohortManager'
