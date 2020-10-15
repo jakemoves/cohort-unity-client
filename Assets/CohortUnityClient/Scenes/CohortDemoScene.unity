@@ -1248,23 +1248,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202f157f33e844f9796b7a82e6543b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverURL: https://new.cohort.rocks
+  serverURL: https://cohort.rocks
   httpPort: 0
-  username: demo_user
-  password: demodemo
-  eventId: 3
-  clientOccasion: 4
+  username: Afterparty
+  password: afterparty123
+  eventId: 2
+  clientOccasion: 3
   clientGrouping: all
   soundCues:
   - audioClip: {fileID: 8300000, guid: b315f72ccd9ab45feb25173f1d7cba9b, type: 3}
     cueNumber: 1
     accessibleAlternative: '[cat meowing angrily]'
-  - audioClip: {fileID: 8300000, guid: a5680815715fd4f3293b87ac428af7a3, type: 3}
+  - audioClip: {fileID: 8300000, guid: 5843b966550de488ca6e8d5d79b3e293, type: 3}
     cueNumber: 2
-    accessibleAlternative: '[latin hip-hop music]'
-  - audioClip: {fileID: 8300000, guid: 54483b6a87255442f8b6317b00bf18f6, type: 3}
-    cueNumber: 3
-    accessibleAlternative: '[downtempo percussion and male vocals]'
+    accessibleAlternative: '[audio track for The Afterparty]'
   videoCues:
   - videoClip: {fileID: 32900000, guid: d71ea68e903b947a7bf3381ab2173720, type: 3}
     cueNumber: 1
