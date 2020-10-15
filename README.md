@@ -1,18 +1,18 @@
 # Cohort Unity Client
+Cohort's Unity Client allows you to easily create Android and iOS apps that can respond to Cohort cues to:
+- play audio
+- play video
+- display images
+- make a phone vibrate (also known as haptics)
 
-This Unity project includes the [Cohort Unity Client asset package](https://cohort.rocks/cohort-unity-client.unitypackage) and is useful as a template or for testing Cohort. If you have an existing Unity project, you can download and install the asset package linked above, and import it into your project.
+If you are starting from scratch, skip ahead to the section "Using the example Unity project".
+
+If you already have a Unity app, and you want to integrate Cohort functionality, download the Cohort Unity Client asset package and import it into your Unity project.
 
 ## Using the example Unity project
 - clone or download this repo and open it in Unity
 - open up CohortUnityClient/Scenes/CohortDemoScene and have a look at the CohortManager GameObject
 - it connects to a Cohort server (online or local), keeps track of sound and video cues, and triggers them in response to Cohort messages received over the network
-
-## Getting started with the Cohort Unity Client
-- download the Cohort Unity Client asset package and import it into your Unity project
-
-### Import (paid) dependencies from Unity Asset Store
-- [BestHTTP](https://assetstore.unity.com/packages/tools/network/best-http-10872)
-- [iOS Native Flashlight](https://assetstore.unity.com/packages/tools/integration/ios-native-flashlight-129556)
 
 ### Setting up cues
 - create a plain GameObject and name it 'CohortManager'

@@ -19,15 +19,11 @@
 
 # For Cohort
 /builds
-/**/Best HTTP (Pro)
-/**/FlashLight
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
 #... unless it's an external lib
-Assets/Best HTTP (Pro).meta
-Assets/FlashLight.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
