@@ -1253,12 +1253,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202f157f33e844f9796b7a82e6543b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverURL: https://cohort.rocks
+  serverURL: https://tpm.cohort.rocks
   httpPort: 0
-  username: demouser
-  password: demodemo
-  eventId: 8
-  clientOccasion: 9
+  username: 1111ASLAR
+  password: cohortrocks
+  eventId: 12
+  clientOccasion: 14
   clientGrouping: all
   soundCues:
   - audioClip: {fileID: 8300000, guid: b315f72ccd9ab45feb25173f1d7cba9b, type: 3}
