@@ -4,26 +4,42 @@ using UnityEngine;
 
 public class DragByTouch : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+  // Start is called before the first frame update
+  float tempZAxis;
+  public SpriteRenderer selection;
+  void Update()
+  {
+    Touch[] touch = Input.touches;
+    for (int i = 0; i < touch.Length; i++)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    if (Input.touchCount > 0)
-    {
-      Touch touch = Input.GetTouch(0); // get first touch since touch count is greater than zero
-
-      if (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+      Vector2 ray = Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+      RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+      switch (touch[i].phase)
       {
-        // get the touch position from the screen touch to world point
-        Vector3 touchedPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 10));
-        // lerp and set the position of the current object to that of the touch, but smoothly over time.
-        transform.position = Vector3.Lerp(transform.position, touchedPos, Time.deltaTime);
+        case TouchPhase.Began:
+          if (hit)
+          {
+            selection = hit.transform.gameObject.GetComponent<SpriteRenderer>();
+            if (selection != null)
+            {
+              tempZAxis = selection.transform.position.z;
+            }
+          }
+          break;
+        case TouchPhase.Moved:
+          Vector3 tempVec = Camera.main.ScreenToWorldPoint(touch[i].position);
+          tempVec.z = tempZAxis; //Make sure that the z zxis never change
+          if (selection != null)
+          {
+            selection.transform.position = tempVec;
+          }
+          break;
+        case TouchPhase.Ended:
+          selection = null;
+          break;
       }
+
     }
   }
+
 }
