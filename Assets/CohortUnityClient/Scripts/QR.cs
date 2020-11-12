@@ -16,7 +16,7 @@ public class QR : MonoBehaviour
 
   void Start()
   {
-    screenRect = new Rect(0, 0, Screen.height, Screen.width);
+    screenRect = new Rect(0, 0, Screen.width, Screen.height);
 
     camTexture = new WebCamTexture();
     camTexture.requestedHeight = Screen.height;
