@@ -12,10 +12,12 @@ public class QR : MonoBehaviour
   private WebCamTexture camTexture;
   private Rect screenRect;
   static public string QRresults;
+  Vector2 pivotPoint; 
 
   void Start()
   {
-    screenRect = new Rect(0, 0, Screen.width, Screen.height);
+    screenRect = new Rect(0, 0, Screen.height, Screen.width);
+
     camTexture = new WebCamTexture();
     camTexture.requestedHeight = Screen.height;
     camTexture.requestedWidth = Screen.width;
@@ -28,7 +30,11 @@ public class QR : MonoBehaviour
 
   void OnGUI()
   {
+    //rotate image
+    pivotPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+    GUIUtility.RotateAroundPivot(180, pivotPoint);
     // drawing the camera on screen
+
     GUI.DrawTexture(screenRect, camTexture, ScaleMode.ScaleToFit);
     // do the reading — you might want to attempt to read less often than you draw on the screen for performance sake
     try
