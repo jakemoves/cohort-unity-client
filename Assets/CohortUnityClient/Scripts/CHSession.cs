@@ -158,9 +158,11 @@ namespace Cohort
 
 
       QRurl brokenUpQrUrl = parseQrUrl(URL_from_QR);
-
-      serverURL = brokenUpQrUrl.scheme + "://" + brokenUpQrUrl.host;
-      clientOccasion = findOccasionIdInUrl(brokenUpQrUrl.occasionID);
+      if (URL_from_QR != " ")
+      {
+        serverURL = brokenUpQrUrl.scheme + "://" + brokenUpQrUrl.host;
+        clientOccasion = findOccasionIdInUrl(brokenUpQrUrl.occasionID);
+      }
 
 
     }
