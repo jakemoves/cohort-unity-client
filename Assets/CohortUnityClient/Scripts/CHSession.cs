@@ -827,10 +827,12 @@ namespace Cohort
             return;
           }
           string textOfCue;
-          if(msg.cueContent != null){
-            textOfCue = msg.cueContent;
+
+          if(msg.cueContent != null) {
+            //adding padding for backing in a kinda hacky way
+            textOfCue = " " + msg.cueContent + " "; 
           } else if(textCue.text != null) {
-            textOfCue = textCue.text;
+            textOfCue =" " + textCue.text + " ";
           } else {
             Debug.Log("Error: Failed to find text for text cue in onboard text cues or in remote cue");
             return;

@@ -559,7 +559,7 @@ PlayerSettings:
   enableInternalProfiler: 0
   logObjCUncaughtExceptions: 1
   enableCrashReportAPI: 0
-  cameraUsageDescription: QR scanner require use of your camera
+  cameraUsageDescription: QR scanner and camera view require camera access
   locationUsageDescription: 
   microphoneUsageDescription: 
   switchNetLibKey: 
