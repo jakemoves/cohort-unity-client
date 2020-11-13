@@ -826,7 +826,8 @@ namespace Cohort
             return;
           }
           string textOfCue;
-          if(msg.cueContent != null){
+
+          if(msg.cueContent != null) { 
             textOfCue = msg.cueContent;
           } else if(textCue.text != null) {
             textOfCue = textCue.text;
