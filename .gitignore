@@ -20,6 +20,10 @@
 # For Cohort
 /builds
 
+# For TPM ASL/AR Residency, Nov 2020
+/Assets/CohortUnityClient/Resources/tpm-video.meta
+/Assets/CohortUnityClient/Resources/tpm-video/
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
