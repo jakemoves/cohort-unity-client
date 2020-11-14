@@ -8,6 +8,8 @@ public class CohortUIManager : MonoBehaviour
 {
   TMPro.TextMeshProUGUI textCueDisplay;
   TMPro.TextMeshProUGUI statusDisplay;
+  TMPro.TextMeshProUGUI textCueBackground;
+  GameObject videoSurface;
 
   // Start is called before the first frame update
   void Start()
@@ -20,7 +22,15 @@ public class CohortUIManager : MonoBehaviour
     textCueDisplay = GameObject.Find("Text Cue Display").GetComponent<TMPro.TextMeshProUGUI>();
     textCueDisplay.text = "";
     statusDisplay = GameObject.Find("Status Display").GetComponent<TMPro.TextMeshProUGUI>();
-  }
+
+    textCueBackground = GameObject.Find("TextBack").GetComponent<TMPro.TextMeshProUGUI>();
+    videoSurface = GameObject.Find("CohortVideoSurface");
+
+		// ASL Video only, hide captions
+		textCueDisplay.enabled = false;
+		textCueBackground.enabled = false;
+
+	}
 
   // Update is called once per frame
   void Update()
@@ -29,11 +39,18 @@ public class CohortUIManager : MonoBehaviour
   }
 
   void onTextCueHandler(CueAction cueAction, string cueText) {
-    if(cueAction == CueAction.play) { 
-      textCueDisplay.text = cueText;
-    } else if(cueAction == CueAction.stop) {
-      textCueDisplay.text = "";
-    }
+    if(textCueBackground)
+		{
+			if (cueAction == CueAction.play)
+			{
+				textCueDisplay.text = cueText;
+			}
+			else if (cueAction == CueAction.stop)
+			{
+				textCueDisplay.text = "";
+			}
+		}
+   
   }
 
   void onStatusUpdateHandler(string message) {
@@ -62,4 +79,15 @@ public class CohortUIManager : MonoBehaviour
 	XRGeneralSettings.Instance.Manager.DeinitializeLoader();
 	Debug.Log("XR stopped completely.");
   }
+
+  public void toggleCaptions()
+	{
+      textCueDisplay.enabled = !textCueDisplay.enabled;
+      textCueBackground.enabled = textCueDisplay.enabled;
+	}
+
+  public void toggleVideo()
+	{
+        videoSurface.SetActive(!videoSurface.activeSelf);
+	}
 }
