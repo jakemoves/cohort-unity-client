@@ -27,8 +27,11 @@ public class CohortUIManager : MonoBehaviour
     videoSurface = GameObject.Find("CohortVideoSurface");
 
 		// ASL Video only, hide captions
-		textCueDisplay.enabled = false;
-		textCueBackground.enabled = false;
+		//textCueDisplay.enabled = false;
+		//textCueBackground.enabled = false;
+
+		// Captions only, hide video
+		videoSurface.SetActive(false);
 
 	}
 
