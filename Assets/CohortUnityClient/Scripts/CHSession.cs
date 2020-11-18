@@ -27,6 +27,10 @@ namespace Cohort
      */
 
     [Header("Server Info")]
+    [SerializeField]
+    //address is stored in player prefs from previous scene
+    //set this to false if only working within the cohortDemoScene
+    private bool useStoredAddress;
 
     [SerializeField]
     private string serverURL;
@@ -152,20 +156,6 @@ namespace Cohort
     //get url from QR code
     private string URL_from_QR;
 
-    private void OnEnable()
-    {
-      URL_from_QR = PlayerPrefs.GetString("URL_from_QR", " ");
-
-
-      QRurl brokenUpQrUrl = parseQrUrl(URL_from_QR);
-      if (URL_from_QR != " ")
-      {
-        serverURL = brokenUpQrUrl.scheme + "://" + brokenUpQrUrl.host;
-        clientOccasion = findOccasionIdInUrl(brokenUpQrUrl.occasionID);
-      }
-
-
-    }
 
     public class QRurl
     {
@@ -233,9 +223,37 @@ namespace Cohort
       return cohortUpdatedURL;
 
     }
-      
+
+    void serverUrlFromPlayerPefs(bool usePlayerPrefs)
+    {
+      if (usePlayerPrefs)
+      {
+        URL_from_QR = PlayerPrefs.GetString("URL_from_QR", " ");
+
+
+        QRurl brokenUpQrUrl = parseQrUrl(URL_from_QR);
+        if (URL_from_QR != " ")
+        {
+          serverURL = brokenUpQrUrl.scheme + "://" + brokenUpQrUrl.host;
+          clientOccasion = findOccasionIdInUrl(brokenUpQrUrl.occasionID);
+        }
+      } else
+      {
+        return;
+      }
+    }
+
+    private void OnEnable()
+    {
+      serverUrlFromPlayerPefs(useStoredAddress);
+
+    }
+
     void OnValidate() {
       //Debug.Log("OnValidate");
+      //if true use stored server url, if false use editor url
+      serverUrlFromPlayerPefs(useStoredAddress);
+
       //first check if we need to authenticate
       if (jwtToken == "" || cachedUsername != username){
         Debug.Log("Logging into Cohort...");
