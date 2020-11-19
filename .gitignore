@@ -20,6 +20,9 @@
 # For Cohort
 /builds
 
+/Assets/CohortUnityClient/Resources/tpm-video/
+/Assets/CohortUnityClient/Resources/tpm-video.meta
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 

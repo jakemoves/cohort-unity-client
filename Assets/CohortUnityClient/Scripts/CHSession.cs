@@ -557,6 +557,7 @@ namespace Cohort
       msg.guid = deviceGUID;
       msg.occasionId = occasion;
       string message = JsonMapper.ToJson(msg);
+      Debug.Log(message);
 
       cs.Send(message);
     }
