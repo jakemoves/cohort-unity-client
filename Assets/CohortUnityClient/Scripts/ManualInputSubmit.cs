@@ -14,25 +14,36 @@ public class ManualInputSubmit : MonoBehaviour
   {
     Text input = gameObject.GetComponent<Text>();
     string inputConverted = input.text;
-    //this needs error handling in case user inputs invalid url structure
-    Uri url = new Uri(inputConverted);
 
-    if(UrlHasOccasion(url)){
-      PlayerPrefs.SetString("URL_from_QR", input.text);
-      SceneManager.LoadScene("CohortDemoScene");
-    } else
+    try
     {
-      //this error message needs to be more comprehensive but gives the user some indication something isn't right
+      Uri url = new Uri(inputConverted);
+      //check that url is well formatted and that it at least has "join/occasion" in its path
+      if (UrlHasOccasion(url) && url.IsWellFormedOriginalString())
+      {
+        PlayerPrefs.SetString("URL_from_QR", input.text);
+        SceneManager.LoadScene("CohortDemoScene");
+      }
+      else
+      {
+        throw new UriFormatException("Url not in expected format");
+      }
+      
+     
+    } catch (UriFormatException e)
+    {
       errorMessage.SetActive(true);
+      throw new UriFormatException ("Url not in expected format", e);
     }
+
   }
 
   //a more comprehensive check could be implemented if you know exactly which server will be targeted
-  //for now we just check that it contains "occasion"
+  //for now we just check that it contains "join/occasion"
   bool UrlHasOccasion(Uri url)
   {
     string path = url.AbsolutePath;
-    string urlInput = "(occasion)";
+    string urlInput = "(join/occasions)";
 
     // Instantiate the regular expression objects.
     Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);

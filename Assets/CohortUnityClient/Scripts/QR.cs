@@ -83,22 +83,39 @@ public class QR : MonoBehaviour
         Debug.Log("DECODED TEXT FROM QR: " + result.Text);
         QRresults = result.Text;
         Uri uri = new Uri(QRresults);
-        if (UrlHasOccasion(uri))
-        {
-          PlayerPrefs.SetString("URL_from_QR", QRresults);
-          backCam.Stop();
-          success.SetActive(true);
-          SceneManager.LoadScene("CohortDemoScene");
-        }
+        checkURL(uri);
       }
     }
     catch (Exception ex) { Debug.LogWarning(ex.Message); }
   }
 
+  public void checkURL(Uri url)
+  {
+    try
+    {
+      //check that url is well formatted and that it at least has "join/occasion" in its path
+      if (UrlHasOccasion(url) && url.IsWellFormedOriginalString())
+      {
+        PlayerPrefs.SetString("URL_from_QR", QRresults);
+        backCam.Stop();
+        success.SetActive(true);
+        SceneManager.LoadScene("CohortDemoScene");
+      }
+
+    }
+    catch (UriFormatException e)
+    {
+      throw new UriFormatException("Url not in expected format", e);
+    }
+
+  }
+
+  //a more comprehensive check could be implemented if you know exactly which server will be targeted
+  //for now we just check that it contains "join/occasion"
   bool UrlHasOccasion(Uri url)
   {
     string path = url.AbsolutePath;
-    string urlInput = "(occasion)";
+    string urlInput = "(join/occasions)";
 
     // Instantiate the regular expression objects.
     Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);
