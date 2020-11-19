@@ -27,6 +27,10 @@ namespace Cohort
      */
 
     [Header("Server Info")]
+    [SerializeField]
+    //address is stored in player prefs from previous scene
+    //set this to false if only working within the cohortDemoScene
+    private bool useStoredAddress;
 
     [SerializeField]
     private string serverURL;
@@ -149,6 +153,35 @@ namespace Cohort
     private Boolean successfulServerRequest;
     private string cachedUsername;
 
+    //get url from QR code
+    private string URL_from_QR;
+
+
+    public class QRurl
+    {
+      public string scheme { get; set; }
+      public string host { get; set; }
+      public string occasionID { get; set; }
+    }
+
+    QRurl parseQrUrl(string url)
+    {
+       QRurl parsedUrl = new QRurl();
+      Uri URL = new Uri(url);
+      parsedUrl.host = URL.Host;
+      parsedUrl.scheme = URL.Scheme;
+      parsedUrl.occasionID = URL.PathAndQuery;
+      return parsedUrl;
+
+    }
+
+    int findOccasionIdInUrl(string path)
+    {
+      string[] pathElements = path.Split('/');
+      int id;
+      int.TryParse(pathElements[3], out id);
+      return id;
+    }
 
     [Serializable]
     public class JwtToken
@@ -190,9 +223,37 @@ namespace Cohort
       return cohortUpdatedURL;
 
     }
-      
+
+    void serverUrlFromPlayerPefs(bool usePlayerPrefs)
+    {
+      if (usePlayerPrefs)
+      {
+        URL_from_QR = PlayerPrefs.GetString("URL_from_QR", " ");
+
+
+        QRurl brokenUpQrUrl = parseQrUrl(URL_from_QR);
+        if (URL_from_QR != " ")
+        {
+          serverURL = brokenUpQrUrl.scheme + "://" + brokenUpQrUrl.host;
+          clientOccasion = findOccasionIdInUrl(brokenUpQrUrl.occasionID);
+        }
+      } else
+      {
+        return;
+      }
+    }
+
+    private void OnEnable()
+    {
+      serverUrlFromPlayerPefs(useStoredAddress);
+
+    }
+
     void OnValidate() {
       //Debug.Log("OnValidate");
+      //if true use stored server url, if false use editor url
+      serverUrlFromPlayerPefs(useStoredAddress);
+
       //first check if we need to authenticate
       if (jwtToken == "" || cachedUsername != username){
         Debug.Log("Logging into Cohort...");
@@ -200,6 +261,8 @@ namespace Cohort
         userCredentials.username = username;
         userCredentials.password = password;
         string loginJson = JsonMapper.ToJson(userCredentials);
+
+
 
         StartCoroutine(authenticationRequest(cohortApiUrl(serverURL), loginJson));
 
@@ -318,7 +381,12 @@ namespace Cohort
 
     // Use this for initialization
     void Start() {
-        
+
+      
+
+      Debug.Log(URL_from_QR);
+
+
       Debug.Log("CHSession:Start()");
 
       // Universal links
@@ -776,10 +844,12 @@ namespace Cohort
             return;
           }
           string textOfCue;
-          if(msg.cueContent != null){
-            textOfCue = msg.cueContent;
+
+          if(msg.cueContent != null) {
+            //adding padding for backing in a kinda hacky way
+            textOfCue = " " + msg.cueContent + " "; 
           } else if(textCue.text != null) {
-            textOfCue = textCue.text;
+            textOfCue =" " + textCue.text + " ";
           } else {
             Debug.Log("Error: Failed to find text for text cue in onboard text cues or in remote cue");
             return;
