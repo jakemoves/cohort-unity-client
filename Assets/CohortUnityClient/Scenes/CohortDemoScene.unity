@@ -161,7 +161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -97, y: -48}
+  m_AnchoredPosition: {x: -115, y: -48}
   m_SizeDelta: {x: 130, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7935179
@@ -426,20 +426,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377207713}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &377207717
-Transform:
+--- !u!224 &377207717
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377207713}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -55.2, y: 14.74, z: 94.4}
-  m_LocalScale: {x: 96, y: 108, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 180, y: 101, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &446927028
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,7 +944,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: -10
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &653245615
 RectTransform:
@@ -1406,7 +1411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -97, y: -134.9}
+  m_AnchoredPosition: {x: -115.00003, y: -134.9}
   m_SizeDelta: {x: 130, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1318880814
@@ -1545,10 +1550,10 @@ VideoPlayer:
   m_TargetCamera: {fileID: 963194227}
   m_TargetTexture: {fileID: 8400000, guid: 036396b6f8bd04a84989054bddaece03, type: 2}
   m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialRenderer: {fileID: 377207715}
   m_TargetMaterialProperty: _MainTex
   m_RenderMode: 2
-  m_AspectRatio: 0
+  m_AspectRatio: 5
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
@@ -2170,10 +2175,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useStoredAddress: 1
   serverURL: http://localhost
-  httpPort: 0
+  httpPort: 3000
   username: demouser
   password: demodemo
-  eventId: 6
+  eventId: 1
   clientOccasion: 6
   clientGrouping: all
   soundCues:
@@ -2187,18 +2192,14 @@ MonoBehaviour:
     cueNumber: 3
     accessibleAlternative: '[downtempo percussion and male vocals]'
   videoCues:
-  - videoClip: {fileID: 32900000, guid: d71ea68e903b947a7bf3381ab2173720, type: 3}
+  - videoClip: {fileID: 32900000, guid: 554a5c7fd7ce0463085bc7dee5cf095a, type: 3}
     cueNumber: 1
-  - videoClip: {fileID: 32900000, guid: 79cd7426ff55a41889096574f76ec66a, type: 3}
+  - videoClip: {fileID: 32900000, guid: ac995cc1ec57b4daeac1ff51e9431e9c, type: 3}
     cueNumber: 2
-  - videoClip: {fileID: 32900000, guid: 199a42e28dc0441599b8cd4feabfce80, type: 3}
+  - videoClip: {fileID: 32900000, guid: 4d3588f27894340ab91c769b184d96ab, type: 3}
     cueNumber: 3
-  - videoClip: {fileID: 32900000, guid: ff442d9672b6c489f8804339f8216f64, type: 3}
+  - videoClip: {fileID: 32900000, guid: 818c31ee6c4f64dc3a1de4d38d70e7af, type: 3}
     cueNumber: 4
-  - videoClip: {fileID: 32900000, guid: d99d197094c204a4fab1d65d67cbd79f, type: 3}
-    cueNumber: 5
-  - videoClip: {fileID: 32900000, guid: 54728f753ec0e47a888e447e9db46e85, type: 3}
-    cueNumber: 6
   imageCues:
   - image: {fileID: 21300000, guid: 7f2d4731884ff4b94b5a6d5a236f9e08, type: 3}
     cueNumber: 1
