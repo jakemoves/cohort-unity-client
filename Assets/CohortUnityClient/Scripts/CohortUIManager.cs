@@ -5,6 +5,7 @@ using Cohort;
 
 public class CohortUIManager : MonoBehaviour
 {
+    TMPro.TextMeshProUGUI[] captions;
   TMPro.TextMeshProUGUI textCueDisplay;
   TMPro.TextMeshProUGUI statusDisplay;
   TMPro.TextMeshProUGUI textCueBackground;
@@ -17,12 +18,14 @@ public class CohortUIManager : MonoBehaviour
     cohortSession.onTextCue += onTextCueHandler;
     cohortSession.onStatusChanged += onStatusUpdateHandler;
 
+    
     textCueDisplay = GameObject.Find("Text Cue Display").GetComponent<TMPro.TextMeshProUGUI>();
     textCueDisplay.text = "";
     statusDisplay = GameObject.Find("Status Display").GetComponent<TMPro.TextMeshProUGUI>();
 
-    textCueBackground = GameObject.Find("TextBack").GetComponent<TMPro.TextMeshProUGUI>();
-    
+    textCueBackground = GameObject.Find("BackingForCaptions").GetComponent<TMPro.TextMeshProUGUI>();
+
+    captions = GameObject.Find("TextCueDisplay").GetComponentsInChildren<TMPro.TextMeshProUGUI>();
   }
 
   // Update is called once per frame
@@ -45,8 +48,13 @@ public class CohortUIManager : MonoBehaviour
 
   public void toggleCaptions()
 	{
-      textCueDisplay.enabled = !textCueDisplay.enabled;
-      textCueBackground.enabled = textCueDisplay.enabled;
+        captions = GameObject.Find("TextCueDisplay").GetComponentsInChildren<TMPro.TextMeshProUGUI>();
+        foreach(TMPro.TextMeshProUGUI textbox in captions)
+		{
+              textbox.enabled = !textbox.enabled;
+		}
+		//textCueDisplay.enabled = !textCueDisplay.enabled;
+  //    textCueBackground.enabled = textCueDisplay.enabled;
 	}
 
 }
