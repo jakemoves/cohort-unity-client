@@ -13,9 +13,7 @@ using BestHTTP.WebSocket;
 using LitJson;
 using UnityEditor;
 using UnityEngine.Networking;
-
-
-
+using UnityEngine.UI;
 
 namespace Cohort
 {
@@ -109,6 +107,7 @@ namespace Cohort
 
     //[SerializeField]
     private GameObject connectionIndicator;
+    private Image connectionImage;
 
     /*
      * Events
@@ -382,7 +381,8 @@ namespace Cohort
     // Use this for initialization
     void Start() {
 
-      
+      connectionIndicator = GameObject.Find("RuntimeConnectionIndicator");
+      connectionImage = connectionIndicator.GetComponent<Image>();
 
       Debug.Log(URL_from_QR);
 
@@ -578,6 +578,8 @@ namespace Cohort
           onStatusChanged("Connected to Cohort (occasion id:" + occasion + groupingStatus + ")");
           socketConnectionActive = true;
           //connectionIndicator.SetActive(true);
+          connectionImage.color = Color.green;
+         
         }
       } else
       // this is an ugly way to make sure it's a CHMessage, ugh
@@ -602,6 +604,7 @@ namespace Cohort
       socketConnectionActive = false;
       onStatusChanged("Lost connection. Error code: " + code.ToString() + ", reason: " + msg);
       //connectionIndicator.SetActive(false);
+      connectionImage.color = Color.red;
     }
 
     void OnWebSocketErrorDescription(WebSocket cs, string error) {
@@ -609,6 +612,7 @@ namespace Cohort
       socketConnectionActive = false;
       onStatusChanged("Lost connection. WebSocket error: " + error);
       //connectionIndicator.SetActive(false);
+      connectionImage.color = Color.red;
     }
 
     /*
