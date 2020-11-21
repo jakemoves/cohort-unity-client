@@ -230,13 +230,13 @@ namespace Cohort
       {
         URL_from_QR = PlayerPrefs.GetString("URL_from_QR", " ");
 
-
         if (URL_from_QR != " ")
-		{
-		  QRurl brokenUpQrUrl = parseQrUrl(URL_from_QR);
-		  serverURL = brokenUpQrUrl.scheme + "://" + brokenUpQrUrl.host;
+		    {
+		      QRurl brokenUpQrUrl = parseQrUrl(URL_from_QR);
+		      serverURL = brokenUpQrUrl.scheme + "://" + brokenUpQrUrl.host;
           clientOccasion = findOccasionIdInUrl(brokenUpQrUrl.occasionID);
         }
+
       } else
       {
         return;

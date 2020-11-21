@@ -22,6 +22,8 @@ public class QR : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+
+
     backgroundTexture = backgroundImage.texture;
     WebCamDevice[] devices = WebCamTexture.devices;
 
@@ -58,35 +60,39 @@ public class QR : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (!camAvailable)
-    {
-      return;
-    }
-
-    float ratio = (float)backCam.width / (float)backCam.height;
-    fit.aspectRatio = ratio;
-
-    float scaleY = backCam.videoVerticallyMirrored ? -1f : 1f;
-    backgroundImage.rectTransform.localScale = new Vector3(1f, scaleY, 1f);
-
-    int orient = -backCam.videoRotationAngle;
-    backgroundImage.rectTransform.localEulerAngles = new Vector3(0, 0, orient);
-
-    try
-    {
-      IBarcodeReader barcodeReader = new BarcodeReader();
-      // decode the current frame
-      var result = barcodeReader.Decode(backCam.GetPixels32(),
-        backCam.width, backCam.height);
-      if (result != null)
+    
+      if (!camAvailable)
       {
-        Debug.Log("DECODED TEXT FROM QR: " + result.Text);
-        QRresults = result.Text;
-        Uri uri = new Uri(QRresults);
-        checkURL(uri);
+        return;
       }
-    }
-    catch (Exception ex) { Debug.LogWarning(ex.Message); }
+
+      float ratio = (float)backCam.width / (float)backCam.height;
+      fit.aspectRatio = ratio;
+
+      float scaleY = backCam.videoVerticallyMirrored ? -1f : 1f;
+      backgroundImage.rectTransform.localScale = new Vector3(1f, scaleY, 1f);
+
+      int orient = -backCam.videoRotationAngle;
+      backgroundImage.rectTransform.localEulerAngles = new Vector3(0, 0, orient);
+
+      try
+      {
+        IBarcodeReader barcodeReader = new BarcodeReader();
+        // decode the current frame
+        var result = barcodeReader.Decode(backCam.GetPixels32(),
+          backCam.width, backCam.height);
+        if (result != null)
+        {
+          Debug.Log("DECODED TEXT FROM QR: " + result.Text);
+          QRresults = result.Text;
+          Uri uri = new Uri(QRresults);
+          checkURL(uri);
+        }
+      }
+      catch (Exception ex) { Debug.LogWarning(ex.Message); }
+    
+
+     
   }
 
   public void checkURL(Uri url)
@@ -126,6 +132,6 @@ public class QR : MonoBehaviour
     return (matchUrl.Length > 0) ? true : false;
   }
 
-
+  
 }
 
