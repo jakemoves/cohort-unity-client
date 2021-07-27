@@ -1359,7 +1359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1318880813
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1377,7 +1377,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -115.00003, y: -134.9}
+  m_AnchoredPosition: {x: -115, y: -134.90002}
   m_SizeDelta: {x: 130, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1318880814
@@ -2103,7 +2103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202f157f33e844f9796b7a82e6543b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useStoredAddress: 1
+  useStoredAddress: 0
   serverURL: https://cohort.rocks
   httpPort: 0
   username: MeetMe
@@ -2112,28 +2112,36 @@ MonoBehaviour:
   clientOccasion: 21
   clientGrouping: all
   soundCues:
-  - audioClip: {fileID: 8300000, guid: b315f72ccd9ab45feb25173f1d7cba9b, type: 3}
+  - audioClip: {fileID: 8300000, guid: ab5e80414fa074717b00931987ab54cf, type: 3}
     cueNumber: 1
-    accessibleAlternative: '[cat meowing angrily]'
-  - audioClip: {fileID: 8300000, guid: a5680815715fd4f3293b87ac428af7a3, type: 3}
+    accessibleAlternative: '[placeholder for The Current podcast]'
+  - audioClip: {fileID: 8300000, guid: dd613999e686243d2aca8ca3ba76f03f, type: 3}
     cueNumber: 2
-    accessibleAlternative: '[latin hip-hop music]'
-  - audioClip: {fileID: 8300000, guid: 54483b6a87255442f8b6317b00bf18f6, type: 3}
+    accessibleAlternative: '[chill lounge music]'
+  - audioClip: {fileID: 8300000, guid: 6d2bffe09f4914ca7a181b6e2d1f8e53, type: 3}
     cueNumber: 3
-    accessibleAlternative: '[downtempo percussion and male vocals]'
-  videoCues:
-  - videoClip: {fileID: 32900000, guid: 554a5c7fd7ce0463085bc7dee5cf095a, type: 3}
-    cueNumber: 1
-  - videoClip: {fileID: 32900000, guid: ac995cc1ec57b4daeac1ff51e9431e9c, type: 3}
-    cueNumber: 2
-  - videoClip: {fileID: 32900000, guid: 4d3588f27894340ab91c769b184d96ab, type: 3}
-    cueNumber: 3
-  - videoClip: {fileID: 32900000, guid: 818c31ee6c4f64dc3a1de4d38d70e7af, type: 3}
+    accessibleAlternative: '[Pussy Riot''s ''Straight Outta Vagina'']'
+  - audioClip: {fileID: 8300000, guid: 25c1a261fcf4f4183b512609be883eb4, type: 3}
     cueNumber: 4
-  imageCues:
-  - image: {fileID: 21300000, guid: 7f2d4731884ff4b94b5a6d5a236f9e08, type: 3}
+    accessibleAlternative: '[unknown]'
+  videoCues:
+  - videoClip: {fileID: 32900000, guid: 20b20cc6ca5b54823940a94eb8f0e816, type: 3}
     cueNumber: 1
-    accessibleAlternative: '[two kittens with a rainbow chase toy]'
+  - videoClip: {fileID: 32900000, guid: b9e86939f7a54479091662bf5abcc032, type: 3}
+    cueNumber: 2
+  imageCues:
+  - image: {fileID: 21300000, guid: d90c92b52850e4a3887b0e9f64d6b609, type: 3}
+    cueNumber: 1
+    accessibleAlternative: '[text message]'
+  - image: {fileID: 21300000, guid: c11a7d9798d254d6e9fc135d2be3329f, type: 3}
+    cueNumber: 2
+    accessibleAlternative: '[text message]'
+  - image: {fileID: 21300000, guid: c49bc65bb676a42849ed0a925d9a3fce, type: 3}
+    cueNumber: 3
+    accessibleAlternative: '[text message]'
+  - image: {fileID: 21300000, guid: 20e27681008144d019cfec663024113c, type: 3}
+    cueNumber: 4
+    accessibleAlternative: '[text message]'
   textCues:
   - text: Right...There..
     cueNumber: 1
