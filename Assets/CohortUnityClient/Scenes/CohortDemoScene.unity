@@ -2112,36 +2112,93 @@ MonoBehaviour:
   clientOccasion: 21
   clientGrouping: all
   soundCues:
-  - audioClip: {fileID: 8300000, guid: ab5e80414fa074717b00931987ab54cf, type: 3}
+  - audioClip: {fileID: 8300000, guid: 0393d9284dc164f29ada65baff7d0b98, type: 3}
     cueNumber: 1
     accessibleAlternative: '[placeholder for The Current podcast]'
-  - audioClip: {fileID: 8300000, guid: dd613999e686243d2aca8ca3ba76f03f, type: 3}
+  - audioClip: {fileID: 8300000, guid: 0182fefb12efc4f48b32bcd033b18e3b, type: 3}
     cueNumber: 2
     accessibleAlternative: '[chill lounge music]'
-  - audioClip: {fileID: 8300000, guid: 6d2bffe09f4914ca7a181b6e2d1f8e53, type: 3}
+  - audioClip: {fileID: 8300000, guid: c65b4f559480f42a8b696ea9d41f68a3, type: 3}
     cueNumber: 3
     accessibleAlternative: '[Pussy Riot''s ''Straight Outta Vagina'']'
-  - audioClip: {fileID: 8300000, guid: 25c1a261fcf4f4183b512609be883eb4, type: 3}
+  - audioClip: {fileID: 8300000, guid: 0622618416d6c4c6d8efdaceae71b9d3, type: 3}
     cueNumber: 4
     accessibleAlternative: '[unknown]'
   videoCues:
-  - videoClip: {fileID: 32900000, guid: 20b20cc6ca5b54823940a94eb8f0e816, type: 3}
+  - videoClip: {fileID: 32900000, guid: 31e584a72d545493db369a8817912e7c, type: 3}
     cueNumber: 1
-  - videoClip: {fileID: 32900000, guid: b9e86939f7a54479091662bf5abcc032, type: 3}
+  - videoClip: {fileID: 32900000, guid: d8b6c84583a7d4f3d88ff1a3c5f0afeb, type: 3}
     cueNumber: 2
-  imageCues:
-  - image: {fileID: 21300000, guid: d90c92b52850e4a3887b0e9f64d6b609, type: 3}
-    cueNumber: 1
-    accessibleAlternative: '[text message]'
-  - image: {fileID: 21300000, guid: c11a7d9798d254d6e9fc135d2be3329f, type: 3}
-    cueNumber: 2
-    accessibleAlternative: '[text message]'
-  - image: {fileID: 21300000, guid: c49bc65bb676a42849ed0a925d9a3fce, type: 3}
+  - videoClip: {fileID: 32900000, guid: 7b05fa7f2cf8141f38830b88347d694f, type: 3}
     cueNumber: 3
-    accessibleAlternative: '[text message]'
-  - image: {fileID: 21300000, guid: 20e27681008144d019cfec663024113c, type: 3}
+  - videoClip: {fileID: 32900000, guid: 28a905024427548ea8b97d5e19b1259b, type: 3}
     cueNumber: 4
-    accessibleAlternative: '[text message]'
+  - videoClip: {fileID: 32900000, guid: 5bbee3cedd3f74917931f34706bcceb9, type: 3}
+    cueNumber: 5
+  imageCues:
+  - image: {fileID: 21300000, guid: ed0604d03d2cc42c8860455b15474c33, type: 3}
+    cueNumber: 1
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 5320caef57f09451f8f388ee4e067ee1, type: 3}
+    cueNumber: 2
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 09c900cc02bcb466a855a2427befbec5, type: 3}
+    cueNumber: 3
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 1d02d1659d38540d488bf4c4a2e664dc, type: 3}
+    cueNumber: 4
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 36274f80b157343f19b259c31171d0e0, type: 3}
+    cueNumber: 5
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 1e1dbc5902296484ead0ca6afee13e8e, type: 3}
+    cueNumber: 6
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: d3d4b4c280b3e4c52a7610643713ecb6, type: 3}
+    cueNumber: 7
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 8207c5f6a91944c9b9b4141fa4ca556a, type: 3}
+    cueNumber: 8
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 36274f80b157343f19b259c31171d0e0, type: 3}
+    cueNumber: 9
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 301a41d0a865e4a70a3edb1d7af04d3f, type: 3}
+    cueNumber: 10
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 98cb7e8cecd464e50b229f8885ca9aba, type: 3}
+    cueNumber: 11
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: d0ace001d1f744dfabb27858c2ec1e5e, type: 3}
+    cueNumber: 12
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 2664b87bc3e0c46e18daecbfb3ca03ef, type: 3}
+    cueNumber: 13
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 1c37d8d9ca6174574a816fdb87160944, type: 3}
+    cueNumber: 14
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: d6ceb63a2ddd742d880efb876f2a2176, type: 3}
+    cueNumber: 15
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 36274f80b157343f19b259c31171d0e0, type: 3}
+    cueNumber: 16
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: e9481e65c846d481d9c02cd743e54ebe, type: 3}
+    cueNumber: 17
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: cb08d95ba5f644adca9d9b72b5d33e31, type: 3}
+    cueNumber: 18
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 2f1aa4ab36c4d4e1e987fd93033a0522, type: 3}
+    cueNumber: 19
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: 2187c361aaf1a4f7cb3ef5d7cbeaf0d0, type: 3}
+    cueNumber: 20
+    accessibleAlternative: 
+  - image: {fileID: 21300000, guid: d5aba113bb02b44b183a17896dd0e152, type: 3}
+    cueNumber: 21
+    accessibleAlternative: 
   textCues:
   - text: Right...There..
     cueNumber: 1
