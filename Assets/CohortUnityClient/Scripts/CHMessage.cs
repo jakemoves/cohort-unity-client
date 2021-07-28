@@ -89,7 +89,7 @@ namespace Cohort {
   }
 
     
-
+  [System.Serializable]
   public enum MediaDomain {
     sound,
     video,

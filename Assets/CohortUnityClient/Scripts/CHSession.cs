@@ -77,6 +77,11 @@ namespace Cohort
     [SerializeField]
     private List<CHTextCue> textCues;
 
+    [Header("Ordered Cuelist")]
+
+    [SerializeField]
+    private List<CueReference> orderedAssets;
+
     [Header("Settings")]
 
     [SerializeField]
@@ -156,6 +161,9 @@ namespace Cohort
     //get url from QR code
     private string URL_from_QR;
 
+    // for control bar
+    private int currentAssetIndex = 0;
+
 
     public class QRurl
     {
@@ -171,6 +179,7 @@ namespace Cohort
       parsedUrl.host = URL.Host;
       parsedUrl.scheme = URL.Scheme;
       parsedUrl.occasionID = URL.PathAndQuery;
+      Debug.Log(parsedUrl);
       return parsedUrl;
 
     }
@@ -229,7 +238,6 @@ namespace Cohort
       if (usePlayerPrefs)
       {
         URL_from_QR = PlayerPrefs.GetString("URL_from_QR", " ");
-
 
         QRurl brokenUpQrUrl = parseQrUrl(URL_from_QR);
         if (URL_from_QR != " ")
@@ -1027,6 +1035,35 @@ namespace Cohort
       }
 
     }
+
+    /* for control bar */
+    void updateControlBar(){
+      if(currentAssetIndex == orderedAssets.Length-1){
+        // disable next button
+      }
+      if(currentAssetIndex == 0){
+        // disable prev button
+      }
+
+      // set label to cue number + accessible alt.
+    }
+
+    public void onNextAssetBtn(){
+      currentAssetIndex++;
+      updateControlBar();
+    }
+
+    public void onPrevAssetBtn(){
+
+    }
+
+    public void onPlayAssetBtn(){
+      // send web request with auth, cue media domain, cue number, cue action = 0 
+    }
+    
+    public void onStopAssetBtn(){
+      // send web request with auth, cue media domain, cue number, cue action = 3
+    }
   }
 
   public class CHDeviceCreateResponse {
@@ -1048,4 +1085,9 @@ namespace Cohort
     public string password;
   }
 
+  [System.Serializable]
+  public struct CueReference {
+    public MediaDomain mediaDomain;
+    public double cueNumber;
+  }
 }

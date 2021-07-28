@@ -34,10 +34,9 @@ public class QR : MonoBehaviour
 
     for (int i = 0; i < devices.Length; i++)
     {
-      if (!devices[i].isFrontFacing)
+      if (!devices[i].isFrontFacing || (Application.isEditor && devices[i].name.Contains("FaceTime")))
       {
         backCam = new WebCamTexture(devices[i].name, Screen.width, Screen.height);
-
       }
 
     }
