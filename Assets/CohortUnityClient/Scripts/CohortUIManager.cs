@@ -8,6 +8,8 @@ public class CohortUIManager : MonoBehaviour
   TMPro.TextMeshProUGUI textCueDisplay;
   TMPro.TextMeshProUGUI statusDisplay;
   TMPro.TextMeshProUGUI textCueBackground;
+
+  GameObject cohortUI;
   
 
   // Start is called before the first frame update
@@ -22,7 +24,7 @@ public class CohortUIManager : MonoBehaviour
     statusDisplay = GameObject.Find("Status Display").GetComponent<TMPro.TextMeshProUGUI>();
 
     textCueBackground = GameObject.Find("TextBack").GetComponent<TMPro.TextMeshProUGUI>();
-    
+
   }
 
   // Update is called once per frame
@@ -48,5 +50,14 @@ public class CohortUIManager : MonoBehaviour
       textCueDisplay.enabled = !textCueDisplay.enabled;
       textCueBackground.enabled = textCueDisplay.enabled;
 	}
+
+  public void onShowUI(){
+    cohortUI.SetActive(true);
+  }
+
+  public void onHideUI(){
+    cohortUI = GameObject.Find("CohortUI");
+    cohortUI.SetActive(false);
+  }
 
 }
