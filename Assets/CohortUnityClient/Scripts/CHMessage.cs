@@ -75,7 +75,7 @@ namespace Cohort {
           return msg;
         }
 
-        struct Cue
+        public struct Cue
         {
       // float is throwing a Json Mapper max allowed depth error
           public MediaDomain mediaDomain;

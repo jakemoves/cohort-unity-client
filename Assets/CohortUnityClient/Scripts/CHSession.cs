@@ -7,6 +7,7 @@ using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.UI;
 using TMPro;
 using BestHTTP;
 using BestHTTP.WebSocket;
@@ -396,6 +397,7 @@ namespace Cohort
 
 
       Debug.Log("CHSession:Start()");
+      Debug.Log(jwtToken);
 
       // Universal links
       Application.deepLinkActivated += handleDeepLinkEvent;
@@ -450,6 +452,16 @@ namespace Cohort
       if (!string.IsNullOrEmpty(serverURL)) {
         openWebSocketConnection();
       }
+      
+      // for control bar
+      Debug.Log("Logging into Cohort...");
+      Credentials userCredentials = new Credentials();
+      userCredentials.username = username;
+      userCredentials.password = password;
+      string loginJson = JsonMapper.ToJson(userCredentials);
+
+      StartCoroutine(authenticationRequest(cohortApiUrl(serverURL), loginJson));
+      updateControlBar();
     }
 
     void HandleOnRequestFinishedDelegate(HTTPRequest originalRequest, HTTPResponse response) {
@@ -1036,16 +1048,30 @@ namespace Cohort
 
     }
 
-    /* for control bar */
+    /* 
+     *   for control bar 
+     */
+     
     void updateControlBar(){
-      if(currentAssetIndex == orderedAssets.Length-1){
+      Button nextBtn = GameObject.Find("Next Asset").GetComponent<Button>();
+      Button prevBtn = GameObject.Find("Prev Asset").GetComponent<Button>();
+
+      if(currentAssetIndex == orderedAssets.Count-1){
         // disable next button
+        nextBtn.interactable = false;
+      } else {
+        nextBtn.interactable = true;
       }
       if(currentAssetIndex == 0){
         // disable prev button
+        prevBtn.interactable = false;
+      } else {
+        prevBtn.interactable = true;
       }
 
       // set label to cue number + accessible alt.
+      TextMeshProUGUI assetLabel = GameObject.Find("Current Asset Label").GetComponent<TextMeshProUGUI>();
+      assetLabel.text = "" + orderedAssets[currentAssetIndex].mediaDomain + " cue " + orderedAssets[currentAssetIndex].cueNumber;
     }
 
     public void onNextAssetBtn(){
@@ -1054,15 +1080,102 @@ namespace Cohort
     }
 
     public void onPrevAssetBtn(){
-
+      currentAssetIndex--;
+      updateControlBar();
     }
 
     public void onPlayAssetBtn(){
       // send web request with auth, cue media domain, cue number, cue action = 0 
+      onFireCurrentAsset(CueAction.play);
     }
     
     public void onStopAssetBtn(){
       // send web request with auth, cue media domain, cue number, cue action = 3
+      onFireCurrentAsset(CueAction.stop);
+    }
+
+    void onFireCurrentAsset(CueAction cueAction) {
+      Debug.Log("onFireCurrentAsset");
+
+
+      Debug.Log(jwtToken);
+      Debug.Log(cachedUsername);
+
+      //first check if we need to authenticate
+      // if (jwtToken == "" || cachedUsername != username){
+      //   Debug.Log("Logging into Cohort...");
+      //   Credentials userCredentials = new Credentials();
+      //   userCredentials.username = username;
+      //   userCredentials.password = password;
+      //   string loginJson = JsonMapper.ToJson(userCredentials);
+
+      //   StartCoroutine(authenticationRequest(cohortApiUrl(serverURL), loginJson));
+
+      // } else {
+
+        successfulServerRequest = false;
+
+        Cue assetCue = new Cue();
+        assetCue.mediaDomain = orderedAssets[currentAssetIndex].mediaDomain;
+        assetCue.cueNumber = orderedAssets[currentAssetIndex].cueNumber;
+        assetCue.cueAction = cueAction;
+        assetCue.targetTags = new List<string>() { "all" };
+
+        string jsonCue = JsonMapper.ToJson(assetCue);
+
+        Debug.Log(jsonCue);
+
+        StartCoroutine(fireCue(cohortApiUrl(serverURL), jsonCue));
+      // }
+    } 
+
+    struct Cue {
+      // float is throwing a Json Mapper max allowed depth error
+      public MediaDomain mediaDomain;
+      public double cueNumber;
+      public CueAction cueAction;
+      public List<string> targetTags;
+    }
+
+    // Cue findCue(MediaDomain mediaDomain, double cueNumber){
+    //   if(mediaDomain == MediaDomain.sound){
+    //     return soundCues.Find( cue => cue.cueNumber == cueNumber);
+    //   } else if(mediaDomain == MediaDomain.video){
+    //     return videoCues.Find( cue => cue.cueNumber == cueNumber);
+    //   } else if(mediaDomain == mediaDomain.image){
+    //     return imageCues.Find( cue => cue.cueNumber == cueNumber);
+    //   } else {
+    //     Debug.Log("Error: media domain not supported for this operation FindCue()");
+    //     return null;
+    //   }
+    // }
+
+    IEnumerator fireCue(string uri, string json)
+    {
+      Debug.Log("fireCue");
+      Debug.Log(uri);
+      Debug.Log(json);
+      using (UnityWebRequest cohortBroadcastRequest = UnityWebRequest.Put(uri + "/occasions/" + clientOccasion + "/broadcast", json))
+      {
+        cohortBroadcastRequest.SetRequestHeader("Content-Type", "application/json");
+        cohortBroadcastRequest.SetRequestHeader("Authorization", "JWT " + jwtToken);
+        cohortBroadcastRequest.method = "POST";
+        // Request and wait for the desired page.
+        yield return cohortBroadcastRequest.SendWebRequest();
+
+        if (cohortBroadcastRequest.isNetworkError) {
+          Debug.Log("Error: " + cohortBroadcastRequest.error);
+
+        } else if (cohortBroadcastRequest.isHttpError || cohortBroadcastRequest.responseCode != 200) {
+          Debug.Log("Error: " + cohortBroadcastRequest.downloadHandler.text + " (code " + cohortBroadcastRequest.responseCode + ")");
+        } else {
+          //if package returned from the server successfully
+          Debug.Log("Received: " + cohortBroadcastRequest.downloadHandler.text);
+          successfulServerRequest = true;
+          Debug.Log("Save complete");
+        }
+
+      }
     }
   }
 
