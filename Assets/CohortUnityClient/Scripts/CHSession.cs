@@ -42,10 +42,10 @@ namespace Cohort
     [Header("Authentication")]
 
     [SerializeField]
-    private string username;
+    private string username = "MeetMe";
 
     [SerializeField]
-    private string password;
+    private string password = "MeetMe123";
 
     [Header("Event Info")]
 
@@ -1069,9 +1069,22 @@ namespace Cohort
         prevBtn.interactable = true;
       }
 
+      string labelText = "";
       // set label to cue number + accessible alt.
       TextMeshProUGUI assetLabel = GameObject.Find("Current Asset Label").GetComponent<TextMeshProUGUI>();
-      assetLabel.text = "" + orderedAssets[currentAssetIndex].mediaDomain + " cue " + orderedAssets[currentAssetIndex].cueNumber;
+      labelText = "" + orderedAssets[currentAssetIndex].mediaDomain + " cue " + orderedAssets[currentAssetIndex].cueNumber;
+
+      string assetDescription = "";
+      // add cue description
+      if(orderedAssets[currentAssetIndex].mediaDomain == MediaDomain.sound){
+        assetDescription = soundCues.Find(cue => cue.cueNumber == orderedAssets[currentAssetIndex].cueNumber).accessibleAlternative;
+
+      } else if(orderedAssets[currentAssetIndex].mediaDomain == MediaDomain.image){
+        assetDescription = imageCues.Find(cue => cue.cueNumber == orderedAssets[currentAssetIndex].cueNumber).accessibleAlternative;
+      }
+
+      labelText += ": " + assetDescription;
+      assetLabel.text = labelText;
     }
 
     public void onNextAssetBtn(){

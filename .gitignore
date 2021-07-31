@@ -19,6 +19,7 @@
 
 # For Cohort
 /builds
+/Assets/CohortUnityClient/Resources/meetme
 
 /Assets/CohortUnityClient/Resources/tpm-video/
 /Assets/CohortUnityClient/Resources/tpm-video.meta

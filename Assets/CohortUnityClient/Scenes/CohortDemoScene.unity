@@ -306,7 +306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -61.749}
+  m_AnchoredPosition: {x: 100, y: -61.748993}
   m_SizeDelta: {x: 125, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &21867171
@@ -652,7 +652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.25}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &210363762
@@ -3531,13 +3531,13 @@ MonoBehaviour:
     accessibleAlternative: '[placeholder for The Current podcast]'
   - audioClip: {fileID: 8300000, guid: 0182fefb12efc4f48b32bcd033b18e3b, type: 3}
     cueNumber: 2
-    accessibleAlternative: '[chill lounge music]'
+    accessibleAlternative: Marco's transition music
   - audioClip: {fileID: 8300000, guid: c65b4f559480f42a8b696ea9d41f68a3, type: 3}
     cueNumber: 3
-    accessibleAlternative: '[Pussy Riot''s ''Straight Outta Vagina'']'
+    accessibleAlternative: Roslyn's transition music
   - audioClip: {fileID: 8300000, guid: 0622618416d6c4c6d8efdaceae71b9d3, type: 3}
     cueNumber: 4
-    accessibleAlternative: '[unknown]'
+    accessibleAlternative: Marco leaves voicemail
   videoCues:
   - videoClip: {fileID: 32900000, guid: 31e584a72d545493db369a8817912e7c, type: 3}
     cueNumber: 1
@@ -3552,67 +3552,43 @@ MonoBehaviour:
   imageCues:
   - image: {fileID: 21300000, guid: ed0604d03d2cc42c8860455b15474c33, type: 3}
     cueNumber: 1
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: 5320caef57f09451f8f388ee4e067ee1, type: 3}
+    accessibleAlternative: Gemma selfie
+  - image: {fileID: 21300000, guid: 46867722a06b7484b8b9563fb9799167, type: 3}
     cueNumber: 2
-    accessibleAlternative: 
+    accessibleAlternative: Roz text Marco
   - image: {fileID: 21300000, guid: 09c900cc02bcb466a855a2427befbec5, type: 3}
     cueNumber: 3
-    accessibleAlternative: 
+    accessibleAlternative: Marco texts Roz "so I can flirt with her"
   - image: {fileID: 21300000, guid: 1d02d1659d38540d488bf4c4a2e664dc, type: 3}
     cueNumber: 4
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: 36274f80b157343f19b259c31171d0e0, type: 3}
+    accessibleAlternative: Marco texts Roz "so I can flirt with her"
+  - image: {fileID: 21300000, guid: 06def88ab9b9743f88ce1a5f517a4dfb, type: 3}
     cueNumber: 5
-    accessibleAlternative: 
+    accessibleAlternative: Gemma shows art project from phone
   - image: {fileID: 21300000, guid: 1e1dbc5902296484ead0ca6afee13e8e, type: 3}
     cueNumber: 6
-    accessibleAlternative: 
+    accessibleAlternative: 'Marco: "What are you doing later?"'
   - image: {fileID: 21300000, guid: d3d4b4c280b3e4c52a7610643713ecb6, type: 3}
     cueNumber: 7
-    accessibleAlternative: 
+    accessibleAlternative: Gemma "heart heart blush..."
   - image: {fileID: 21300000, guid: 8207c5f6a91944c9b9b4141fa4ca556a, type: 3}
     cueNumber: 8
-    accessibleAlternative: 
+    accessibleAlternative: 'Marco: "a plethora"'
   - image: {fileID: 21300000, guid: 36274f80b157343f19b259c31171d0e0, type: 3}
     cueNumber: 9
-    accessibleAlternative: 
+    accessibleAlternative: Gemma takes selfie in bar
   - image: {fileID: 21300000, guid: 301a41d0a865e4a70a3edb1d7af04d3f, type: 3}
     cueNumber: 10
-    accessibleAlternative: 
+    accessibleAlternative: 'Marco: "You can tag me..."'
   - image: {fileID: 21300000, guid: 98cb7e8cecd464e50b229f8885ca9aba, type: 3}
     cueNumber: 11
-    accessibleAlternative: 
+    accessibleAlternative: 'Gemma: "I''ll take my chances..."'
   - image: {fileID: 21300000, guid: d0ace001d1f744dfabb27858c2ec1e5e, type: 3}
     cueNumber: 12
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: 2664b87bc3e0c46e18daecbfb3ca03ef, type: 3}
-    cueNumber: 13
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: 1c37d8d9ca6174574a816fdb87160944, type: 3}
-    cueNumber: 14
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: d6ceb63a2ddd742d880efb876f2a2176, type: 3}
-    cueNumber: 15
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: 36274f80b157343f19b259c31171d0e0, type: 3}
-    cueNumber: 16
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: e9481e65c846d481d9c02cd743e54ebe, type: 3}
-    cueNumber: 17
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: cb08d95ba5f644adca9d9b72b5d33e31, type: 3}
-    cueNumber: 18
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: 2f1aa4ab36c4d4e1e987fd93033a0522, type: 3}
-    cueNumber: 19
-    accessibleAlternative: 
-  - image: {fileID: 21300000, guid: 2187c361aaf1a4f7cb3ef5d7cbeaf0d0, type: 3}
-    cueNumber: 20
-    accessibleAlternative: 
+    accessibleAlternative: 'Marco: "come sit on me again"'
   - image: {fileID: 21300000, guid: d5aba113bb02b44b183a17896dd0e152, type: 3}
-    cueNumber: 21
-    accessibleAlternative: 
+    cueNumber: 20
+    accessibleAlternative: Gemma sends sex video to Roz
   textCues:
   - text: Right...There..
     cueNumber: 1
@@ -3632,6 +3608,38 @@ MonoBehaviour:
     cueNumber: 4
   - mediaDomain: 0
     cueNumber: 1
+  - mediaDomain: 0
+    cueNumber: 2
+  - mediaDomain: 2
+    cueNumber: 5
+  - mediaDomain: 2
+    cueNumber: 6
+  - mediaDomain: 2
+    cueNumber: 7
+  - mediaDomain: 2
+    cueNumber: 8
+  - mediaDomain: 2
+    cueNumber: 9
+  - mediaDomain: 2
+    cueNumber: 10
+  - mediaDomain: 2
+    cueNumber: 11
+  - mediaDomain: 2
+    cueNumber: 12
+  - mediaDomain: 2
+    cueNumber: 20
+  - mediaDomain: 1
+    cueNumber: 3
+  - mediaDomain: 1
+    cueNumber: 4
+  - mediaDomain: 1
+    cueNumber: 3
+  - mediaDomain: 2
+    cueNumber: 20
+  - mediaDomain: 1
+    cueNumber: 5
+  - mediaDomain: 0
+    cueNumber: 4
   audioPlayer: {fileID: 1392766431}
   videoPlayer: {fileID: 1357722706}
   imageCueSurface: {fileID: 26072270}
@@ -4004,7 +4012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 78.36403, y: -48.38903}
+  m_AnchoredPosition: {x: 78.36401, y: -48.389038}
   m_SizeDelta: {x: 125, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2067797270
