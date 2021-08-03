@@ -3520,21 +3520,33 @@ MonoBehaviour:
   useStoredAddress: 0
   serverURL: https://cohort.rocks
   httpPort: 0
-  username: demouser
-  password: demouser
-  eventId: 11
-  clientOccasion: 13
+  username: replace
+  password: replace123
+  eventId: 17
+  clientOccasion: 22
   clientGrouping: all
   soundCues:
-  - audioClip: {fileID: 8300000, guid: b315f72ccd9ab45feb25173f1d7cba9b, type: 3}
+  - audioClip: {fileID: 8300000, guid: f7821a5aee8af4ffcb44427437a59338, type: 3}
     cueNumber: 1
-    accessibleAlternative: Cat meowing
-  - audioClip: {fileID: 8300000, guid: a5680815715fd4f3293b87ac428af7a3, type: 3}
+    accessibleAlternative: Dave
+  - audioClip: {fileID: 8300000, guid: bb7d889c55896444789bc51933203e88, type: 3}
     cueNumber: 2
-    accessibleAlternative: Sample music
-  - audioClip: {fileID: 8300000, guid: 54483b6a87255442f8b6317b00bf18f6, type: 3}
+    accessibleAlternative: Jennifer
+  - audioClip: {fileID: 8300000, guid: c4b6ea05f94eb4b5cba94a8fcc7b4dc1, type: 3}
     cueNumber: 3
-    accessibleAlternative: Sample music
+    accessibleAlternative: Marc
+  - audioClip: {fileID: 8300000, guid: 46d43602959624f6d8c950ec95da50dc, type: 3}
+    cueNumber: 4
+    accessibleAlternative: Rachel
+  - audioClip: {fileID: 8300000, guid: ea03c6ce895c8444ca35c05c217dae3a, type: 3}
+    cueNumber: 5
+    accessibleAlternative: Erin
+  - audioClip: {fileID: 8300000, guid: 825f1008a8aa34895be5dea2d400500b, type: 3}
+    cueNumber: 6
+    accessibleAlternative: Sam
+  - audioClip: {fileID: 8300000, guid: 8d288beeb2e3d41c78f200f2a48fc344, type: 3}
+    cueNumber: 7
+    accessibleAlternative: Tin
   videoCues:
   - videoClip: {fileID: 32900000, guid: d71ea68e903b947a7bf3381ab2173720, type: 3}
     cueNumber: 1
@@ -3549,14 +3561,18 @@ MonoBehaviour:
   orderedAssets:
   - mediaDomain: 0
     cueNumber: 1
-  - mediaDomain: 1
-    cueNumber: 1
-  - mediaDomain: 2
-    cueNumber: 1
   - mediaDomain: 0
     cueNumber: 2
   - mediaDomain: 0
     cueNumber: 3
+  - mediaDomain: 0
+    cueNumber: 4
+  - mediaDomain: 0
+    cueNumber: 5
+  - mediaDomain: 0
+    cueNumber: 6
+  - mediaDomain: 0
+    cueNumber: 7
   audioPlayer: {fileID: 1392766431}
   videoPlayer: {fileID: 1357722706}
   imageCueSurface: {fileID: 26072270}
