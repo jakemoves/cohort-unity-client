@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/CohortUnityClient/Scenes/QR.unity
     guid: a1a1c5056d81d4f8cb1b83d348f7e66a
-  - enabled: 1
+  - enabled: 0
     path: Assets/CohortUnityClient/Scenes/CohortDemoScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/CohortUnityClient/Scenes/Sensors.unity
+    guid: 921b3a10f6072463e9d15b25466f0a70
   m_configObjects: {}
