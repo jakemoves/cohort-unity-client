@@ -61,7 +61,12 @@ namespace Cohort
     [Header("Audio Cues")]
 
     [SerializeField]
-    private List<CHSoundCue> soundCues;
+    public List<CHSoundCue> soundCues;
+
+    [Header("Multitrack Audio Players")]
+
+    [SerializeField]
+    public GameObject marcPlayers;
 
     [Header("Video Cues")]
 
@@ -769,6 +774,12 @@ namespace Cohort
       // DO STUFF
       switch (msg.mediaDomain) {
         case MediaDomain.sound:
+          if(msg.cueNumber == 400){
+            Debug.Log("Marc group cue received");
+            playAll(marcPlayers, msg.cueAction);
+            return;
+          }
+
           CHSoundCue soundCue = soundCues.Find((CHSoundCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
           if (soundCue != null) {
             audioPlayer.clip = soundCue.audioClip;
@@ -932,6 +943,19 @@ namespace Cohort
       }
 
       return uri;
+    }
+
+    void playAll(GameObject playersParent, CueAction action){
+      foreach(AudioSource player in playersParent.GetComponentsInChildren<AudioSource>()){
+        switch(action){
+          case CueAction.play:
+            player.Play();
+            break;
+          case CueAction.stop:
+            player.Stop();
+            break;
+        }
+      }
     }
 
     void OnApplicationFocus(bool hasFocus) {
