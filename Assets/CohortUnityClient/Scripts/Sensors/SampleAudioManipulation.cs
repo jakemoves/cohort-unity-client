@@ -77,9 +77,9 @@ public class SampleAudioManipulation : MonoBehaviour
     {
         {"Rotation", () => Input.gyro.rotationRateUnbiased.magnitude},
         {"Acceleration", () => Input.gyro.userAcceleration.magnitude},
-        {"Gravity (Face Up/Down)", () => Input.gyro.gravity.z},
-        {"Gravity Y", () => Input.gyro.gravity.y},
-        {"Gravity X", () => Input.gyro.gravity.x}
+        {"Gravity (Face Up / Face Down)", () => Input.gyro.gravity.z},
+        //{"Gravity Y", () => Input.gyro.gravity.y},
+        //{"Gravity X", () => Input.gyro.gravity.x}
     };
 
     Dictionary<string, Action<float>> effectActions;
