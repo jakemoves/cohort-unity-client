@@ -10,10 +10,7 @@ public class SensorManager : MonoBehaviour
     public Quaternion Attitude { get; private set; }
     public Vector3 GlobalAcceleration { get; private set; }
 
-    
-    
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // Init
         if(!Input.gyro.enabled) {
@@ -23,7 +20,11 @@ public class SensorManager : MonoBehaviour
 
         Input.compensateSensors = compensateSensors;
         gimbalCorrection = Quaternion.AngleAxis(-180, new Vector3(1, 0, 0));
+    }
     
+    // Start is called before the first frame update
+    void Start()
+    {
         CorrectAttitude();
         CalculateGlobalVectors();
     }
