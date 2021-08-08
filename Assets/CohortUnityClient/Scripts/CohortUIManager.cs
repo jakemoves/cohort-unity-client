@@ -60,4 +60,8 @@ public class CohortUIManager : MonoBehaviour
     cohortUI.SetActive(false);
   }
 
+  public void onSensorScene(){
+    UnityEngine.SceneManagement.SceneManager.LoadScene("Sensors");
+  }
+
 }
