@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964124, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4204,13 +4204,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 202f157f33e844f9796b7a82e6543b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useStoredAddress: 0
-  serverURL: https://cohort.rocks
-  httpPort: 0
-  username: replace
-  password: replace123
+  useStoredAddress: 1
+  serverURL: http://jakemoves21.local
+  httpPort: 3000
+  username: 
+  password: 
   eventId: 17
-  clientOccasion: 22
+  clientOccasion: 1
   clientGrouping: all
   soundCues:
   - audioClip: {fileID: 8300000, guid: 7d16404e11944448eb5b2691842e5375, type: 3}
