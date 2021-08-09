@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964124, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1494,15 +1494,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionClips:
+  - {fileID: 8300000, guid: 7d16404e11944448eb5b2691842e5375, type: 3}
+  - {fileID: 8300000, guid: 2c83b96c7d61f420581ba14d2f172b16, type: 3}
+  - {fileID: 8300000, guid: dce4806cc69d84df6bbfcee463ec13d8, type: 3}
+  - {fileID: 8300000, guid: 31c745905ed19401489808ba1a0fafc6, type: 3}
+  - {fileID: 8300000, guid: 3233d6fddf4ea4cbdaf27c606ef38b55, type: 3}
+  - {fileID: 8300000, guid: af6e6cb80159b4760abf9ae9a670c699, type: 3}
+  - {fileID: 8300000, guid: 924a3431d96f7408c8613c9176809180, type: 3}
+  - {fileID: 8300000, guid: d6076758fb7d04e9293c17a3ae06f80e, type: 3}
+  - {fileID: 8300000, guid: 6c9bf2c552dfe4c7e90442ddf1bce7b9, type: 3}
+  - {fileID: 8300000, guid: 4c1e5c55668d940a9a2de72aacce8bc6, type: 3}
+  - {fileID: 8300000, guid: 831608c4f48064bf78f11b4d4104cc5e, type: 3}
   - {fileID: 8300000, guid: a5680815715fd4f3293b87ac428af7a3, type: 3}
   - {fileID: 8300000, guid: b315f72ccd9ab45feb25173f1d7cba9b, type: 3}
   - {fileID: 8300000, guid: 54483b6a87255442f8b6317b00bf18f6, type: 3}
-  - {fileID: 8300000, guid: f482a0076ea3c4ebeae22b84e373ff5e, type: 3}
   selectionNames:
+  - transition - state 1
+  - transition - state 2
+  - transition - state 3
+  - transition - state 4
+  - Erin mixdown
+  - Rachel mixdown
+  - Tin mixdown
+  - Marc mixdown
+  - Sam mixdown
+  - Dave mixdown
+  - Jen mixdown
   - Reiswerk
   - Meow
   - Speck
-  - Text Cue
   selector: {fileID: 1526151505}
   source: {fileID: 1301002854}
 --- !u!114 &455770557
