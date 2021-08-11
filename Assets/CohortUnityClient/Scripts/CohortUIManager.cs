@@ -6,7 +6,10 @@ using Cohort;
 public class CohortUIManager : MonoBehaviour
 {
   TMPro.TextMeshProUGUI textCueDisplay;
-  TMPro.TextMeshProUGUI statusDisplay;
+
+  [SerializeField]
+  public TMPro.TextMeshProUGUI statusDisplay;
+  
   TMPro.TextMeshProUGUI textCueBackground;
 
   GameObject cohortUI;
