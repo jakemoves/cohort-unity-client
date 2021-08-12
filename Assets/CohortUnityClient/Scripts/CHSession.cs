@@ -796,7 +796,9 @@ namespace Cohort
 
           switch (msg.cueAction) {
             case CueAction.play:
-              audioPlayer.Play();
+              if(!audioPlayer.isPlaying){
+                audioPlayer.Play();
+              }
               break;
             case CueAction.pause:
               audioPlayer.Pause();
@@ -807,8 +809,9 @@ namespace Cohort
               audioPlayer.Play();
               break;
             case CueAction.stop:
-              audioPlayer.Stop();
-              audioPlayer.clip = null;
+              StartCoroutine(FadeAudioSource.StartFade(audioPlayer, 2.5, 0));
+              // audioPlayer.Stop();
+              // audioPlayer.clip = null;
               break;
           }
           break;
@@ -1240,4 +1243,25 @@ namespace Cohort
     public MediaDomain mediaDomain;
     public double cueNumber;
   }
+
+  public static class FadeAudioSource {
+
+    public static IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return new WaitForFixedUpdate();
+        }
+
+        audioSource.Stop();
+        audioSource.clip = null;
+        audioSource.volume = 1;
+        yield break;
+    }
+}
 }
