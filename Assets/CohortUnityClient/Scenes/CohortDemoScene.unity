@@ -4353,7 +4353,13 @@ MonoBehaviour:
   soundCues:
   - audioClip: {fileID: 8300000, guid: 82cd0c0ac16544075a19ccd3be072734, type: 3}
     cueNumber: 1
+    accessibleAlternative: preshow music
+  - audioClip: {fileID: 8300000, guid: 2a4abcb3bdf254ef199ae67e2f3ddf91, type: 3}
+    cueNumber: 1.1
     accessibleAlternative: orientation mixdown
+  - audioClip: {fileID: 8300000, guid: 7d16404e11944448eb5b2691842e5375, type: 3}
+    cueNumber: 1.2
+    accessibleAlternative: transition state 1
   - audioClip: {fileID: 8300000, guid: 3233d6fddf4ea4cbdaf27c606ef38b55, type: 3}
     cueNumber: 2
     accessibleAlternative: Erin mixdown
@@ -4389,12 +4395,15 @@ MonoBehaviour:
     accessibleAlternative: Dave mixdown
   - audioClip: {fileID: 8300000, guid: 0f4b4dfe6c81649519a2a37effbc3370, type: 3}
     cueNumber: 13
-    accessibleAlternative: Reiswerk
-  - audioClip: {fileID: 8300000, guid: 831608c4f48064bf78f11b4d4104cc5e, type: 3}
+    accessibleAlternative: transition state 6
+  - audioClip: {fileID: 8300000, guid: d33182788993c480dbfae8c1e74cabab, type: 3}
     cueNumber: 14
+    accessibleAlternative: jennifer into conclusion
+  - audioClip: {fileID: 8300000, guid: 831608c4f48064bf78f11b4d4104cc5e, type: 3}
+    cueNumber: 15
     accessibleAlternative: Jennifer mixdown
   - audioClip: {fileID: 8300000, guid: acf6aa20d4b2a471d8a697ffb0162a63, type: 3}
-    cueNumber: 15
+    cueNumber: 16
     accessibleAlternative: conclusion mixdown
   marcPlayers: {fileID: 1689653136}
   videoCues:
@@ -4797,6 +4806,51 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1970393745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1970393747}
+  - component: {fileID: 1970393746}
+  m_Layer: 0
+  m_Name: SensorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1970393746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970393745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d256f944e923b48b593e1807b55accd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  compensateSensors: 1
+  useFixedUpdate: 1
+--- !u!4 &1970393747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970393745}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.7705293, y: 8.014536, z: -440.4796}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1973833742
 GameObject:
   m_ObjectHideFlags: 0

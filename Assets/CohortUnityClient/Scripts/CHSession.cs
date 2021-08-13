@@ -170,6 +170,8 @@ namespace Cohort
     // for control bar
     private int currentAssetIndex = 0;
 
+    private IEnumerator pitchManipulator;
+
 
     public class QRurl
     {
@@ -799,6 +801,12 @@ namespace Cohort
               if(!audioPlayer.isPlaying){
                 audioPlayer.Play();
               }
+              
+              // some cues (transitions) we enable movement effects
+              if(msg.cueNumber == 3 || msg.cueNumber == 5 || msg.cueNumber == 7 || msg.cueNumber == 9 || msg.cueNumber == 11 || msg.cueNumber == 13){
+                pitchManipulator = AudioManipulation.PitchManipulation(audioPlayer);
+                StartCoroutine(pitchManipulator);
+              }
               break;
             case CueAction.pause:
               audioPlayer.Pause();
@@ -807,9 +815,25 @@ namespace Cohort
               audioPlayer.Pause();
               audioPlayer.time = 0;
               audioPlayer.Play();
+
+              // some cues (transitions) maybe we enable movement effects
+              if(msg.cueNumber == 1){
+                pitchManipulator = AudioManipulation.PitchManipulation(audioPlayer);
+                StartCoroutine(pitchManipulator);
+              }
               break;
             case CueAction.stop:
-              StartCoroutine(FadeAudioSource.StartFade(audioPlayer, 2.5, 0));
+              if(pitchManipulator != null){
+                StopCoroutine(pitchManipulator);
+
+                // reset
+                audioPlayer.pitch = 1;
+                audioPlayer.volume = 1;
+                pitchManipulator = null;
+
+              }
+
+              StartCoroutine(FadeAudioSource.StartFade(audioPlayer, 2.5f, 0));
               // audioPlayer.Stop();
               // audioPlayer.clip = null;
               break;
@@ -1244,8 +1268,24 @@ namespace Cohort
     public double cueNumber;
   }
 
-  public static class FadeAudioSource {
+  public static class AudioManipulation {
+    public static IEnumerator PitchManipulation(AudioSource audioSource){
+      while(true){
+        // Debug.Log("fixedupdate: pitchmanipulation");
+        float rotationMagnitude = Input.gyro.rotationRateUnbiased.magnitude;
+        audioSource.pitch = 1/(rotationMagnitude * 0.003f + 1);
 
+        float accelerationMagnitude = Input.gyro.userAcceleration.magnitude;
+        accelerationMagnitude = Mathf.Clamp(accelerationMagnitude, 0, 1);
+        audioSource.volume = 0.5f + (accelerationMagnitude * 0.5f); //(n/2) + 0.5f; 
+
+        yield return new WaitForFixedUpdate();
+      }
+      yield break;
+    }
+  }
+
+  public static class FadeAudioSource {
     public static IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
     {
         float currentTime = 0;
@@ -1263,5 +1303,5 @@ namespace Cohort
         audioSource.volume = 1;
         yield break;
     }
-}
+  }
 }

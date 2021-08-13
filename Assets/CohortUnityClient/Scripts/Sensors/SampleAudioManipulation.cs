@@ -10,52 +10,6 @@ using System.Linq;
 //[Serializable]
 //public class MyEvent : UnityEvent<float, float, float> {}
 
-public class Smoother : IEnumerable<float>
-{
-    private Queue<float> buffer;
-    int nsamples;
-    float total = 0;
-    public Smoother(int samples) {
-        buffer = new Queue<float>(Enumerable.Repeat<float>(0f, samples));
-        nsamples = samples;
-    }
-
-    public Smoother(int samples, IEnumerable<float> source)
-    {
-        int sourceCount = source.Count();
-        if (sourceCount == samples)
-            buffer = new Queue<float>(source);
-        else if (sourceCount > samples)
-            buffer = new Queue<float>(source.Take(samples));
-        else
-            buffer = new Queue<float>(source.Concat(Enumerable.Repeat(0f, samples - sourceCount)));
-
-        nsamples = samples;
-        total = buffer.Sum();
-    } 
-
-    public IEnumerator<float> GetEnumerator()
-    {
-        return buffer.GetEnumerator();
-    }
-
-    public float NewSample(float value)
-    {
-        buffer.Enqueue(value);
-        total += value - buffer.Dequeue();
-        return total/nsamples;
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return buffer.GetEnumerator();
-    }
-
-    //public static Smoother FromSource(int samples, IEnumerable<float> source) 
-
-    public static implicit operator float(Smoother s) => s.total / s.nsamples;
-}
-
 public class SampleAudioManipulation : MonoBehaviour
 {
     //public MyEvent OnEvent;
@@ -147,4 +101,50 @@ public class SampleAudioManipulation : MonoBehaviour
     }
 
     public void ChangeNSamples(float samples) => ChangeNSamples((int) samples);
+}
+
+public class Smoother : IEnumerable<float>
+{
+    private Queue<float> buffer;
+    int nsamples;
+    float total = 0;
+    public Smoother(int samples) {
+        buffer = new Queue<float>(Enumerable.Repeat<float>(0f, samples));
+        nsamples = samples;
+    }
+
+    public Smoother(int samples, IEnumerable<float> source)
+    {
+        int sourceCount = source.Count();
+        if (sourceCount == samples)
+            buffer = new Queue<float>(source);
+        else if (sourceCount > samples)
+            buffer = new Queue<float>(source.Take(samples));
+        else
+            buffer = new Queue<float>(source.Concat(Enumerable.Repeat(0f, samples - sourceCount)));
+
+        nsamples = samples;
+        total = buffer.Sum();
+    } 
+
+    public IEnumerator<float> GetEnumerator()
+    {
+        return buffer.GetEnumerator();
+    }
+
+    public float NewSample(float value)
+    {
+        buffer.Enqueue(value);
+        total += value - buffer.Dequeue();
+        return total/nsamples;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return buffer.GetEnumerator();
+    }
+
+    //public static Smoother FromSource(int samples, IEnumerable<float> source) 
+
+    public static implicit operator float(Smoother s) => s.total / s.nsamples;
 }
