@@ -461,14 +461,14 @@ namespace Cohort
       }
       
       // for control bar
-      Debug.Log("Logging into Cohort...");
-      Credentials userCredentials = new Credentials();
-      userCredentials.username = username;
-      userCredentials.password = password;
-      string loginJson = JsonMapper.ToJson(userCredentials);
+      // Debug.Log("Logging into Cohort...");
+      // Credentials userCredentials = new Credentials();
+      // userCredentials.username = username;
+      // userCredentials.password = password;
+      // string loginJson = JsonMapper.ToJson(userCredentials);
 
-      StartCoroutine(authenticationRequest(cohortApiUrl(serverURL), loginJson));
-      updateControlBar();
+      // StartCoroutine(authenticationRequest(cohortApiUrl(serverURL), loginJson));
+      // updateControlBar();
     }
 
     void HandleOnRequestFinishedDelegate(HTTPRequest originalRequest, HTTPResponse response) {
@@ -803,7 +803,7 @@ namespace Cohort
               }
               
               // some cues (transitions) we enable movement effects
-              if(msg.cueNumber == 3 || msg.cueNumber == 5 || msg.cueNumber == 7 || msg.cueNumber == 9 || msg.cueNumber == 11 || msg.cueNumber == 13){
+              if(msg.cueNumber == 1.2 || msg.cueNumber == 3 || msg.cueNumber == 5 || msg.cueNumber == 7 || msg.cueNumber == 9 || msg.cueNumber == 11 || msg.cueNumber == 13){
                 pitchManipulator = AudioManipulation.PitchManipulation(audioPlayer);
                 StartCoroutine(pitchManipulator);
               }
@@ -817,7 +817,7 @@ namespace Cohort
               audioPlayer.Play();
 
               // some cues (transitions) maybe we enable movement effects
-              if(msg.cueNumber == 1){
+              if(msg.cueNumber == 1.2 || msg.cueNumber == 3 || msg.cueNumber == 5 || msg.cueNumber == 7 || msg.cueNumber == 9 || msg.cueNumber == 11 || msg.cueNumber == 13){
                 pitchManipulator = AudioManipulation.PitchManipulation(audioPlayer);
                 StartCoroutine(pitchManipulator);
               }

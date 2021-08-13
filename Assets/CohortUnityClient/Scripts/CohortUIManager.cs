@@ -5,12 +5,12 @@ using Cohort;
 
 public class CohortUIManager : MonoBehaviour
 {
-  TMPro.TextMeshProUGUI textCueDisplay;
+  // TMPro.TextMeshProUGUI textCueDisplay;
 
-  [SerializeField]
-  public TMPro.TextMeshProUGUI statusDisplay;
+  // [SerializeField]
+  private TMPro.TextMeshProUGUI statusDisplay;
   
-  TMPro.TextMeshProUGUI textCueBackground;
+  // TMPro.TextMeshProUGUI textCueBackground;
 
   GameObject cohortUI;
   
@@ -19,14 +19,15 @@ public class CohortUIManager : MonoBehaviour
   void Start()
   {
     CHSession cohortSession = GameObject.Find("CohortManager").GetComponent<CHSession>();
-    cohortSession.onTextCue += onTextCueHandler;
+    // cohortSession.onTextCue += onTextCueHandler;
     cohortSession.onStatusChanged += onStatusUpdateHandler;
 
-    textCueDisplay = GameObject.Find("Text Cue Display").GetComponent<TMPro.TextMeshProUGUI>();
-    textCueDisplay.text = "";
+    // textCueDisplay = GameObject.Find("Text Cue Display").GetComponent<TMPro.TextMeshProUGUI>();
+    // textCueDisplay.text = "";
+
     statusDisplay = GameObject.Find("Status Display").GetComponent<TMPro.TextMeshProUGUI>();
 
-    textCueBackground = GameObject.Find("TextBack").GetComponent<TMPro.TextMeshProUGUI>();
+    // textCueBackground = GameObject.Find("TextBack").GetComponent<TMPro.TextMeshProUGUI>();
 
   }
 
@@ -37,11 +38,11 @@ public class CohortUIManager : MonoBehaviour
   }
 
   void onTextCueHandler(CueAction cueAction, string cueText) {
-    if(cueAction == CueAction.play) { 
-      textCueDisplay.text = cueText;
-    } else if(cueAction == CueAction.stop) {
-      textCueDisplay.text = "";
-    }
+    // if(cueAction == CueAction.play) { 
+    //   textCueDisplay.text = cueText;
+    // } else if(cueAction == CueAction.stop) {
+    //   textCueDisplay.text = "";
+    // }
   }
 
   void onStatusUpdateHandler(string message) {
@@ -50,8 +51,8 @@ public class CohortUIManager : MonoBehaviour
 
   public void toggleCaptions()
 	{
-      textCueDisplay.enabled = !textCueDisplay.enabled;
-      textCueBackground.enabled = textCueDisplay.enabled;
+      // textCueDisplay.enabled = !textCueDisplay.enabled;
+      // textCueBackground.enabled = textCueDisplay.enabled;
 	}
 
   public void onShowUI(){
