@@ -830,7 +830,6 @@ namespace Cohort
                 audioPlayer.pitch = 1;
                 audioPlayer.volume = 1;
                 pitchManipulator = null;
-
               }
 
               StartCoroutine(FadeAudioSource.StartFade(audioPlayer, 2.5f, 0));
@@ -1299,6 +1298,7 @@ namespace Cohort
         }
 
         audioSource.Stop();
+        audioSource.clip.UnloadAudioData();
         audioSource.clip = null;
         audioSource.volume = 1;
         yield break;

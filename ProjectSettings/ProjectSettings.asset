@@ -149,7 +149,7 @@ PlayerSettings:
     iPhone: rocks.cohort.replace-2021
   buildNumber:
     Standalone: 0
-    iPhone: 0
+    iPhone: 3
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
