@@ -15,15 +15,29 @@ public class CohortUIManager : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+    // TODO: @jacob
+    // These wiill throw an Ststem.NullReferenceExeption if the
+    // GameObjects are not named exactly what they are looking for OR if they are disabled 
+    // I have enabled the "Text Cue Display" object and added a Try-Catch for the "TextBack"
+    // to handle these exceptions for now.
     CHSession cohortSession = GameObject.Find("CohortManager").GetComponent<CHSession>();
     cohortSession.onTextCue += onTextCueHandler;
     cohortSession.onStatusChanged += onStatusUpdateHandler;
 
     textCueDisplay = GameObject.Find("Text Cue Display").GetComponent<TMPro.TextMeshProUGUI>();
     textCueDisplay.text = "";
+
     statusDisplay = GameObject.Find("Status Display").GetComponent<TMPro.TextMeshProUGUI>();
 
-    textCueBackground = GameObject.Find("TextBack").GetComponent<TMPro.TextMeshProUGUI>();
+    try
+    {
+        textCueBackground = GameObject.Find("TextBack").GetComponent<TMPro.TextMeshProUGUI>();
+    }
+    catch (System.NullReferenceException)
+    {
+      Debug.LogWarning("Could not find the GameObject named \"TextBack\". (Note: The exception of this error has been handled)", this);
+      textCueBackground = null;
+    }
 
   }
 
@@ -48,6 +62,10 @@ public class CohortUIManager : MonoBehaviour
   public void toggleCaptions()
 	{
       textCueDisplay.enabled = !textCueDisplay.enabled;
+
+    // TODO: Nic added this because
+    // this was causing errors as this object could not be found
+    if (textCueBackground != null) 
       textCueBackground.enabled = textCueDisplay.enabled;
 	}
 

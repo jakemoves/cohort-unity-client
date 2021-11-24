@@ -123,6 +123,9 @@ namespace Cohort
     public delegate void OnTextCue(CueAction cueAction, string cueContent);
     public event OnTextCue onTextCue;
 
+    public delegate void OnImageCue(CueAction cueAction, Sprite sprite);
+    public event OnImageCue onImageCue;
+
     public delegate void OnStatusChanged(string statusUpdate); // mostly for logging / debugging
     public event OnStatusChanged onStatusChanged;
 
@@ -840,6 +843,9 @@ namespace Cohort
         case MediaDomain.image:
           CHImageCue imageCue = imageCues.Find((CHImageCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
           if(imageCue != null) {
+            // Throw OnImageCue Event
+            onImageCue?.Invoke(msg.cueAction, imageCue.image);
+
             switch (msg.cueAction) { 
             case CueAction.play:
                 Debug.Log("got image cue");

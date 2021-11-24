@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964124, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -414,6 +414,7 @@ GameObject:
   - component: {fileID: 26072269}
   - component: {fileID: 26072271}
   - component: {fileID: 26072270}
+  - component: {fileID: 26072272}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -428,7 +429,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26072268}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -453,7 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -478,6 +479,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26072268}
   m_CullTransparentMesh: 0
+--- !u!114 &26072272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26072268}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 0
+  m_AspectRatio: 1
 --- !u!1 &201782539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,7 +1953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &864500949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2845,6 +2860,8 @@ GameObject:
   - component: {fileID: 1385437559}
   - component: {fileID: 1385437558}
   - component: {fileID: 1385437557}
+  - component: {fileID: 1385437562}
+  - component: {fileID: 1385437563}
   m_Layer: 5
   m_Name: ImageCueDisplay
   m_TagString: Untagged
@@ -2945,6 +2962,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1385437562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385437556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Content: {fileID: 26072269}
+  m_Horizontal: 1
+  m_Vertical: 1
+  m_MovementType: 2
+  m_Elasticity: 0.1
+  m_Inertia: 1
+  m_DecelerationRate: 0.135
+  m_ScrollSensitivity: 1
+  m_Viewport: {fileID: 1385437561}
+  m_HorizontalScrollbar: {fileID: 0}
+  m_VerticalScrollbar: {fileID: 0}
+  m_HorizontalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 0
+  m_HorizontalScrollbarSpacing: 0
+  m_VerticalScrollbarSpacing: 0
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1385437563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385437556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1beec807566a87468df5cf25e2a3a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chSession: {fileID: 1711676748}
+  scrollRect: {fileID: 1385437562}
+  aspectRatioFitter: {fileID: 26072272}
+  imageComponent: {fileID: 26072270}
+  aspectRatioThreshold: 0.35
 --- !u!1 &1392766430
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,16 +3614,16 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 5bbee3cedd3f74917931f34706bcceb9, type: 3}
     cueNumber: 5
   imageCues:
-  - image: {fileID: 21300000, guid: ed0604d03d2cc42c8860455b15474c33, type: 3}
+  - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 1
     accessibleAlternative: Gemma selfie
-  - image: {fileID: 21300000, guid: 46867722a06b7484b8b9563fb9799167, type: 3}
+  - image: {fileID: 21300000, guid: 7b678e9eafd426b47b081508d0e219eb, type: 3}
     cueNumber: 2
     accessibleAlternative: Roz text Marco
-  - image: {fileID: 21300000, guid: 09c900cc02bcb466a855a2427befbec5, type: 3}
+  - image: {fileID: 21300000, guid: c6cfb1d841892c84fb2c0b2520497b09, type: 3}
     cueNumber: 3
     accessibleAlternative: Marco texts Roz "so I can flirt with her"
-  - image: {fileID: 21300000, guid: 1d02d1659d38540d488bf4c4a2e664dc, type: 3}
+  - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 4
     accessibleAlternative: Marco texts Roz "so I can flirt with her"
   - image: {fileID: 21300000, guid: 06def88ab9b9743f88ce1a5f517a4dfb, type: 3}
