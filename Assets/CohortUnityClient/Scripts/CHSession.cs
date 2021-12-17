@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Video;
@@ -14,9 +15,6 @@ using BestHTTP.WebSocket;
 using LitJson;
 using UnityEditor;
 using UnityEngine.Networking;
-
-
-
 
 namespace Cohort
 {
@@ -55,8 +53,8 @@ namespace Cohort
     [SerializeField]
     private int clientOccasion;
 
-    [SerializeField]
-    private string clientGrouping;
+    //[SerializeField]
+    //private string clientGrouping;
 
     [Header("Audio Cues")]
 
@@ -94,6 +92,18 @@ namespace Cohort
     [SerializeField]
     private UnityEngine.UI.Image imageCueSurface;
 
+    [Header("Group Settings")]
+
+    [SerializeField]
+    private UnityEngine.UI.Dropdown groupSelectorDropdown;
+
+    //[SerializeField]
+    //private int selectedGroupIndex = 0;
+
+    [SerializeField]
+    private string[] groups = { "all", "marco", "gemma", "roslyn" };
+
+    
 
     //[Header("Untested Features (use at your own risk)")]
 
@@ -137,13 +147,21 @@ namespace Cohort
       return deviceGUID;
     }
 
+    public string GetCurrentGrouping()
+    {
+      if (groups.Length == 0 || groupSelectorDropdown == null)
+        return "all";
+
+      return groups[groupSelectorDropdown.value];
+    }
+
     private string webSocketPath = "/sockets";
     private VideoClip nullVideo;
     //private CHRemoteNotificationSession remoteN10nSession;
     private WebSocket cohortSocket;
     private string deviceGUID; // eventually moves to CHDevice
     private int deviceID; // eventually moves to CHDevice
-    private string grouping = "";
+    private string grouping = ""; // TODO: Remove?
     private bool automaticCheckin;
     private int occasion;
     private string selectAShowCopy = "Select a show";
@@ -168,6 +186,22 @@ namespace Cohort
     // for control bar
     private int currentAssetIndex = 0;
 
+    // For filtered Assets
+    private List<CueReference> filteredOrderedAssets;
+
+    private List<CueReference> FilteredOrderedAssets
+    {
+      get
+      {
+        if (filteredOrderedAssets == null)
+          filteredOrderedAssets = orderedAssets;
+        return filteredOrderedAssets;
+      }
+
+      set => filteredOrderedAssets = value;
+    }
+
+    private int currentFilteredAssetsIndex = 0;
 
     public class QRurl
     {
@@ -391,9 +425,44 @@ namespace Cohort
       videoPlayer.clip = null;
     }
 
+    void UpdateGroupFilter(int groupIndex)
+    {
+      // If nothing is selected - we assume index 0, which should be "all"
+      var allIndex = Array.IndexOf(groups, "all");
+      if (allIndex < 0) allIndex = 0;
+      if (groupIndex < 0) groupIndex = allIndex;
+
+      Debug.Log($"Changing current group to {groups[groupIndex]}");
+
+      FilteredOrderedAssets = groups[groupIndex] != "all" ?
+                              (from cue in orderedAssets
+                               where cue.groupIndex == groupIndex || cue.groupIndex == allIndex
+                               select cue).ToList()
+                               : orderedAssets;
+
+      // TODO: Should we find the nearest asset
+      currentFilteredAssetsIndex = 0;
+
+      updateControlBar();
+    }
+
     // Use this for initialization
     void Start() {
+      if (!groups.Contains("all"))
+        groups =(new string[] { "all" }).Concat(groups).ToArray();
 
+      if (groupSelectorDropdown != null)
+      {
+        // TODO: Should we save/Load the selected grouping?
+
+        // Populate the dropdown
+        groupSelectorDropdown.ClearOptions();
+        groupSelectorDropdown.AddOptions(new List<string>(groups));
+        groupSelectorDropdown.value = Array.IndexOf(groups, "all");
+
+        // Add DropDown Event Listener
+        groupSelectorDropdown.onValueChanged.AddListener(UpdateGroupFilter);
+      }
       
 
       Debug.Log(URL_from_QR);
@@ -418,6 +487,7 @@ namespace Cohort
       }
 
       if (clientOccasion != 0){
+        var clientGrouping = GetCurrentGrouping();
         Debug.Log("Setting client details for testing: clientOccasion: " + clientOccasion + ", clientGrouping: " + clientGrouping);
         PlayerPrefs.SetString("cohortOccasion", clientOccasion.ToString());
 
@@ -426,7 +496,7 @@ namespace Cohort
         }
       }
 
-      bool occasionAndGroupingSet = LoadOccasionAndGrouping();
+      bool occasionAndGroupingSet = LoadOccasion();
       if (occasionAndGroupingSet) {
         automaticCheckin = true;
       } else {
@@ -541,7 +611,7 @@ namespace Cohort
             string[] param = parameterPair.Split('=');
             if(param[0] == "grouping") {
               Debug.Log("join URL included a grouping (" + param[1] + ")  ");
-              grouping = param[1];
+              grouping = param[1]; // TODO: Check if we need to keep this.
               PlayerPrefs.SetString("cohortGrouping", grouping);
             }
           }
@@ -594,7 +664,7 @@ namespace Cohort
         Debug.Log(res);
         if (res.response == "success") {
           Debug.Log("opened websocket connnection");
-          string groupingStatus = "";
+          string groupingStatus = ""; // TODO: Check if this is neccessary?
           if(grouping != null & grouping != "") {
             groupingStatus = ", grouping: " + grouping;
           }
@@ -763,9 +833,10 @@ namespace Cohort
         PlayerPrefs.SetInt("lastReceivedCohortMessageId", msg.id);
       }
 
-      Debug.Log("current grouping: " + grouping);
-      if(!msg.targetTags.Contains(grouping) && !msg.targetTags.Contains("all")) {
-        Debug.Log("cohort message is for another grouping (not " + grouping + "), not processing it");
+      // TODO: On message recieved
+      Debug.Log("current grouping: " + GetCurrentGrouping());
+      if(GetCurrentGrouping() != "all" && !msg.targetTags.Contains(GetCurrentGrouping()) && !msg.targetTags.Contains("all")) {
+        Debug.Log("cohort message is for another grouping (not " + GetCurrentGrouping() + "), not processing it");
         return;
       }
 
@@ -1020,13 +1091,13 @@ namespace Cohort
     }
 
     void UpdateAndShowGroupingLabel() {
-      groupingLabel.text = this.grouping;
+      groupingLabel.text = GetCurrentGrouping();
       groupingLabel.gameObject.SetActive(true);
     }
 
-    bool LoadOccasionAndGrouping() {
+    bool LoadOccasion() {
       string occasionPref = PlayerPrefs.GetString("cohortOccasion", "");
-      string groupingPref = PlayerPrefs.GetString("cohortGrouping", "");
+      //string groupingPref = PlayerPrefs.GetString("cohortGrouping", "");
 
       if (occasionPref != "") {
         // convert to int
@@ -1045,13 +1116,13 @@ namespace Cohort
         return false;
       }
 
-      if (groupingPref != "") {
-        grouping = groupingPref;
-        return true;
-      } else {
-        return false;
-      }
+      //if (groupingPref != "") {
+      //  grouping = groupingPref;
+      //} else {
+      //  return false;
+      //}
 
+      return true;
     }
 
     /* 
@@ -1062,13 +1133,13 @@ namespace Cohort
       Button nextBtn = GameObject.Find("Next Asset").GetComponent<Button>();
       Button prevBtn = GameObject.Find("Prev Asset").GetComponent<Button>();
 
-      if(currentAssetIndex == orderedAssets.Count-1){
+      if(currentFilteredAssetsIndex == FilteredOrderedAssets.Count-1){
         // disable next button
         nextBtn.interactable = false;
       } else {
         nextBtn.interactable = true;
       }
-      if(currentAssetIndex == 0){
+      if(currentFilteredAssetsIndex == 0){
         // disable prev button
         prevBtn.interactable = false;
       } else {
@@ -1078,15 +1149,15 @@ namespace Cohort
       string labelText = "";
       // set label to cue number + accessible alt.
       TextMeshProUGUI assetLabel = GameObject.Find("Current Asset Label").GetComponent<TextMeshProUGUI>();
-      labelText = "" + orderedAssets[currentAssetIndex].mediaDomain + " cue " + orderedAssets[currentAssetIndex].cueNumber;
+      labelText = "" + FilteredOrderedAssets[currentFilteredAssetsIndex].mediaDomain + " cue " + FilteredOrderedAssets[currentFilteredAssetsIndex].cueNumber;
 
       string assetDescription = "";
       // add cue description
-      if(orderedAssets[currentAssetIndex].mediaDomain == MediaDomain.sound){
-        assetDescription = soundCues.Find(cue => cue.cueNumber == orderedAssets[currentAssetIndex].cueNumber).accessibleAlternative;
+      if(FilteredOrderedAssets[currentFilteredAssetsIndex].mediaDomain == MediaDomain.sound){
+        assetDescription = soundCues.Find(cue => cue.cueNumber == FilteredOrderedAssets[currentFilteredAssetsIndex].cueNumber).accessibleAlternative;
 
-      } else if(orderedAssets[currentAssetIndex].mediaDomain == MediaDomain.image){
-        assetDescription = imageCues.Find(cue => cue.cueNumber == orderedAssets[currentAssetIndex].cueNumber).accessibleAlternative;
+      } else if(FilteredOrderedAssets[currentFilteredAssetsIndex].mediaDomain == MediaDomain.image){
+        assetDescription = imageCues.Find(cue => cue.cueNumber == FilteredOrderedAssets[currentFilteredAssetsIndex].cueNumber).accessibleAlternative;
       }
 
       labelText += ": " + assetDescription;
@@ -1094,12 +1165,12 @@ namespace Cohort
     }
 
     public void onNextAssetBtn(){
-      currentAssetIndex++;
+      currentFilteredAssetsIndex++;
       updateControlBar();
     }
 
     public void onPrevAssetBtn(){
-      currentAssetIndex--;
+      currentFilteredAssetsIndex--;
       updateControlBar();
     }
 
@@ -1135,10 +1206,10 @@ namespace Cohort
         successfulServerRequest = false;
 
         Cue assetCue = new Cue();
-        assetCue.mediaDomain = orderedAssets[currentAssetIndex].mediaDomain;
-        assetCue.cueNumber = orderedAssets[currentAssetIndex].cueNumber;
+        assetCue.mediaDomain = FilteredOrderedAssets[currentFilteredAssetsIndex].mediaDomain;
+        assetCue.cueNumber = FilteredOrderedAssets[currentFilteredAssetsIndex].cueNumber;
         assetCue.cueAction = cueAction;
-        assetCue.targetTags = new List<string>() { "all" };
+        assetCue.targetTags = new List<string>() { groups[FilteredOrderedAssets[currentFilteredAssetsIndex].groupIndex] }; // TODO: Should we change this to a not list?
 
         string jsonCue = JsonMapper.ToJson(assetCue);
 
@@ -1221,5 +1292,6 @@ namespace Cohort
   public struct CueReference {
     public MediaDomain mediaDomain;
     public double cueNumber;
+    public int groupIndex;
   }
 }
