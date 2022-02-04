@@ -10,6 +10,8 @@ public class CohortUIManager : MonoBehaviour
   TMPro.TextMeshProUGUI textCueBackground;
 
   GameObject cohortUI;
+
+  public TMPro.TextMeshPro toggleUiText;
   
 
   // Start is called before the first frame update
@@ -78,4 +80,25 @@ public class CohortUIManager : MonoBehaviour
     cohortUI.SetActive(false);
   }
 
+  public void toggleUI()
+  {
+    if (cohortUI == null)
+      cohortUI = GameObject.Find("CohortUI");
+
+    string displayText;
+
+    if (cohortUI.activeSelf)
+    {
+      onHideUI();
+      displayText = "Show UI";
+    }
+    else
+    {
+      onShowUI();
+      displayText = "Hide UI";
+    }
+
+    if (toggleUiText != null)
+      toggleUiText.text = displayText;
+  }
 }
