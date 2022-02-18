@@ -15,6 +15,9 @@ public class ImageCueScroller : MonoBehaviour
   private RectTransform imageRect;
   private RectTransform veiwportRect;
 
+  //private RectTransform selfRect;
+  public float screenAspectRatio;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -49,8 +52,13 @@ public class ImageCueScroller : MonoBehaviour
       Debug.LogWarning("Scroll Rect has not been set", this);
 
     // this assumes this component is on the veiwport GameOject
-    veiwportRect = scrollRect?.viewport ?? FindObjectOfType<RectTransform>();
+    veiwportRect = this.gameObject.GetComponent<RectTransform>();//scrollRect?.viewport ?? FindObjectOfType<RectTransform>();
     imageRect = imageComponent.gameObject.GetComponent<RectTransform>();
+
+    // Get current Aspect Ratio and our RectTransform
+    //selfRect = this.gameObject.gameObject.GetComponent<RectTransform>();
+    screenAspectRatio = (float)Screen.width / Screen.height;//selfRect.rect.width / selfRect.rect.height;
+    
   }
 
   private void ChSession_onImageCue(CueAction cueAction, Sprite sprite)
@@ -81,6 +89,15 @@ public class ImageCueScroller : MonoBehaviour
     }
     else
     {
+      SetupForScrollingImage(aspectRatio, (screenAspectRatio = (float)Screen.width / Screen.height) > 1);
+    }
+
+  }
+
+  private void SetupForScrollingImage(float aspectRatio, bool sideScroll = true)
+  {
+    if (sideScroll)
+    {
       imageComponent.transform.localRotation = Quaternion.Euler(0, 0, 90);
       //aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
       //aspectRatioFitter.aspectRatio = (float)sprite.texture.height / sprite.texture.width;
@@ -90,12 +107,36 @@ public class ImageCueScroller : MonoBehaviour
       imageRect.pivot = new Vector2(0, 0);
       imageRect.localPosition = new Vector2(imageRect.rect.height, 0);
     }
-
+    else
+    {
+      imageComponent.transform.localRotation = Quaternion.Euler(0, 0, 0);
+      //aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+      //aspectRatioFitter.aspectRatio = (float)sprite.texture.height / sprite.texture.width;
+      imageRect.anchorMin = new Vector2(0.5f, 0);//Vector2.up;
+      imageRect.anchorMax = new Vector2(0.5f, 1);//Vector2.one;
+      imageRect.sizeDelta = new Vector2((veiwportRect.sizeDelta.y - veiwportRect.sizeDelta.x), veiwportRect.rect.height / aspectRatio);
+      imageRect.pivot = new Vector2(0, 0);
+      imageRect.localPosition = new Vector2(0, imageRect.rect.height);
+    }
   }
 
   // Update is called once per frame
   void Update()
   {
-        
+    float currentScreenAspectRatio = (float)Screen.width / Screen.height;
+
+    // Check if the screen size has changed
+    if (currentScreenAspectRatio != screenAspectRatio)
+    {
+      screenAspectRatio = currentScreenAspectRatio;
+
+      float aspectRatio;
+      if (imageComponent.sprite != null && 
+        aspectRatioThreshold >= (aspectRatio = (float)imageComponent.sprite.texture.width / imageComponent.sprite.texture.height))
+      {
+        // We are in an image cue
+        SetupForScrollingImage(aspectRatio, screenAspectRatio > 1);
+      }
+    }
   }
 }
