@@ -114,9 +114,9 @@ public class ImageCueScroller : MonoBehaviour
       //aspectRatioFitter.aspectRatio = (float)sprite.texture.height / sprite.texture.width;
       imageRect.anchorMin = new Vector2(0.5f, 0);//Vector2.up;
       imageRect.anchorMax = new Vector2(0.5f, 1);//Vector2.one;
-      imageRect.sizeDelta = new Vector2((veiwportRect.sizeDelta.y - veiwportRect.sizeDelta.x), veiwportRect.rect.height / aspectRatio);
+      imageRect.sizeDelta = new Vector2(veiwportRect.sizeDelta.x, ((veiwportRect.rect.height/2) / aspectRatio) - veiwportRect.rect.height);
       imageRect.pivot = new Vector2(0, 0);
-      imageRect.localPosition = new Vector2(0, imageRect.rect.height);
+      imageRect.localPosition = new Vector2(0, 0);
     }
   }
 
