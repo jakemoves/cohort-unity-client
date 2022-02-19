@@ -52,7 +52,7 @@ public class ImageCueScroller : MonoBehaviour
       Debug.LogWarning("Scroll Rect has not been set", this);
 
     // this assumes this component is on the veiwport GameOject
-    veiwportRect = this.gameObject.GetComponent<RectTransform>();//scrollRect?.viewport ?? FindObjectOfType<RectTransform>();
+    veiwportRect = scrollRect?.viewport ?? FindObjectOfType<RectTransform>();//this.gameObject.GetComponent<RectTransform>();
     imageRect = imageComponent.gameObject.GetComponent<RectTransform>();
 
     // Get current Aspect Ratio and our RectTransform
@@ -94,18 +94,18 @@ public class ImageCueScroller : MonoBehaviour
 
   }
 
-  private void SetupForScrollingImage(float aspectRatio, bool sideScroll = true)
+  private void SetupForScrollingImage(float aspectRatio, bool sideScroll)
   {
     if (sideScroll)
     {
-      imageComponent.transform.localRotation = Quaternion.Euler(0, 0, 90);
+      imageComponent.transform.localRotation = Quaternion.Euler(0, 0, -90);
       //aspectRatioFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
       //aspectRatioFitter.aspectRatio = (float)sprite.texture.height / sprite.texture.width;
       imageRect.anchorMin = new Vector2(0, 0.5f);//Vector2.up;
       imageRect.anchorMax = new Vector2(1, 0.5f);//Vector2.one;
       imageRect.sizeDelta = new Vector2((veiwportRect.sizeDelta.y - veiwportRect.sizeDelta.x), veiwportRect.rect.height / aspectRatio);
       imageRect.pivot = new Vector2(0, 0);
-      imageRect.localPosition = new Vector2(imageRect.rect.height, 0);
+      imageRect.localPosition = new Vector2(-imageRect.rect.height, 0);
     }
     else
     {
@@ -114,9 +114,9 @@ public class ImageCueScroller : MonoBehaviour
       //aspectRatioFitter.aspectRatio = (float)sprite.texture.height / sprite.texture.width;
       imageRect.anchorMin = new Vector2(0.5f, 0);//Vector2.up;
       imageRect.anchorMax = new Vector2(0.5f, 1);//Vector2.one;
-      imageRect.sizeDelta = new Vector2(veiwportRect.sizeDelta.x, ((veiwportRect.rect.height/2) / aspectRatio) - veiwportRect.rect.height);
+      imageRect.sizeDelta = new Vector2(veiwportRect.rect.width, (veiwportRect.rect.width / aspectRatio) - veiwportRect.rect.height);
       imageRect.pivot = new Vector2(0, 0);
-      imageRect.localPosition = new Vector2(0, 0);
+      imageRect.localPosition = new Vector2(0, -imageRect.rect.height);
     }
   }
 
