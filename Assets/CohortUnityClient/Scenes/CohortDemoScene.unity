@@ -4429,6 +4429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1711676746}
   - component: {fileID: 1711676748}
+  - component: {fileID: 1711676747}
   m_Layer: 0
   m_Name: CohortManager
   m_TagString: Untagged
@@ -4450,6 +4451,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1711676747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711676745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 6ba98293b0f709141ac0c6bb2880134f,
+    type: 2}
+  <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4494,6 +4510,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 5bbee3cedd3f74917931f34706bcceb9, type: 3}
     cueNumber: 5
   imageCues:
+  - image: {fileID: 21300000, guid: dc0ee42e9437f60438f4ac3a42b5cda4, type: 3}
+    cueNumber: 0
+    accessibleAlternative: Introdution
   - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 1
     accessibleAlternative: Gemma selfie
@@ -4509,9 +4528,6 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 06def88ab9b9743f88ce1a5f517a4dfb, type: 3}
     cueNumber: 5
     accessibleAlternative: Gemma shows art project from phone
-  - image: {fileID: 21300000, guid: 1e1dbc5902296484ead0ca6afee13e8e, type: 3}
-    cueNumber: 6
-    accessibleAlternative: 'Marco: "What are you doing later?"'
   - image: {fileID: 21300000, guid: d3d4b4c280b3e4c52a7610643713ecb6, type: 3}
     cueNumber: 7
     accessibleAlternative: Gemma "heart heart blush..."
