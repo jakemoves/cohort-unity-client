@@ -14,7 +14,9 @@ public class ShowGraphSession : MonoBehaviour
     [field: Header("External Components")]
     [field: SerializeField] public CHSession CHSession { get; private set; }
 
-    public string Group { get; set; } = null;
+    // Runtime Properties
+    public string Group => Cursor?.Group;
+
     public ShowGraph Graph { get; private set; }
     public GraphCursor Cursor { get; set; }
     public string[] MasterGroupsArray => Graph?.MasterGroupArray;
@@ -31,12 +33,9 @@ public class ShowGraphSession : MonoBehaviour
         // Load and Generate ShowGraph
         Graph = ShowGraph.GenerateGraphFromData(ShowGraphData);
 
-        if (!MasterGroupsArray.Contains(Group))
-            Group = null;
-
         // TODO!: Set Callback
 #warning MakeChoiceCallback is not set.
-        Cursor = new GraphCursor(Group, Graph, null);
+        Cursor = new GraphCursor(null, Graph, null);
     }
 
     // Update is called once per frame
@@ -47,9 +46,31 @@ public class ShowGraphSession : MonoBehaviour
 
     public void SetGroup(string groupName)
     {
-        if (!string.IsNullOrEmpty(groupName) && MasterGroupsArray.Contains(groupName))
+        groupName = groupName.Trim();
+        if (!string.IsNullOrEmpty(groupName) && groupName != "All" && MasterGroupsArray.Contains(groupName))
         {
-            // TODO: 
+            if (Cursor.Status == GraphCursor.GraphCursorStatus.AtRoot)
+            {
+                Cursor.Group = Group;
+                Debug.Log($"Group set to {Group}");
+            }
+            else if (Cursor.Status == GraphCursor.GraphCursorStatus.Unknown)
+            {
+                Cursor.Reset();
+                Cursor.Group = Group;
+                Debug.Log($"Group set to {Group}");
+            }
+            else
+                throw new NotImplementedException("Changing groups in the middle or end of the show has not been implemented");
+        }
+        else
+        {
+            Cursor.Reset();
+            Cursor.Group = null;
+
+            if (!string.IsNullOrEmpty(groupName))
+                Debug.LogError($"Group name {groupName} is invalid - group setting will be considered none/All");
+            Debug.LogWarning("Setting group to all - cursor enmerator reset");
         }
     }
 
@@ -95,6 +116,23 @@ public class ShowGraphSession : MonoBehaviour
 
         object IEnumerator.Current => Current;
 
+        public GraphCursorStatus Status
+        {
+            get
+            {
+                if (Group == null) return GraphCursorStatus.Unknown;
+                if (Current == null)
+                {
+                    if (previousStack.Any()) return GraphCursorStatus.AtEnd;
+                    return GraphCursorStatus.AtRoot;
+                }
+                else
+                    return GraphCursorStatus.InMiddle;
+
+                return GraphCursorStatus.Unknown;
+            }
+        }
+
         private Stack<ShowNode> previousStack = new Stack<ShowNode>(50);
 
         public GraphCursor(string groupName, ShowGraph showGraph, MakeChoice choiceCallback)
@@ -106,7 +144,7 @@ public class ShowGraphSession : MonoBehaviour
                 Group = null;
                 Debug.LogError($"the group {groupName} does not exist - the group will be null");
             }
-            
+
             ShowGraph = showGraph;
             MakeChoiceCallback = choiceCallback;
         }
@@ -122,7 +160,7 @@ public class ShowGraphSession : MonoBehaviour
         {
             cancellationToken = default;
             return (uint)UnityEngine.Random.Range(0, choice.NextShowNodes.Length);
-        } 
+        }
 
         public bool MoveNext() => MoveToNextNode() != null;
 
@@ -130,10 +168,10 @@ public class ShowGraphSession : MonoBehaviour
         {
             if (Group == null) return null;
 
-            // We are at the root if the stack has any node
+            // We are at the root if the stack does not have any node
             // otherwise we are at the end
             if (Current == null)
-                return previousStack.Any() ? GetNextNode(ShowGraph.EntryPoint) : null;
+                return !previousStack.Any() ? GetNextNode(ShowGraph.EntryPoint) : null;
 
             // Get Next
             if (Current is SceneNode scene)
@@ -200,5 +238,12 @@ public class ShowGraphSession : MonoBehaviour
         }
         // TODO: IsAmbigous
 
+        public enum GraphCursorStatus
+        {
+            Unknown,
+            AtRoot,
+            AtEnd,
+            InMiddle
+        }
     }
 }
