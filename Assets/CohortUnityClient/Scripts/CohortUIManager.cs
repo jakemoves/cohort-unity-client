@@ -5,6 +5,8 @@ using Cohort;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using UnityEngine.Events;
+using ShowGraphSystem.Runtime;
 
 public class CohortUIManager : MonoBehaviour
 {
@@ -45,13 +47,23 @@ public class CohortUIManager : MonoBehaviour
 #warning CancelButton is currently not used
     [field: SerializeField] public Button CancelButton { get; set; }
 
-
-    public TMPro.TextMeshPro toggleUiText;
+    // Actions
+    private UnityAction showStartAction;
+    private ShowGraphSystem.CueReference currentCueReference = null;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        // Init Actions
+        showStartAction += StartShow;
+
+        InitializeUi();
+    }
+
+    private void InitializeUi()
+    {
+
         // NOTE: I switched to a better programming paradigm because this was too time consuming.
 
         // Initialize Status Display
@@ -105,6 +117,12 @@ public class CohortUIManager : MonoBehaviour
             GroupSelector.onValueChanged.AddListener((index) => { ShowGraphSession.SetGroup(GroupSelector.options[index].text); });
         }
 
+        InitObject<Button>(StartShowButton, "Start Show", (b) =>
+        {
+            b.gameObject.SetActive(true);
+            b.onClick.AddListener(showStartAction);
+        });
+
         // Initialize Show Controls - Cue
         InitObject<GameObject>(CueContainer, "Cue Panel", (o) => { ChoiceContainer.SetActive(false); });
         InitObject<TMPro.TextMeshProUGUI>(CurrentAssetText, "Current Asset Label", null);
@@ -138,6 +156,51 @@ public class CohortUIManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void StartShow()
+    {
+        StartShowButton?.gameObject.SetActive(false);
+        GroupSelector?.gameObject.SetActive(false);
+
+        if (GraphCursor.Status != ShowGraphSession.GraphCursor.GraphCursorStatus.AtRoot)
+            GraphCursor.Reset();
+
+        // Display Status Message
+        if (GraphCursor.MoveNext())
+            SetStatusMessage("Show Started - At First Show Node");
+        else
+            SetStatusMessage("ERROR: Failed to move to the top of show", StatusMessageType.Error);
+    }
+
+    public void EnterShowNode(ShowNode showNode)
+    {
+        StartShowButton?.gameObject.SetActive(false);
+
+        if (showNode is SceneNode)
+        {
+            ChoiceContainer.SetActive(false);
+            CueContainer.SetActive(true);
+        }
+        else if (showNode is ChoiceNode)
+        {
+            CueContainer.SetActive(false);
+            ChoiceContainer.SetActive(true);
+        }
+    }
+
+    public void SetCue(ShowGraphSystem.CueReference cueReference)
+    {
+        currentCueReference = cueReference;
+
+        if (currentCueReference == null)
+            return;
+
+        //switch (cueReference.MediaDomain)
+        //{
+        //    case ShowGraphSystem.MediaDomain.Sound:
+        //        CohortSession.
+        //}
     }
 
     void OnTextCueHandler(CueAction cueAction, string cueText)
@@ -222,8 +285,9 @@ public class CohortUIManager : MonoBehaviour
             displayText = "Hide UI";
         }
 
-        if (toggleUiText != null)
-            toggleUiText.text = displayText;
+        // TODO:
+        //if (toggleUiText != null)
+        //    toggleUiText.text = displayText;
     }
 
     public enum StatusMessageType
