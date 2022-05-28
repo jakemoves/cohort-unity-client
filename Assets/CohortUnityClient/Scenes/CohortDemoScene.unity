@@ -2340,7 +2340,6 @@ MonoBehaviour:
   <YesButton>k__BackingField: {fileID: 1985210053}
   <NoButton>k__BackingField: {fileID: 756791011}
   <CancelButton>k__BackingField: {fileID: 0}
-  toggleUiText: {fileID: 0}
 --- !u!1 &662450872
 GameObject:
   m_ObjectHideFlags: 0
@@ -3215,7 +3214,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864500948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf164416bf90b4052ac155a73b160cc2, type: 3}
   m_Name: 
@@ -3240,7 +3239,6 @@ MonoBehaviour:
   <YesButton>k__BackingField: {fileID: 0}
   <NoButton>k__BackingField: {fileID: 0}
   <CancelButton>k__BackingField: {fileID: 0}
-  toggleUiText: {fileID: 0}
 --- !u!114 &864500950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4478,7 +4476,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385437556}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf164416bf90b4052ac155a73b160cc2, type: 3}
   m_Name: 
@@ -4503,7 +4501,6 @@ MonoBehaviour:
   <YesButton>k__BackingField: {fileID: 0}
   <NoButton>k__BackingField: {fileID: 0}
   <CancelButton>k__BackingField: {fileID: 0}
-  toggleUiText: {fileID: 0}
 --- !u!114 &1385437558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5461,85 +5458,11 @@ MonoBehaviour:
   - text: Right...There..
     cueNumber: 1
     accessibleAlternative: {fileID: 0}
-  orderedAssets:
-  - mediaDomain: 2
-    cueNumber: 1
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 2
-    groupIndex: 1
-  - mediaDomain: 2
-    cueNumber: 3
-    groupIndex: 2
-  - mediaDomain: 2
-    cueNumber: 4
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 3
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 4
-    groupIndex: 0
-  - mediaDomain: 0
-    cueNumber: 1
-    groupIndex: 0
-  - mediaDomain: 0
-    cueNumber: 2
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 5
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 6
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 7
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 8
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 9
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 10
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 11
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 12
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 20
-    groupIndex: 0
-  - mediaDomain: 1
-    cueNumber: 3
-    groupIndex: 0
-  - mediaDomain: 1
-    cueNumber: 4
-    groupIndex: 0
-  - mediaDomain: 1
-    cueNumber: 3
-    groupIndex: 0
-  - mediaDomain: 2
-    cueNumber: 20
-    groupIndex: 0
-  - mediaDomain: 1
-    cueNumber: 5
-    groupIndex: 0
-  - mediaDomain: 0
-    cueNumber: 4
-    groupIndex: 0
   audioPlayer: {fileID: 1392766431}
   videoPlayer: {fileID: 1357722706}
   imageCueSurface: {fileID: 26072270}
   groupSelectorDropdown: {fileID: 1981180488}
-  groups:
-  - all
-  - marco
-  - gemma
-  - roslyn
+  <Groups>k__BackingField: []
 --- !u!1 &1753786878
 GameObject:
   m_ObjectHideFlags: 0
