@@ -1199,7 +1199,7 @@ namespace Cohort
 
         //    StartCoroutine(fireCue(cohortApiUrl(serverURL), jsonCue));
         //}
-        public void onFireCurrentAsset(Cue cue)
+        public void FireCue(Cue cue)
         {
             Debug.Log("onFireCurrentAsset");
 

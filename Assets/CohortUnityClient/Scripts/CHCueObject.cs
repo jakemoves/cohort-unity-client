@@ -1,4 +1,5 @@
-﻿// Copyright Jacob Niedzwiecki, Nicole Goertzen 2020
+﻿#define SHOW_GRAPH
+// Copyright Jacob Niedzwiecki, Nicole Goertzen 2020
 // Released under the MIT License (see /LICENSE)
 
 using System.Collections;
@@ -30,3 +31,36 @@ namespace Cohort
     }
 
 }
+
+#if SHOW_GRAPH
+namespace ShowGraphSystem
+{
+    public static class ShowGraphExtentions
+    {
+        public static Cohort.Cue ToCohortCue(this CueReference cueReference, Cohort.CueAction cueAction)
+        {
+            return new Cohort.Cue
+            {
+                cueAction = cueAction,
+                cueNumber = cueReference.CueID,
+                mediaDomain = cueReference.MediaDomain.GetCorhortMediaDomain(),
+                targetTags = new List<string>(cueReference.GetSelectedGroups())
+            };
+        }
+
+        public static Cohort.MediaDomain GetCorhortMediaDomain (this MediaDomain mediaDomain)
+        {
+            return mediaDomain switch
+            {
+                MediaDomain.Sound => Cohort.MediaDomain.sound,
+                MediaDomain.Video => Cohort.MediaDomain.video,
+                MediaDomain.Image => Cohort.MediaDomain.image,
+                MediaDomain.Text => Cohort.MediaDomain.text,
+                MediaDomain.Light => Cohort.MediaDomain.light,
+                MediaDomain.Haptic => Cohort.MediaDomain.haptic,
+                _ => throw new NotImplementedException()
+            };
+        }
+    }
+}
+#endif

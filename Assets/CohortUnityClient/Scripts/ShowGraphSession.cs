@@ -51,13 +51,13 @@ public class ShowGraphSession : MonoBehaviour
         {
             if (Cursor.Status == GraphCursor.GraphCursorStatus.AtRoot)
             {
-                Cursor.Group = Group;
+                Cursor.Group = groupName;
                 Debug.Log($"Group set to {Group}");
             }
             else if (Cursor.Status == GraphCursor.GraphCursorStatus.Unknown)
             {
                 Cursor.Reset();
-                Cursor.Group = Group;
+                Cursor.Group = groupName;
                 Debug.Log($"Group set to {Group}");
             }
             else
@@ -171,7 +171,10 @@ public class ShowGraphSession : MonoBehaviour
             // We are at the root if the stack does not have any node
             // otherwise we are at the end
             if (Current == null)
-                return !previousStack.Any() ? GetNextNode(ShowGraph.EntryPoint) : null;
+            {
+                Current = !previousStack.Any() ? GetNextNode(ShowGraph.EntryPoint) : null;
+                return Current;
+            }
 
             // Get Next
             if (Current is SceneNode scene)

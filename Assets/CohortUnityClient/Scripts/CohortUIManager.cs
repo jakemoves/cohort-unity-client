@@ -7,7 +7,10 @@ using System.Linq;
 using System;
 using UnityEngine.Events;
 using ShowGraphSystem.Runtime;
+using ShowGraphSystem;
 
+#warning If multiple CohortUIManagers are active in the scene - they may not work as expected
+#warning NullReference Exception thrown if GetComponent in children returns null
 public class CohortUIManager : MonoBehaviour
 {
     // Model
@@ -50,7 +53,7 @@ public class CohortUIManager : MonoBehaviour
     // Actions
     private UnityAction showStartAction;
     private ShowGraphSystem.CueReference currentCueReference = null;
-
+    private CueReferenceEnumerator cueCursor = null;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +62,8 @@ public class CohortUIManager : MonoBehaviour
         showStartAction += StartShow;
 
         InitializeUi();
+
+        GroupSelector.value = 0;
     }
 
     private void InitializeUi()
@@ -102,14 +107,14 @@ public class CohortUIManager : MonoBehaviour
             TextCueDisplay.text = "";
 
         // Initialize Show Controls
-        GroupSelector = GroupSelector ?? GameObject.Find("GroupingDropdown")?.GetComponent<Dropdown>();
+        GroupSelector ??= GameObject.Find("GroupingDropdown")?.GetComponent<Dropdown>();
         if (GroupSelector == null)
             SetStatusMessage("SHOW ERROR: Group Selector Dropdown is not set and could not be found", StatusMessageType.Error);
         else
         {
             // Set Group Selection
             GroupSelector.options.Clear();
-            GroupSelector.options.Add(new Dropdown.OptionData("All"));
+            //GroupSelector.options.Add(new Dropdown.OptionData("All"));
             GroupSelector.options.AddRange(from g in ShowGraphSession.MasterGroupsArray
                                            select new Dropdown.OptionData(g));
 
@@ -126,10 +131,10 @@ public class CohortUIManager : MonoBehaviour
         // Initialize Show Controls - Cue
         InitObject<GameObject>(CueContainer, "Cue Panel", (o) => { ChoiceContainer.SetActive(false); });
         InitObject<TMPro.TextMeshProUGUI>(CurrentAssetText, "Current Asset Label", null);
-        InitObject<Button>(NextCue, "Next Asset");
-        InitObject<Button>(PreviousCue, "Prev Asset");
-        InitObject<Button>(Play, "Play");
-        InitObject<Button>(Stop, "Stop");
+        InitObject<Button>(NextCue, "Next Asset", (button) => { button.onClick.AddListener(() => NextAction()); });
+        InitObject<Button>(PreviousCue, "Prev Asset", (button) => { button.onClick.AddListener(() => PreviousAction()); });
+        InitObject<Button>(Play, "Play", (button) => { button.onClick.AddListener(() => PlayCue()); });
+        InitObject<Button>(Stop, "Stop", (button) => { button.onClick.AddListener(() => StopCue()); });
 
         // Initialize Show Controls - Choice
         InitObject<GameObject>(ChoiceContainer, "Choice Panel", (o) => { ChoiceContainer.SetActive(false); });
@@ -142,7 +147,7 @@ public class CohortUIManager : MonoBehaviour
     void InitObject<T>(T component, string name, Action<T>? initAction = null) where T : class?
     {
         if (typeof(T) == typeof(GameObject))
-            component ??= GameObject.Find(name) as T;
+            component ??= GameObject.Find(name) as T; // NOTE: this fallback may not work
         else
             component ??= GameObject.Find(name)?.GetComponent<T>();
 
@@ -161,31 +166,62 @@ public class CohortUIManager : MonoBehaviour
     public void StartShow()
     {
         StartShowButton?.gameObject.SetActive(false);
-        GroupSelector?.gameObject.SetActive(false);
+        //GroupSelector?.gameObject.SetActive(false);
+        if (GroupSelector != null)
+            GroupSelector.interactable = false;
+
+        // This might not be necessary, but just incase
+        ShowGraphSession?.SetGroup(GroupSelector?.options[GroupSelector.value].text);
 
         if (GraphCursor.Status != ShowGraphSession.GraphCursor.GraphCursorStatus.AtRoot)
             GraphCursor.Reset();
 
         // Display Status Message
         if (GraphCursor.MoveNext())
+        {
+            EnterShowNode(GraphCursor.Current);
             SetStatusMessage("Show Started - At First Show Node");
+        }
         else
             SetStatusMessage("ERROR: Failed to move to the top of show", StatusMessageType.Error);
     }
 
     public void EnterShowNode(ShowNode showNode)
     {
+        // TODO: finish the behaviour for this case
+        if (showNode == null)
+            return;
+
         StartShowButton?.gameObject.SetActive(false);
 
-        if (showNode is SceneNode)
+        if (showNode is SceneNode sceneNode)
         {
             ChoiceContainer.SetActive(false);
             CueContainer.SetActive(true);
+
+            cueCursor = new CueReferenceEnumerator(sceneNode.CueListByGroups[GraphCursor.Group]);
+
+            // This is set Just in case the User presses the Play Button
+            // without hitting next first
+            currentCueReference = sceneNode.CueListByGroups[GraphCursor.Group][0];
+
+            CurrentAssetText.text = "TOP OF SCENE - Press Next Cue to Select the first cue";
+
+            PreviousCue.interactable = true;
+            PreviousCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Previous Scene";
+
+            NextCue.interactable = true;
+            NextCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Next Cue";
         }
-        else if (showNode is ChoiceNode)
+        else if (showNode is ChoiceNode choiceNode)
         {
             CueContainer.SetActive(false);
             ChoiceContainer.SetActive(true);
+
+            cueCursor = null;
+
+            // TODO: Flesh out behaviour
+            ChoiceText.text = choiceNode.GroupChoices[GraphCursor.Group];
         }
     }
 
@@ -196,11 +232,108 @@ public class CohortUIManager : MonoBehaviour
         if (currentCueReference == null)
             return;
 
-        //switch (cueReference.MediaDomain)
-        //{
-        //    case ShowGraphSystem.MediaDomain.Sound:
-        //        CohortSession.
-        //}
+        if (CurrentAssetText != null)
+        {
+            CurrentAssetText.text = cueReference.MediaDomain switch
+            {
+                ShowGraphSystem.MediaDomain.Sound => CohortSession.soundCues.Find(cue => cue.cueNumber == cueReference.CueID).accessibleAlternative,
+                ShowGraphSystem.MediaDomain.Image => CohortSession.imageCues.Find(cue => cue.cueNumber == cueReference.CueID).accessibleAlternative,
+                ShowGraphSystem.MediaDomain.Text => CohortSession.textCues.Find(cue => cue.cueNumber == cueReference.CueID).text,
+                _ => cueReference.ToString(),
+            };
+        }
+    }
+
+    private void NextAction()
+    {
+        if (cueCursor == null)
+            throw new InvalidOperationException("Cue Cursor must not be null");
+
+        if (cueCursor.AtBeginning)
+            PreviousCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Previous Cue";
+
+        if (cueCursor.AtEnd)
+        {
+            // Go To Next Scene
+            if (GraphCursor.MoveNext())
+            {
+                EnterShowNode(GraphCursor.Current);
+            }
+            else
+            {
+                // End of Show
+                SetStatusMessage("END OF SHOW", StatusMessageType.Warning);
+                SetEndOfShowUIState();
+            }
+        }
+        else if (cueCursor.MoveNext())
+        {
+            SetCue(cueCursor.Current);
+        }
+        else
+        {
+            CurrentAssetText.text = "END OF SCENE - Press Next Scene/Choice to proceed";
+            // NOTE: It may be usful to add a PeekNext to the graph cursor
+            // inorder for this to provide information to the user
+            NextCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Next Scene/Choice";
+        }
+    }
+
+    private void PreviousAction()
+    {
+        if (cueCursor == null)
+            throw new InvalidOperationException("Cue Cursor must not be null");
+
+        if (cueCursor.AtEnd)
+            NextCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Next Cue";
+
+        if (cueCursor.AtBeginning)
+        {
+            // Go To Previous Scene
+            if (GraphCursor.MovePrevious())
+            {
+                EnterShowNode(GraphCursor.Current);
+            }
+            else
+            {
+                // Top of Show
+                SetStatusMessage("TOP OF SHOW", StatusMessageType.Warning);
+                SetTopOfShowUIState();
+            }
+        }
+        else if (cueCursor.MovePrevious())
+        {
+            SetCue(cueCursor.Current);
+        }
+        else
+        {
+            CurrentAssetText.text = "TOP OF SCENE - Press Previous Scene/Choice to go back the last scene";
+            // NOTE: It may be usful to add a PeekLast to the graph cursor
+            // inorder for this to provide information to the user
+            PreviousCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Previous Scene/Choice";
+        }
+    }
+
+    private void SetTopOfShowUIState()
+    {
+#warning Method not implemented
+        throw new NotImplementedException();
+    }
+
+    private void SetEndOfShowUIState()
+    {
+#warning Method not implemented
+        throw new NotImplementedException();
+    }
+
+    private void PlayCue()
+    {
+        CohortSession.FireCue(currentCueReference.ToCohortCue(CueAction.play));
+    }
+
+    private void StopCue()
+    {
+        CohortSession.FireCue(currentCueReference.ToCohortCue(CueAction.stop));
     }
 
     void OnTextCueHandler(CueAction cueAction, string cueText)
