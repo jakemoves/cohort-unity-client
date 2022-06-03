@@ -145,7 +145,7 @@ namespace Cohort
         private WebSocket cohortSocket;
         private string deviceGUID; // eventually moves to CHDevice
         private int deviceID; // eventually moves to CHDevice
-        private string grouping = ""; // TODO: Remove?
+        public string grouping = ""; // TODO: Remove?
         private bool automaticCheckin;
         private int occasion;
         private string selectAShowCopy = "Select a show";

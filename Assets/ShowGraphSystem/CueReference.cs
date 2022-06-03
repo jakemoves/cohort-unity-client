@@ -10,7 +10,7 @@ namespace ShowGraphSystem
     public class CueReference
     {
         [field: SerializeField] public MediaDomain MediaDomain { get; set; }
-        [field: SerializeField] public Dictionary<string, bool> GroupSelection { get; set; }
+        [field: SerializeField] public SerializableDictionary<string, bool> GroupSelection { get; set; }
         [field: SerializeField] public int CueID { get; set; }
 
         public string[] GetSelectedGroups()

@@ -108,12 +108,14 @@ namespace BestHTTP.Logger
                         exceptionMessage = sb.ToString();
                     }
 
-                    UnityEngine.Debug.LogError(string.Format(FormatEx,
-                                                                GetFormattedTime(),
-                                                                division,
-                                                                msg,
-                                                                exceptionMessage,
-                                                                ex != null ? ex.StackTrace : "null"));
+                    UnityEngine.Debug.LogError(
+                        string.Format(
+                            FormatEx,
+                            GetFormattedTime(),
+                            division,
+                            msg,
+                            exceptionMessage,
+                            ex != null ? ex.StackTrace : "null"));
                 }
                 catch
                 { }

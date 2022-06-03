@@ -21,7 +21,6 @@ public class ShowGraphSession : MonoBehaviour
     public GraphCursor Cursor { get; set; }
     public string[] MasterGroupsArray => Graph?.MasterGroupArray;
 
-    // Start is called before the first frame update
     void Awake()
     {
         if (ShowGraphData == null)
@@ -29,6 +28,7 @@ public class ShowGraphSession : MonoBehaviour
             Debug.LogError("There is no Graph Data attatched to this component");
             return;
         }
+        // TODO: If CHSession is null we need to find it
 
         // Load and Generate ShowGraph
         Graph = ShowGraph.GenerateGraphFromData(ShowGraphData);
@@ -36,6 +36,18 @@ public class ShowGraphSession : MonoBehaviour
         // TODO!: Set Callback
 #warning MakeChoiceCallback is not set.
         Cursor = new GraphCursor(null, Graph, null);
+    }
+
+    private void Start()
+    {
+        if (CHSession != null)
+        {
+            CHSession.Groups = (Graph?.MasterGroupArray ?? new string[0])
+                .Concat(new string[] { "all" })
+                .ToArray();
+        }
+        else
+            Debug.LogError("CHSession was not set, App will exibit undefined behavior.");
     }
 
     // Update is called once per frame
@@ -52,12 +64,16 @@ public class ShowGraphSession : MonoBehaviour
             if (Cursor.Status == GraphCursor.GraphCursorStatus.AtRoot)
             {
                 Cursor.Group = groupName;
+                if (CHSession != null)
+                    CHSession.grouping = groupName;
                 Debug.Log($"Group set to {Group}");
             }
             else if (Cursor.Status == GraphCursor.GraphCursorStatus.Unknown)
             {
                 Cursor.Reset();
                 Cursor.Group = groupName;
+                if (CHSession != null)
+                    CHSession.grouping = groupName;
                 Debug.Log($"Group set to {Group}");
             }
             else
@@ -203,7 +219,7 @@ public class ShowGraphSession : MonoBehaviour
         private ShowNode GetNextNode(List<ShowNode> nextShowNodes)
         {
             var query = from node in nextShowNodes
-                        where node.Groups.Contains(Group)
+                        where node.SelectedGroups.Contains(Group)
                         select node;
 
             // Note: Getting the count on IEnumerable is performance wise costly.

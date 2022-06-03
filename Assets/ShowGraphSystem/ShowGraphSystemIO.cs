@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#if UNITY_EDITOR
 using UnityEditor;
-using System.IO;
+#endif
 using ShowGraphSystem.Serialization;
 
 // Based on and uses code from https://github.com/Wafflus/unity-dialogue-system/blob/master/Assets/Editor/DialogueSystem/Utilities/DSIOUtility.cs
@@ -13,7 +9,7 @@ namespace ShowGraphSystem.Runtime
     public static class ShowGraphSystemIO
     {
         public const string ShowGraphSystemName = "ShowGraphSystem";
-
+#if UNITY_EDITOR
         public static ShowGraphDataSO LoadGraphDataFromSO(string assetName, string path = "Assets")
         {
             string fullPath = $"{path.Trim('/', ' ')}/{assetName}.asset";
@@ -21,7 +17,6 @@ namespace ShowGraphSystem.Runtime
             return g;
         }
 
-#if UNITY_EDITOR
         //public static void SaveGraphToAsset(ShowGraphView showGraphView, string path = "Assets")
         //{
         //    // Create Folders

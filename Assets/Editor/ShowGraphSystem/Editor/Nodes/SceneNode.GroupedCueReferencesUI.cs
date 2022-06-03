@@ -204,7 +204,7 @@ namespace ShowGraphSystem.Editor
                     }
                 }
 
-                public Dictionary<string, bool> GroupSelection { get => Data.GroupSelection; private set => Data.GroupSelection = value; }
+                public IDictionary<string, bool> GroupSelection { get => Data.GroupSelection; private set => Data.GroupSelection = new SerializableDictionary<string, bool>(value); }
 
                 public CueReferenceUI(CueReference cueReferenceData, ObservableCollection<string> groups, string groupName = null) : base()
                 {
@@ -239,7 +239,7 @@ namespace ShowGraphSystem.Editor
                     {
                         // TODO: Grouping popup
                         UnityEditor.PopupWindow.Show(setGroupsButton.LocalToWorld(setGroupsButton.contentRect),
-                                new GroupSelectionPopupWindow(GroupSelection) { CloseAction = newSel => OnUpdateSelection() });
+                                new GroupSelectionPopupWindow(new Dictionary<string, bool>(GroupSelection)) { CloseAction = newSel => OnUpdateSelection(newSel) });
                     })
                     {
                         text = "No Group Selected"
@@ -279,8 +279,11 @@ namespace ShowGraphSystem.Editor
                     }
                 }
 
-                private void OnUpdateSelection()
+                private void OnUpdateSelection(IDictionary<string, bool> selection = null)
                 {
+                    if (selection != null)
+                        this.GroupSelection = selection;
+
                     var selectedGroups = GetSelectedGroups();
 
                     if (selectedGroups.Length == 0)

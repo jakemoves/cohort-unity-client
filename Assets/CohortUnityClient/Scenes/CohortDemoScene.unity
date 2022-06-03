@@ -2323,7 +2323,7 @@ MonoBehaviour:
   <ShowGraphSession>k__BackingField: {fileID: 1711676747}
   <Group>k__BackingField: 
   <CohortSession>k__BackingField: {fileID: 1711676748}
-  <CohortUI>k__BackingField: {fileID: 0}
+  <CohortUI>k__BackingField: {fileID: 653245611}
   <TextCueDisplay>k__BackingField: {fileID: 570931465}
   <StatusDisplay>k__BackingField: {fileID: 1687910242}
   <ToggleUiText>k__BackingField: {fileID: 0}
@@ -5463,6 +5463,7 @@ MonoBehaviour:
   imageCueSurface: {fileID: 26072270}
   groupSelectorDropdown: {fileID: 1981180488}
   <Groups>k__BackingField: []
+  grouping: 
 --- !u!1 &1753786878
 GameObject:
   m_ObjectHideFlags: 0
