@@ -73,29 +73,6 @@ MonoBehaviour:
             - Key: Roselyn
               Value: 1
           <CueID>k__BackingField: 0
-  - <ID>k__BackingField: df38ae93-3ec8-437b-82e8-a76797f7a95d
-    <Title>k__BackingField: Scene 1A
-    <GroupSelection>k__BackingField:
-      list:
-      - Key: Qas
-        Value: 1
-      - Key: Gemma
-        Value: 1
-      - Key: Roselyn
-        Value: 0
-    <Groups>k__BackingField:
-    - Qas
-    - Gemma
-    - Roselyn
-    <Position>k__BackingField: {x: 600, y: 42}
-    <CueListByGroups>k__BackingField:
-      list:
-      - Key: Qas
-        Value: []
-      - Key: Gemma
-        Value: []
-      - Key: Roselyn
-        Value: []
   - <ID>k__BackingField: 708da6ee-34e2-4d4e-9361-c33061774441
     <Title>k__BackingField: Choice Result 0
     <GroupSelection>k__BackingField:
@@ -321,6 +298,49 @@ MonoBehaviour:
             - Key: Roselyn
               Value: 1
           <CueID>k__BackingField: 3
+  - <ID>k__BackingField: df38ae93-3ec8-437b-82e8-a76797f7a95d
+    <Title>k__BackingField: Scene 1A
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roselyn
+        Value: 0
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 600, y: 42}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 4
+      - Key: Gemma
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 3
+      - Key: Roselyn
+        Value: []
   <ChoiceNodes>k__BackingField:
   - <ID>k__BackingField: 07ee3f1c-d29d-47cc-882e-825db179acca
     <Title>k__BackingField: Choice

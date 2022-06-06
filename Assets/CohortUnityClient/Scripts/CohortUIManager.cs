@@ -217,6 +217,7 @@ public class CohortUIManager : MonoBehaviour
 
             NextCue.interactable = true;
             NextCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Next Cue";
+            SetStatusMessage(sceneNode.ToString());
         }
         else if (showNode is ChoiceNode choiceNode)
         {
@@ -227,6 +228,7 @@ public class CohortUIManager : MonoBehaviour
 
             // TODO: Flesh out behaviour
             ChoiceText.text = choiceNode.GroupChoices[GraphCursor.Group];
+            SetStatusMessage(choiceNode.ToString());
         }
     }
 
