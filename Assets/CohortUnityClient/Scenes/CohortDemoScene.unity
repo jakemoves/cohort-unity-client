@@ -3000,7 +3000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 537.5815, y: -25}
+  m_AnchoredPosition: {x: 192.79178, y: -104}
   m_SizeDelta: {x: 170, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &756791011
@@ -5368,7 +5368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 6ba98293b0f709141ac0c6bb2880134f,
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: d0d55fb668a9f484682829ed06c8c772,
     type: 2}
   <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
@@ -5430,18 +5430,18 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 4
     accessibleAlternative: Marco texts Roz "so I can flirt with her"
-  - image: {fileID: 21300000, guid: 06def88ab9b9743f88ce1a5f517a4dfb, type: 3}
+  - image: {fileID: 21300000, guid: 8076f192b4cfe8f4a8e6745923243e60, type: 3}
     cueNumber: 5
-    accessibleAlternative: Gemma shows art project from phone
-  - image: {fileID: 21300000, guid: d3d4b4c280b3e4c52a7610643713ecb6, type: 3}
+    accessibleAlternative: Port 0
+  - image: {fileID: 21300000, guid: 5988beed6d776ea41b7a7e88eca43abb, type: 3}
+    cueNumber: 6
+    accessibleAlternative: Port 1
+  - image: {fileID: 21300000, guid: 3f1cd5d8a8bc36e43825919ecb5f3755, type: 3}
     cueNumber: 7
-    accessibleAlternative: Gemma "heart heart blush..."
-  - image: {fileID: 21300000, guid: 8207c5f6a91944c9b9b4141fa4ca556a, type: 3}
+    accessibleAlternative: Port 2
+  - image: {fileID: 21300000, guid: 8f35dcf57fe189a4db108e543c5f9012, type: 3}
     cueNumber: 8
-    accessibleAlternative: 'Marco: "a plethora"'
-  - image: {fileID: 21300000, guid: 36274f80b157343f19b259c31171d0e0, type: 3}
-    cueNumber: 9
-    accessibleAlternative: Gemma takes selfie in bar
+    accessibleAlternative: Port 3
   - image: {fileID: 21300000, guid: 301a41d0a865e4a70a3edb1d7af04d3f, type: 3}
     cueNumber: 10
     accessibleAlternative: 'Marco: "You can tag me..."'
@@ -6137,7 +6137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 167.58148, y: -25}
+  m_AnchoredPosition: {x: 192.79178, y: -25}
   m_SizeDelta: {x: 170, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1985210053

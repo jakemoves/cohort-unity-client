@@ -1,0 +1,381 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c71533f2378cc4fa55bada6688af88, type: 3}
+  m_Name: TestChoiceGraph2
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Show Graph
+  <Groups>k__BackingField:
+  - Qas
+  - Gemma
+  - Roselyn
+  <Root>k__BackingField:
+    <Position>k__BackingField: {x: 64, y: 228}
+  <SceneNodes>k__BackingField:
+  - <ID>k__BackingField: 9cf1f9bf-eaae-4485-897b-ab93bd282c23
+    <Title>k__BackingField: Introduction
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roselyn
+        Value: 1
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 217, y: 157}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 0
+      - Key: Gemma
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 0
+      - Key: Roselyn
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 1
+          <CueID>k__BackingField: 0
+  - <ID>k__BackingField: df38ae93-3ec8-437b-82e8-a76797f7a95d
+    <Title>k__BackingField: Scene 1A
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roselyn
+        Value: 0
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 600, y: 42}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value: []
+      - Key: Gemma
+        Value: []
+      - Key: Roselyn
+        Value: []
+  - <ID>k__BackingField: 708da6ee-34e2-4d4e-9361-c33061774441
+    <Title>k__BackingField: Choice Result 0
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roselyn
+        Value: 0
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 1264, y: -287}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 5
+      - Key: Gemma
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 8
+      - Key: Roselyn
+        Value: []
+  - <ID>k__BackingField: 9a94a3c8-b262-4bc8-ab2d-17674d845dfc
+    <Title>k__BackingField: Choice Result 1
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roselyn
+        Value: 0
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 1528, y: -287}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 6
+      - Key: Gemma
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 7
+      - Key: Roselyn
+        Value: []
+  - <ID>k__BackingField: 1f353330-1a96-4b3b-a5ca-9fef546c54ce
+    <Title>k__BackingField: Choice Result 2
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roselyn
+        Value: 0
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 1789, y: -287}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 7
+      - Key: Gemma
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 6
+      - Key: Roselyn
+        Value: []
+  - <ID>k__BackingField: 950c33f4-83aa-4673-beb4-57068840f107
+    <Title>k__BackingField: Choice Result 3
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roselyn
+        Value: 0
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 2064, y: -287}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 8
+      - Key: Gemma
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 5
+      - Key: Roselyn
+        Value: []
+  - <ID>k__BackingField: 05ad6a4e-6eab-4d40-a013-7446ba3b12dc
+    <Title>k__BackingField: Scene 1B
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 0
+      - Key: Gemma
+        Value: 0
+      - Key: Roselyn
+        Value: 1
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 621, y: 737}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value: []
+      - Key: Gemma
+        Value: []
+      - Key: Roselyn
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 1
+          <CueID>k__BackingField: 1
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 1
+          <CueID>k__BackingField: 2
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roselyn
+              Value: 1
+          <CueID>k__BackingField: 3
+  <ChoiceNodes>k__BackingField:
+  - <ID>k__BackingField: 07ee3f1c-d29d-47cc-882e-825db179acca
+    <Title>k__BackingField: Choice
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roselyn
+        Value: 0
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roselyn
+    <Position>k__BackingField: {x: 930, y: 42}
+    <GroupChoices>k__BackingField:
+      list:
+      - Key: Qas
+        Value: Qas does somthing?
+      - Key: Gemma
+        Value: Gemma does somthing?
+    <KeyList>k__BackingField:
+    - Qas
+    - Gemma
+  <ShowEdges>k__BackingField:
+  - inputNodeID: 9cf1f9bf-eaae-4485-897b-ab93bd282c23
+    outputNodeID: root
+    inputPortName: Previous Scene(s)
+    outputPortName: Entry Point
+  - inputNodeID: df38ae93-3ec8-437b-82e8-a76797f7a95d
+    outputNodeID: 9cf1f9bf-eaae-4485-897b-ab93bd282c23
+    inputPortName: Previous Scene(s)
+    outputPortName: Next Scene(s)
+  - inputNodeID: 05ad6a4e-6eab-4d40-a013-7446ba3b12dc
+    outputNodeID: 9cf1f9bf-eaae-4485-897b-ab93bd282c23
+    inputPortName: Previous Scene(s)
+    outputPortName: Next Scene(s)
+  - inputNodeID: 07ee3f1c-d29d-47cc-882e-825db179acca
+    outputNodeID: df38ae93-3ec8-437b-82e8-a76797f7a95d
+    inputPortName: Previous Scene(s)
+    outputPortName: Next Scene(s)
+  - inputNodeID: 708da6ee-34e2-4d4e-9361-c33061774441
+    outputNodeID: 07ee3f1c-d29d-47cc-882e-825db179acca
+    inputPortName: Previous Scene(s)
+    outputPortName: 0
+  - inputNodeID: 9a94a3c8-b262-4bc8-ab2d-17674d845dfc
+    outputNodeID: 07ee3f1c-d29d-47cc-882e-825db179acca
+    inputPortName: Previous Scene(s)
+    outputPortName: 1
+  - inputNodeID: 1f353330-1a96-4b3b-a5ca-9fef546c54ce
+    outputNodeID: 07ee3f1c-d29d-47cc-882e-825db179acca
+    inputPortName: Previous Scene(s)
+    outputPortName: 2
+  - inputNodeID: 950c33f4-83aa-4673-beb4-57068840f107
+    outputNodeID: 07ee3f1c-d29d-47cc-882e-825db179acca
+    inputPortName: Previous Scene(s)
+    outputPortName: 3

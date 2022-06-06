@@ -81,6 +81,11 @@ public class CohortUIManager : MonoBehaviour
         {
             SetStatusMessage("SHOW ERROR: Show Graph Session is not set and could not be found.", StatusMessageType.Error);
         }
+        else
+        {
+            ShowGraphSession.DecisionsUpdate += DecisionsUpdate;
+            ShowGraphSession.Cursor.MakeChoiceCallback = MakeChoice;
+        }
 
         CohortSession ??= GameObject.Find("CohortManager")?.GetComponent<CHSession>();
         if (CohortSession == null)
@@ -139,8 +144,8 @@ public class CohortUIManager : MonoBehaviour
         // Initialize Show Controls - Choice
         InitObject<GameObject>(ChoiceContainer, "Choice Panel", (o) => { ChoiceContainer.SetActive(false); });
         InitObject<TMPro.TextMeshProUGUI>(ChoiceText, "Current Question Label");
-        InitObject<Button>(YesButton, "Yes");
-        InitObject<Button>(NoButton, "No");
+        InitObject<Button>(YesButton, "Yes", (button) => { button.onClick.AddListener(() => MakeDecisionAction(true)); });
+        InitObject<Button>(NoButton, "No", (button) => { button.onClick.AddListener(() => MakeDecisionAction(false)); });
     }
 
 #nullable enable
@@ -254,17 +259,7 @@ public class CohortUIManager : MonoBehaviour
 
         if (cueCursor.AtEnd)
         {
-            // Go To Next Scene
-            if (GraphCursor.MoveNext())
-            {
-                EnterShowNode(GraphCursor.Current);
-            }
-            else
-            {
-                // End of Show
-                SetStatusMessage("END OF SHOW", StatusMessageType.Warning);
-                SetEndOfShowUIState();
-            }
+            MoveToNextNode();
         }
         else if (cueCursor.MoveNext())
         {
@@ -276,6 +271,21 @@ public class CohortUIManager : MonoBehaviour
             // NOTE: It may be usful to add a PeekNext to the graph cursor
             // inorder for this to provide information to the user
             NextCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Next Scene/Choice";
+        }
+    }
+
+    private void MoveToNextNode()
+    {
+        // Go To Next Scene
+        if (GraphCursor.MoveNext())
+        {
+            EnterShowNode(GraphCursor.Current);
+        }
+        else
+        {
+            // End of Show
+            SetStatusMessage("END OF SHOW", StatusMessageType.Warning);
+            SetEndOfShowUIState();
         }
     }
 
@@ -334,6 +344,89 @@ public class CohortUIManager : MonoBehaviour
     private void StopCue()
     {
         CohortSession.FireCue(currentCueReference.ToCohortCue(CueAction.stop));
+    }
+
+    private void MakeDecisionAction(bool yes)
+    {
+        // Double Check if what the node is
+        if (GraphCursor.Current is SceneNode)
+        {
+            // Take Corrective Action
+            EnterShowNode(GraphCursor.Current);
+            ChoiceContainer.SetActive(false);
+            CueContainer.SetActive(true);
+            return;
+        }
+        else if (!(GraphCursor.Current is ChoiceNode))
+            throw new InvalidOperationException();
+
+        var choice = (ChoiceNode)GraphCursor.Current;
+
+        if (!DecisionThroughText.Instance.ContainsKey(choice))
+            //DecisionThroughText.Instance.AddChoice(choice);
+            Debug.LogError($"The node {choice} does not exsist in the decisions dictionary");
+        
+        // Validate Decision Context
+        if (!DecisionThroughText.Instance[choice].ContainsKey(GraphCursor.Group))
+            throw new InvalidOperationException($"The current choice node does not support the group {GraphCursor.Group}");
+
+        // Make the Decision
+        // Instansiate the command BEFORE we set our decision as it will cause the event to be raised
+        var decisionCommand = new DecisionCommand(GraphCursor.Current.ID, GraphCursor.Group) { Decision = yes };
+        DecisionThroughText.Instance[choice][GraphCursor.Group] = yes;
+
+        Debug.Log($"Sending Command: {decisionCommand}");
+
+        CohortSession.TransmitCommand(choice.GroupKeyArray, decisionCommand);
+
+        SetStatusMessage("... Waiting for other choices");
+        TryMoveOnFromDecision(DecisionThroughText.Instance[choice]);
+    }
+
+    private void DecisionsUpdate(object sender, DecisionThroughText.Decisions e)
+    {
+        // Validate Eventarguments
+        if (ShowGraphSession.Graph.NodeDictionary.ContainsKey(e.NodeID) && ShowGraphSession.Graph.NodeDictionary[e.NodeID] is ChoiceNode)
+            TryMoveOnFromDecision(e);
+        else
+            Debug.LogError($"DecisionsUpdate event args invalid [{e.NodeID}]");
+    }
+
+    private void TryMoveOnFromDecision(DecisionThroughText.Decisions decisions)
+    {
+        if (GraphCursor.Current is ChoiceNode choiceNode && GraphCursor.Current.ID == decisions.NodeID)
+        {
+            if (decisions.TryGetDecisionsValue(out int value))
+            {
+                Debug.Log($"Choice Made {choiceNode.ID}.{GraphCursor.Group} ->> into {value}");
+                MoveToNextNode();
+            }
+        }
+    }
+
+    public uint MakeChoice(ChoiceNode choiceNode, out System.Threading.CancellationToken? cancellationToken)
+    {
+        // I dont think we need this as we are decision making syncronisly
+        cancellationToken = null;
+
+        // State Checks
+        if (choiceNode == null || !DecisionThroughText.Instance.ContainsKey(choiceNode?.ID))
+            throw new NullReferenceException($"Crucial decision information is missing" +
+                $"\nChoiceNode -> {choiceNode?.ID}" +
+                $"\nDecisions is Null -> {DecisionThroughText.Instance.ContainsKey(choiceNode?.ID)}");
+
+        int value;
+        if (!DecisionThroughText.Instance[choiceNode].TryGetDecisionsValue(out value))
+            throw new InvalidOperationException($"There is one or more decisions not yet made\n" +
+                $"{DecisionThroughText.Instance[choiceNode]}");
+
+        return (uint)value;
+    }
+
+    private void CancelChoice()
+    {
+        throw new NotImplementedException();
+#warning TODO
     }
 
     void OnTextCueHandler(CueAction cueAction, string cueText)

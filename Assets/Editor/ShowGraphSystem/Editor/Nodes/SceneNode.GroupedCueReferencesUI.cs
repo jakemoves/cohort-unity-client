@@ -80,7 +80,9 @@ namespace ShowGraphSystem.Editor
                     // Add Cue
                     var cueRef = new CueReference()
                     {
-                        MediaDomain = MediaDomain.Image
+                        MediaDomain = MediaDomain.Image,
+                        GroupSelection = new SerializableDictionary<string, bool>
+                        (groups.ToDictionary<string, string, bool>(str => str, str => str == groupName))
                     };
 
                     CueReferences.Add(cueRef);

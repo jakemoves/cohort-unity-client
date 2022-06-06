@@ -29,6 +29,8 @@ namespace Cohort
          * Editor fields
          */
 
+        public const string CommandSeperator = ";";
+
         // This points to a Cohort server. The Unity editor serializes cuelists (and other Cohort objects) and sends them to the server.
         [Header("Server Info")]
         [SerializeField]
@@ -968,7 +970,47 @@ namespace Cohort
                     break;
 
                 case MediaDomain.text:
-                    CHTextCue textCue = textCues.Find((CHTextCue matchingCue) => System.Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
+                    // Intercept A Cue with the cueNumber in the negative
+                    if (msg.cueNumber < 0 && msg.targetTags.Any( str => str.StartsWith(CHCommand.CommandHeader))) // TODO: Test
+                    {
+                        Debug.Log($"Parsing commands.... {string.Join(", ", msg.targetTags.ToArray())}");
+                        // Try Parsesing Command 
+                        foreach (var commandString in msg.targetTags.Where(str => str.StartsWith(CHCommand.CommandHeader)))
+                        {
+                            foreach (var command in commandString.Split(new char[] { CHCommand.CommandSeparator }, StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                if (DecisionCommand.TryParse(command, out DecisionCommand decisionCommand))
+                                {
+#warning If the DecisionThroughText.Instance is not populated this will throw and error
+                                    Debug.Log($"Received Decision -> {command}");
+
+                                    // Command Validation
+                                    if (!DecisionThroughText.Instance.ContainsKey(decisionCommand.NodeId))
+                                    {
+                                        Debug.LogError($"{nameof(DecisionThroughText)}.{nameof(DecisionThroughText.Instance)} does not contain {decisionCommand.NodeId}");
+                                        continue;
+                                    }
+
+                                    if (!DecisionThroughText.Instance[decisionCommand.NodeId].ContainsKey(decisionCommand.Group))
+                                    {
+                                        Debug.LogError($"{nameof(DecisionThroughText)}.{nameof(DecisionThroughText.Instance)}[{decisionCommand.NodeId}] does not contain group {decisionCommand.Group}\n" +
+                                            $"The only valid groups are {string.Join(", ", DecisionThroughText.Instance[decisionCommand.NodeId].Keys)}");
+                                        continue;
+                                    }
+
+                                    // Apply the decisions to the Instance
+                                    DecisionThroughText.Instance[decisionCommand.NodeId][decisionCommand.Group] = decisionCommand.Decision;
+                                }
+                                else
+                                {
+                                    Debug.LogWarning($"Command not found: {command}");
+                                }
+                            }
+                        }
+                        return;
+                    }
+
+                    CHTextCue textCue = textCues.Find((CHTextCue matchingCue) => Math.Abs(matchingCue.cueNumber - msg.cueNumber) < 0.00001);
                     if (textCue == null && msg.cueContent == null)
                     {
                         return;
@@ -1216,6 +1258,26 @@ namespace Cohort
 
             StartCoroutine(fireCue(cohortApiUrl(serverURL), jsonCue));
         }
+
+        public void TransmitCommand(List<string> targetGroups = null, params string[] commands)
+        {
+            if (targetGroups is null)
+                targetGroups = new List<string>() { "all" };
+            targetGroups.Add(string.Join($"{CHCommand.CommandSeparator}", commands));
+
+            var command = new Cue()
+            {
+                cueAction = default,
+                cueNumber = -1,
+                mediaDomain = MediaDomain.text,
+                targetTags = targetGroups
+            };
+
+            FireCue(command);
+        }
+
+        public void TransmitCommand(string[] targetGroups, params string[] commands)
+            => TransmitCommand(targetGroups.ToList(), commands);
 
         IEnumerator fireCue(string uri, string json)
         {

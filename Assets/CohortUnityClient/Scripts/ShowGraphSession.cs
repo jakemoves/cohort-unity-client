@@ -15,8 +15,9 @@ public class ShowGraphSession : MonoBehaviour
     [field: SerializeField] public CHSession CHSession { get; private set; }
 
     // Runtime Properties
-    public string Group => Cursor?.Group;
+    public event EventHandler<DecisionThroughText.Decisions> DecisionsUpdate;
 
+    public string Group => Cursor?.Group;
     public ShowGraph Graph { get; private set; }
     public GraphCursor Cursor { get; set; }
     public string[] MasterGroupsArray => Graph?.MasterGroupArray;
@@ -33,9 +34,25 @@ public class ShowGraphSession : MonoBehaviour
         // Load and Generate ShowGraph
         Graph = ShowGraph.GenerateGraphFromData(ShowGraphData);
 
-        // TODO!: Set Callback
-#warning MakeChoiceCallback is not set.
-        Cursor = new GraphCursor(null, Graph, null);
+        // Init DecisionThroughText
+        if (!(Graph is null))
+        {
+            foreach (var node in Graph.NodeDictionary)
+            {
+                if (node.Value is ChoiceNode choiceNode)
+                {
+                    DecisionThroughText.Instance.AddChoice(choiceNode.ID, choiceNode.GroupKeyArray);
+                    DecisionThroughText.Instance[choiceNode.ID].DecisionsChanged += OnDecisionsUpdate;
+                }
+            }
+        }
+
+        Cursor = new GraphCursor(null, Graph, GraphCursor.DefaultDecider);
+    }
+
+    private void OnDecisionsUpdate(object sender, DecisionThroughText.Decisions e)
+    {
+        DecisionsUpdate?.Invoke(this, e);
     }
 
     private void Start()
@@ -172,7 +189,7 @@ public class ShowGraphSession : MonoBehaviour
                 Current = path[path.Count - 1]
             };
 
-        private static uint DefaultDecider(ChoiceNode choice, out System.Threading.CancellationToken? cancellationToken)
+        public static uint DefaultDecider(ChoiceNode choice, out System.Threading.CancellationToken? cancellationToken)
         {
             cancellationToken = default;
             return (uint)UnityEngine.Random.Range(0, choice.NextShowNodes.Length);
