@@ -208,7 +208,10 @@ public class CohortUIManager : MonoBehaviour
 
             // This is set Just in case the User presses the Play Button
             // without hitting next first
-            currentCueReference = sceneNode.CueListByGroups[GraphCursor.Group][0];
+            if (sceneNode.CueListByGroups[GraphCursor.Group].Length > 0)
+                currentCueReference = sceneNode.CueListByGroups[GraphCursor.Group][0];
+            else
+                currentCueReference = null;
 
             CurrentAssetText.text = "TOP OF SCENE - Press Next Cue to Select the first cue";
 
@@ -340,11 +343,17 @@ public class CohortUIManager : MonoBehaviour
 
     private void PlayCue()
     {
+        if (currentCueReference is null)
+            return;
+
         CohortSession.FireCue(currentCueReference.ToCohortCue(CueAction.play));
     }
 
     private void StopCue()
     {
+        if (currentCueReference is null)
+            return;
+
         CohortSession.FireCue(currentCueReference.ToCohortCue(CueAction.stop));
     }
 

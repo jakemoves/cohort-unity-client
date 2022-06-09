@@ -1383,6 +1383,7 @@ GameObject:
   - component: {fileID: 377207716}
   - component: {fileID: 377207715}
   - component: {fileID: 377207714}
+  - component: {fileID: 377207718}
   m_Layer: 0
   m_Name: CohortVideoSurface
   m_TagString: Untagged
@@ -1461,17 +1462,31 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377207713}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 180, y: 101, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.7778, z: 0}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 658422816}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.98732924}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &377207718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377207713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 3
+  m_AspectRatio: 1.7778
 --- !u!1 &377250740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,7 +1521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -19.145012}
+  m_AnchoredPosition: {x: 0, y: -19.145004}
   m_SizeDelta: {x: 0, y: 38.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377250742
@@ -2340,6 +2355,106 @@ MonoBehaviour:
   <YesButton>k__BackingField: {fileID: 1985210053}
   <NoButton>k__BackingField: {fileID: 756791011}
   <CancelButton>k__BackingField: {fileID: 0}
+--- !u!1 &658422809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 658422816}
+  - component: {fileID: 658422815}
+  - component: {fileID: 658422814}
+  - component: {fileID: 658422813}
+  m_Layer: 5
+  m_Name: VideoCueDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &658422813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658422809}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &658422814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658422809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1, y: 1}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0.544
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &658422815
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658422809}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 1
+  m_Camera: {fileID: 963194227}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 1
+  m_TargetDisplay: 0
+--- !u!224 &658422816
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658422809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 377207717}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &662450872
 GameObject:
   m_ObjectHideFlags: 0
@@ -4272,7 +4387,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357722705}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 0c9bc1d3113a440138a4752ea49523f0, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 963194227}
@@ -4280,8 +4395,8 @@ VideoPlayer:
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 377207715}
   m_TargetMaterialProperty: _MainTex
-  m_RenderMode: 2
-  m_AspectRatio: 5
+  m_RenderMode: 0
+  m_AspectRatio: 3
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
@@ -5368,7 +5483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: d0d55fb668a9f484682829ed06c8c772,
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 47383049a5eb678439e7a5788e9346b0,
     type: 2}
   <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
@@ -5391,22 +5506,19 @@ MonoBehaviour:
   eventId: 15
   clientOccasion: 21
   soundCues:
-  - audioClip: {fileID: 8300000, guid: 0393d9284dc164f29ada65baff7d0b98, type: 3}
+  - audioClip: {fileID: 0}
     cueNumber: 1
     accessibleAlternative: '[placeholder for The Current podcast]'
-  - audioClip: {fileID: 8300000, guid: 0182fefb12efc4f48b32bcd033b18e3b, type: 3}
+  - audioClip: {fileID: 8300000, guid: 69219bdb74dd0f642ace73c892089757, type: 3}
     cueNumber: 2
     accessibleAlternative: Marco's transition music
-  - audioClip: {fileID: 8300000, guid: c65b4f559480f42a8b696ea9d41f68a3, type: 3}
+  - audioClip: {fileID: 8300000, guid: 4c7b4caa31e3a7a43984141230c6884e, type: 3}
     cueNumber: 3
     accessibleAlternative: Roslyn's transition music
-  - audioClip: {fileID: 8300000, guid: 0622618416d6c4c6d8efdaceae71b9d3, type: 3}
-    cueNumber: 4
-    accessibleAlternative: Marco leaves voicemail
   videoCues:
-  - videoClip: {fileID: 32900000, guid: 31e584a72d545493db369a8817912e7c, type: 3}
+  - videoClip: {fileID: 32900000, guid: 001ec10bc0f601241975a68886f762e8, type: 3}
     cueNumber: 1
-  - videoClip: {fileID: 32900000, guid: d8b6c84583a7d4f3d88ff1a3c5f0afeb, type: 3}
+  - videoClip: {fileID: 32900000, guid: f023d846e3d04554ab8bf8748eb88aaf, type: 3}
     cueNumber: 2
   - videoClip: {fileID: 32900000, guid: 7b05fa7f2cf8141f38830b88347d694f, type: 3}
     cueNumber: 3
@@ -5418,18 +5530,18 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: dc0ee42e9437f60438f4ac3a42b5cda4, type: 3}
     cueNumber: 0
     accessibleAlternative: Introdution
-  - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
+  - image: {fileID: 21300000, guid: 08e2ae0a2a3449a41b1899b1025441c5, type: 3}
     cueNumber: 1
     accessibleAlternative: Gemma selfie
-  - image: {fileID: 21300000, guid: 7b678e9eafd426b47b081508d0e219eb, type: 3}
+  - image: {fileID: 21300000, guid: 800907f9b896be243a42e2fd45d2d219, type: 3}
     cueNumber: 2
-    accessibleAlternative: Roz text Marco
-  - image: {fileID: 21300000, guid: c6cfb1d841892c84fb2c0b2520497b09, type: 3}
+    accessibleAlternative: Qas texts Roz "so I can flirt with her"
+  - image: {fileID: 21300000, guid: eb51b4aac741d624a8a598c19494e4c1, type: 3}
     cueNumber: 3
-    accessibleAlternative: Marco texts Roz "so I can flirt with her"
-  - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
+    accessibleAlternative: Roz texts Qas
+  - image: {fileID: 21300000, guid: de9fdb5af08ca1543b3951bb7b3c6cb3, type: 3}
     cueNumber: 4
-    accessibleAlternative: Marco texts Roz "so I can flirt with her"
+    accessibleAlternative: Gemma Masterbating
   - image: {fileID: 21300000, guid: 8076f192b4cfe8f4a8e6745923243e60, type: 3}
     cueNumber: 5
     accessibleAlternative: Port 0
@@ -5460,6 +5572,7 @@ MonoBehaviour:
     accessibleAlternative: {fileID: 0}
   audioPlayer: {fileID: 1392766431}
   videoPlayer: {fileID: 1357722706}
+  videoSurface: {fileID: 0}
   imageCueSurface: {fileID: 26072270}
   groupSelectorDropdown: {fileID: 1981180488}
   <Groups>k__BackingField: []
