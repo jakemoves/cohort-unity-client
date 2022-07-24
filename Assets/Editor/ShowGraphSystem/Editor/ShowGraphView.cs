@@ -81,8 +81,8 @@ namespace ShowGraphSystem.Editor
                     populateEvent.menu.AppendAction("Add Choice Node", menuAction =>
                         AddElement(CreateShowNode<ChoiceNode>(GetLocalMousePosition(menuAction.eventInfo.mousePosition))));
                     populateEvent.menu.AppendSeparator();
-                    populateEvent.menu.AppendAction("Save", menuAction => SaveGraph("GraphTestSave"));
-                    populateEvent.menu.AppendAction("Load", menuAction => GenerateGraphFromData(ShowGraphSystemIO.LoadGraphDataFromSO(assetName: name)));
+                    //populateEvent.menu.AppendAction("Save", menuAction => SaveGraph("GraphTestSave"));
+                    //populateEvent.menu.AppendAction("Load", menuAction => GenerateGraphFromData(ShowGraphSystemIO.LoadGraphDataFromSO(assetName: name)));
                     populateEvent.menu.AppendAction("Add Root Node", menuAction =>
                         {
                             if (!HasRootNode)

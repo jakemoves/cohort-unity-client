@@ -5506,7 +5506,7 @@ MonoBehaviour:
   eventId: 15
   clientOccasion: 21
   soundCues:
-  - audioClip: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 69219bdb74dd0f642ace73c892089757, type: 3}
     cueNumber: 1
     accessibleAlternative: '[placeholder for The Current podcast]'
   - audioClip: {fileID: 8300000, guid: 69219bdb74dd0f642ace73c892089757, type: 3}
@@ -5527,7 +5527,7 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 5bbee3cedd3f74917931f34706bcceb9, type: 3}
     cueNumber: 5
   imageCues:
-  - image: {fileID: 21300000, guid: dc0ee42e9437f60438f4ac3a42b5cda4, type: 3}
+  - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 0
     accessibleAlternative: Introdution
   - image: {fileID: 21300000, guid: 08e2ae0a2a3449a41b1899b1025441c5, type: 3}
@@ -5572,7 +5572,6 @@ MonoBehaviour:
     accessibleAlternative: {fileID: 0}
   audioPlayer: {fileID: 1392766431}
   videoPlayer: {fileID: 1357722706}
-  videoSurface: {fileID: 0}
   imageCueSurface: {fileID: 26072270}
   groupSelectorDropdown: {fileID: 1981180488}
   <Groups>k__BackingField: []
