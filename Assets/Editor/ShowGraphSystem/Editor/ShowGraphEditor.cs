@@ -10,9 +10,30 @@ namespace ShowGraphSystem.Editor
     public class ShowGraphEditor : EditorWindow
     {
         public const string DefaultFileName = "ShowGraph";
+        public const string DefaultFolder = "Assets";
+        public const string DefaultExtention = "asset";
 
         private ShowGraphView showGraphView;
-        private string fileName = DefaultFileName;
+
+        private string graphFilePath = null;
+
+        public string GraphFilePath
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(graphFilePath))
+                    return $"{DefaultFolder}/{DefaultFileName}.{DefaultExtention}";
+                return graphFilePath;
+            }
+
+            protected set
+            {
+                graphFilePath = value;
+                PathChanged.Invoke(this, value);
+            }
+        }
+
+        public event EventHandler<string> PathChanged;
 
         [MenuItem("Window/UI Toolkit/ShowGraphEditor")]
         public static void ShowExample()
@@ -64,28 +85,25 @@ namespace ShowGraphSystem.Editor
             // Create Toolbar UI
             var toolbar = new Toolbar();
 
-            var fileNameTextField = new TextField()
-            {
-                value = DefaultFileName,
-                label = "File Name: "
-            };
-            fileNameTextField.RegisterValueChangedCallback(change =>
-            {
-                fileName = change.newValue.Trim();
-            });
-            toolbar.Add(fileNameTextField);
-
             // TODO: on loading and saving - the textfield for the filename must match the file we loaded.
             var saveButton = new ToolbarButton(() => SaveGraph(graphView))
             { text = "Save" };
             toolbar.Add(saveButton);
 
-            var loadButton = new ToolbarButton(() =>
-            {
-                OpenGraph(graphView);
-            })
+            var saveAsButton = new ToolbarButton(() => SaveGraphAs(graphView))
+            { text = "Save As" };
+            toolbar.Add(saveAsButton);
+
+            var loadButton = new ToolbarButton(() => OpenGraph(graphView))
             { text = "Load" };
             toolbar.Add(loadButton);
+
+            var fileLabel = new Label();
+            PathChanged += (sender, s) =>
+            {
+                fileLabel.text = $"{Path.GetFileNameWithoutExtension(s)} ({s})";
+            };
+            toolbar.Add(fileLabel);
 
             rootVisualElement.Add(toolbar);
         }
@@ -99,16 +117,20 @@ namespace ShowGraphSystem.Editor
                 return;
             }
 
-            var filename = (!String.IsNullOrWhiteSpace(fileName) ? fileName : DefaultFileName).Trim();
+            if (string.IsNullOrWhiteSpace(graphFilePath))
+            {
+                SaveGraphAs(graphView);
+                return;
+            }
             
             // Overwrite Warning
-            if (File.Exists($"Assets/{fileName}.asset") &&
-                !EditorUtility.DisplayDialog("Confirm Save", $"{fileName}.asset already exists.\nDo you want to overwrite it?", "Yes", "Cancel"))
+            if (File.Exists(GraphFilePath) &&
+                !EditorUtility.DisplayDialog("Confirm Save", $"{Path.GetFileName(GraphFilePath)} already exists.\nDo you want to overwrite it?", "Yes", "Cancel"))
                 return;
 
             try
             {
-                ShowGraphSystemIO.SaveGraphToSO(showGraphView, filename);
+                ShowGraphSystemIO.SaveGraphToSO(showGraphView, GraphFilePath);
             }
             catch (Exception ex)
             {
@@ -116,17 +138,42 @@ namespace ShowGraphSystem.Editor
                 EditorUtility.DisplayDialog("Error Occurred While Saving!", $"{ex.Message}\n(See Console for more details)", "OK");
             }
         }
+
+        private void SaveGraphAs(ShowGraphView graphView)
+        {
+            // Save File Dialogue
+            // TODO: Error Checking
+            var path = EditorUtility.SaveFilePanelInProject(
+                "Save Show Graph As", 
+                Path.GetFileNameWithoutExtension(GraphFilePath), 
+                DefaultExtention, 
+                "Enter Show Graph Filename", 
+                Path.GetDirectoryName(GraphFilePath));
+
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                GraphFilePath = path;
+
+                SaveGraph(graphView);
+            }
+        }
+
+
         private void OpenGraph(ShowGraphView graphView)
         {
             // Open File Dialogue
-            //EditorUtility.OpenFilePanel("Open Show Graph Asset", "Assets", "asset");
+            var path = EditorUtility.OpenFilePanel("Open Show Graph Asset", Path.GetDirectoryName(GraphFilePath), DefaultExtention);
 
+            if (string.IsNullOrWhiteSpace(path))
+                return;
+
+            // Set Current Path
+            GraphFilePath = path.Replace(Application.dataPath, DefaultFolder);
             // Try Loading
             try
             {
                 graphView.GenerateGraphFromData(
-                    ShowGraphSystemIO.LoadGraphDataFromSO(
-                        !String.IsNullOrWhiteSpace(fileName) ? fileName : DefaultFileName));
+                    ShowGraphSystemIO.LoadGraphDataFromSO(GraphFilePath));
             }
             catch (FileNotFoundException fEx)
             {

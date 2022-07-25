@@ -20,10 +20,8 @@ namespace ShowGraphSystem.Editor
             //AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
         }
 
-        public static ShowGraphDataSO LoadGraphDataFromSO(string assetName, string path = "Assets")
+        public static ShowGraphDataSO LoadGraphDataFromSO(string fullPath)
         {
-            string fullPath = $"{path.Trim('/', ' ')}/{assetName}.asset";
-
             var g = (ShowGraphDataSO)AssetDatabase.LoadMainAssetAtPath(fullPath);
 
             if (g == null)
@@ -32,20 +30,28 @@ namespace ShowGraphSystem.Editor
             return g;
         }
 
+        public static ShowGraphDataSO LoadGraphDataFromSO(string assetName, string directory = "Assets", string extention = "asset")
+        {
+            string fullPath = $"{directory.Trim('/', ' ')}/{assetName}.{extention}";
+            return LoadGraphDataFromSO(fullPath);
+        }
+
 #if UNITY_EDITOR
 
-        public static void SaveGraphToSO(ShowGraphView showGraphView, string name, string path = "Assets")
+        public static void SaveGraphToSO(ShowGraphView showGraphView, string path)
         {
-            // Create Folders
-            CreateDefaultFolders();
-
             var so = (ShowGraphDataSO)showGraphView;
 
             // TODO: REMOVE BE FOR RELEASE
             var runtimeGraph = Runtime.ShowGraph.GenerateGraphFromData(so);
 
             // Save The Graph
-            AssetDatabase.CreateAsset(so, $"{path.Trim('/', ' ')}/{name}.asset");
+            AssetDatabase.CreateAsset(so, path);
+        }
+
+        public static void SaveGraphToSO(ShowGraphView showGraphView, string name, string directory = "Assets", string extention = "asset")
+        {
+            SaveGraphToSO(showGraphView, $"{directory.Trim('/', ' ')}/{name}.{extention}");
         }
 
         public static void SaveGraphToBinary(ShowGraphView showGraphView, string path)
