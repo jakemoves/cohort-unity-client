@@ -31,6 +31,7 @@ namespace ShowGraphSystem.Editor
 
             // Manipulators
             AddManipulators();
+            AddMiniMap();
         }
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
@@ -62,6 +63,18 @@ namespace ShowGraphSystem.Editor
 
             Vector2 localMousePosition = contentViewContainer.WorldToLocal(worldMousePosition);
             return localMousePosition;
+        }
+
+        private void AddMiniMap()
+        {
+            MiniMap miniMap = new MiniMap()
+            {
+                anchored = true
+            };
+
+            miniMap.SetPosition(new Rect(5, 25, 200, 200));
+
+            Add(miniMap);
         }
 
         private void AddManipulators()
