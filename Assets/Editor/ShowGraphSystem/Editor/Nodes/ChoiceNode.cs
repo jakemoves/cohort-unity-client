@@ -12,15 +12,26 @@ namespace ShowGraphSystem.Editor
     // TODO: Add Questions to a container to display when node is collapsed
     public class ChoiceNode : ShowGraphNode
     {
+        public static readonly Color DarkBlueGray = new Color(108f / 255f, 105f / 255f, 141f / 255f);
+
         protected ChoiceElement choiceContainer;
         protected Foldout portDescriptionContainer;
-        
+
         // TODO: Public Properties for the choice data
+        public ChoiceElement ChoiceContainer => choiceContainer;
 
         // TODO: FINISH
-        public ChoiceNode() : base() => base.title = "Choice";
+        public ChoiceNode() : base()
+        {
+            base.title = "Choice";
+            this.titleContainer.style.backgroundColor = new StyleColor(DarkBlueGray);
+        }
 
-        public ChoiceNode(ObservableCollection<string> groups) : base(groups) => base.title = "Choice";
+        public ChoiceNode(ObservableCollection<string> groups) : base(groups)
+        {
+            base.title = "Choice";
+            this.titleContainer.style.backgroundColor = new StyleColor(DarkBlueGray);
+        }
 
         public static ChoiceNode FromChoiceNodeData(Serialization.ChoiceNodeData choiceNodeData)
         {
@@ -162,7 +173,7 @@ namespace ShowGraphSystem.Editor
 
         public static explicit operator Serialization.ChoiceNodeData(ChoiceNode choiceNode) => choiceNode.ToChoiceNodeData();
 
-        protected class ChoiceElement : VisualElement
+        public class ChoiceElement : VisualElement
         {
             protected Dictionary<string, string> groupChoices = new Dictionary<string, string>();
             

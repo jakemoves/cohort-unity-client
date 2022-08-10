@@ -105,6 +105,10 @@ namespace ShowGraphSystem.Editor
             };
             toolbar.Add(fileLabel);
 
+            var validateButton = new ToolbarButton(() => Validation.ShowGraphValidator.ValidateGraph(this.showGraphView))
+            { text = "Validate" };
+            toolbar.Add(validateButton);
+
             rootVisualElement.Add(toolbar);
         }
 
@@ -157,7 +161,6 @@ namespace ShowGraphSystem.Editor
                 SaveGraph(graphView);
             }
         }
-
 
         private void OpenGraph(ShowGraphView graphView)
         {

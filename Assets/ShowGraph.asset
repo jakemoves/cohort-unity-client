@@ -18,10 +18,10 @@ MonoBehaviour:
   - Gemma
   - Roselyn
   <Root>k__BackingField:
-    <Position>k__BackingField: {x: 71, y: 235}
+    <Position>k__BackingField: {x: 208, y: 197}
   <SceneNodes>k__BackingField:
-  - <ID>k__BackingField: 6ad93e1b-4238-4c20-8dce-cea73a597e63
-    <Title>k__BackingField: Invitation
+  - <ID>k__BackingField: 9b7f2eb5-d3a1-446b-8341-3ae2515562df
+    <Title>k__BackingField: Scene Node
     <GroupSelection>k__BackingField:
       list:
       - Key: Qas
@@ -34,7 +34,7 @@ MonoBehaviour:
     - Qas
     - Gemma
     - Roselyn
-    <Position>k__BackingField: {x: 256, y: 164}
+    <Position>k__BackingField: {x: 384, y: 262}
     <CueListByGroups>k__BackingField:
       list:
       - Key: Qas
@@ -44,8 +44,4 @@ MonoBehaviour:
       - Key: Roselyn
         Value: []
   <ChoiceNodes>k__BackingField: []
-  <ShowEdges>k__BackingField:
-  - inputNodeID: 6ad93e1b-4238-4c20-8dce-cea73a597e63
-    outputNodeID: root
-    inputPortName: Previous Scene(s)
-    outputPortName: Entry Point
+  <ShowEdges>k__BackingField: []
