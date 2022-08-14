@@ -5483,7 +5483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 47383049a5eb678439e7a5788e9346b0,
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: b03f9430c50a3af4e81a66244b67be25,
     type: 2}
   <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
@@ -5529,7 +5529,7 @@ MonoBehaviour:
   imageCues:
   - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 0
-    accessibleAlternative: Introdution
+    accessibleAlternative: Introduction
   - image: {fileID: 21300000, guid: 08e2ae0a2a3449a41b1899b1025441c5, type: 3}
     cueNumber: 1
     accessibleAlternative: Gemma selfie
