@@ -242,6 +242,7 @@ public class CohortUIManager : MonoBehaviour
         if (currentCueReference == null)
             return;
 
+        // Sets the selected Asset text to the CueDescription
         if (CurrentAssetText != null)
         {
             CurrentAssetText.text = cueReference.MediaDomain switch

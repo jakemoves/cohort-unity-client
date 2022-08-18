@@ -205,7 +205,7 @@ public class ShowGraphSession : MonoBehaviour
             // otherwise we are at the end
             if (Current == null)
             {
-                Current = !previousStack.Any() ? GetNextNode(ShowGraph.EntryPoint) : null;
+                Current = !previousStack.Any() ? PeekNextNode(ShowGraph.EntryPoint) : null;
                 return Current;
             }
 
@@ -213,7 +213,7 @@ public class ShowGraphSession : MonoBehaviour
             if (Current is SceneNode scene)
             {
                 previousStack.Push(Current);
-                Current = GetNextNode(scene.NextShowNodes);
+                Current = PeekNextNode(scene.NextShowNodes);
             }
             else if (Current is ChoiceNode choice)
             {
@@ -230,13 +230,13 @@ public class ShowGraphSession : MonoBehaviour
 
                 // This is actually kind of smart
                 // By ANDing by L - 1 we constrain the amount of bits used, using only the relevent bits
-                Current = GetNextNode(choice.NextShowNodes[decisions & (choice.NextShowNodes.Length - 1)]);
+                Current = PeekNextNode(choice.NextShowNodes[decisions & (choice.NextShowNodes.Length - 1)]);
             }
 
             return Current;
         }
 
-        private ShowNode GetNextNode(List<ShowNode> nextShowNodes)
+        public ShowNode PeekNextNode(List<ShowNode> nextShowNodes)
         {
             var query = from node in nextShowNodes
                         where node.SelectedGroups.Contains(Group)

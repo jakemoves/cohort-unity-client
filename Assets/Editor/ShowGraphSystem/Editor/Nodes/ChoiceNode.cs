@@ -37,6 +37,7 @@ namespace ShowGraphSystem.Editor
         {
             ChoiceNode choiceNode = ShowGraphNode.FromShowNodeData<ChoiceNode>(choiceNodeData);
 
+            // NOTE to self "KeyList" is group tied to an indexer used for the bit shifting.
             foreach (var group in choiceNodeData.KeyList)
             {
                 // NOTE: Should we check if the group in the keylist is in the group selection?
