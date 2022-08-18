@@ -227,6 +227,9 @@ public class ShowGraphSession : MonoBehaviour
                     return Current;
 
                 previousStack.Push(Current);
+
+                // This is actually kind of smart
+                // By ANDing by L - 1 we constrain the amount of bits used, using only the relevent bits
                 Current = GetNextNode(choice.NextShowNodes[decisions & (choice.NextShowNodes.Length - 1)]);
             }
 
