@@ -48,6 +48,17 @@ namespace ShowGraphSystem
             };
         }
 
+        public static Cohort.Cue GetVibrationCue(this CueReference cueReference, Cohort.CueAction cueAction = Cohort.CueAction.play)
+        {
+            return new Cohort.Cue
+            {
+                cueAction = cueAction,
+                cueNumber = -1,
+                mediaDomain = Cohort.MediaDomain.haptic,
+                targetTags = new List<string>(cueReference.GetSelectedGroups())
+            };
+        }
+
         public static Cohort.MediaDomain GetCorhortMediaDomain (this MediaDomain mediaDomain)
         {
             return mediaDomain switch

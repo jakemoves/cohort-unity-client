@@ -71,6 +71,8 @@ namespace ShowGraphSystem.Runtime
         public string[] GroupKeyArray { get; protected set; }
 
         public ReadOnlyDictionary<string, string> GroupChoices { get; protected set; }
+        public ReadOnlyDictionary<string, CueReference> GroupTransitionCues { get; protected set; }
+
 
         public List<ShowNode>[] NextShowNodes { get; protected set; }
 
@@ -81,8 +83,12 @@ namespace ShowGraphSystem.Runtime
             node.GroupKeyArray = data.KeyList.ToArray();
             
             // NOTE: Passing a dictionary to the constructor means that if the underlying dicionary chages this changes too.
-            // However we assume that won't happen as we expect the loaded data not to chage in it's lifecycle in this context.
+            // However we assume that won't happen as we expect the loaded data not to change in it's lifecycle in this context.
             node.GroupChoices = new ReadOnlyDictionary<string, string>(data.GroupChoices);
+            node.GroupTransitionCues = new ReadOnlyDictionary<string, CueReference>(
+                data.TransitionCuesByGroups.ToDictionary(
+                    kv => kv.Key,
+                    kv => kv.Value.HasTransition ? kv.Value.CueReference : null));
 
             node.NextShowNodes = new List<ShowNode>[1 << masterGroupList.Length].Select(item => new List<ShowNode>(4)).ToArray();
 

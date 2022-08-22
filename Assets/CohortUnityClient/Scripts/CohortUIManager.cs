@@ -8,6 +8,7 @@ using System;
 using UnityEngine.Events;
 using ShowGraphSystem.Runtime;
 using ShowGraphSystem;
+using static DecisionThroughText;
 
 #warning If multiple CohortUIManagers are active in the scene - they may not work as expected
 #warning NullReference Exception thrown if GetComponent in children returns null
@@ -224,14 +225,47 @@ public class CohortUIManager : MonoBehaviour
         }
         else if (showNode is ChoiceNode choiceNode)
         {
-            CueContainer.SetActive(false);
             ChoiceContainer.SetActive(true);
+
+            // The if is intended to make this supper robust
+            if (!(choiceNode.GroupTransitionCues is null) && choiceNode.GroupTransitionCues.ContainsKey(GraphCursor.Group))
+            {
+                CueContainer.SetActive(!(choiceNode.GroupTransitionCues[GraphCursor.Group] is null));
+                //currentCueReference = choiceNode.GroupTransitionCues[GraphCursor.Group];
+                SetCue(choiceNode.GroupTransitionCues[GraphCursor.Group]);
+            }
+            else
+            {
+                currentCueReference = null;
+                CueContainer.SetActive(false);
+                CurrentAssetText.text = "";
+            }
+
+            Decisions decisions = DecisionThroughText.Instance[choiceNode];
+
+            // This is to ensure ALL DEVICES stay in sync
+            var shouldEnableButtons = decisions[GraphCursor.Group] is null;
+            YesButton.gameObject.SetActive(shouldEnableButtons);
+            NoButton.gameObject.SetActive(shouldEnableButtons);
 
             cueCursor = null;
 
+            PreviousCue.interactable = true;
+            PreviousCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Previous Scene";
+
+            NextCue.interactable = true;
+            NextCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Next Scene";
+
             // TODO: Flesh out behaviour
             ChoiceText.text = choiceNode.GroupChoices[GraphCursor.Group];
-            SetStatusMessage(choiceNode.ToString());
+
+            var groupsDecided = decisions.Keys.Where(k => !(decisions[k] is null));
+            if (groupsDecided.Any())
+                SetStatusMessage($"CHOICE NODE\nGroups Already Decided: {string.Join(", ", groupsDecided)}");
+            else
+                SetStatusMessage("CHOICE NODE\nNo decisions made...");
+
+            // TODO: Should we disable the Next button?
         }
     }
 
@@ -239,7 +273,7 @@ public class CohortUIManager : MonoBehaviour
     {
         currentCueReference = cueReference;
 
-        if (currentCueReference == null)
+        if (currentCueReference is null)
             return;
 
         // Sets the selected Asset text to the CueDescription
@@ -257,6 +291,12 @@ public class CohortUIManager : MonoBehaviour
 
     private void NextAction()
     {
+        if (GraphCursor.Current is ChoiceNode choice)
+        {
+            TryMoveOnFromDecision(DecisionThroughText.Instance[choice]);
+            return;
+        }
+
         if (cueCursor == null)
             throw new InvalidOperationException("Cue Cursor must not be null");
 
@@ -297,6 +337,13 @@ public class CohortUIManager : MonoBehaviour
 
     private void PreviousAction()
     {
+        // NOTE: Change this if you want different behaviour for Choice Node
+        if (GraphCursor.Current is ChoiceNode)
+        {
+            TryMoveToPreviousNode();
+            return;
+        }
+
         if (cueCursor == null)
             throw new InvalidOperationException("Cue Cursor must not be null");
 
@@ -305,17 +352,7 @@ public class CohortUIManager : MonoBehaviour
 
         if (cueCursor.AtBeginning)
         {
-            // Go To Previous Scene
-            if (GraphCursor.MovePrevious())
-            {
-                EnterShowNode(GraphCursor.Current);
-            }
-            else
-            {
-                // Top of Show
-                SetStatusMessage("TOP OF SHOW", StatusMessageType.Warning);
-                SetTopOfShowUIState();
-            }
+            TryMoveToPreviousNode();
         }
         else if (cueCursor.MovePrevious())
         {
@@ -327,6 +364,22 @@ public class CohortUIManager : MonoBehaviour
             // NOTE: It may be usful to add a PeekLast to the graph cursor
             // inorder for this to provide information to the user
             PreviousCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Previous Scene/Choice";
+        }
+    }
+
+    private void TryMoveToPreviousNode()
+    {
+
+        // Go To Previous Scene
+        if (GraphCursor.MovePrevious())
+        {
+            EnterShowNode(GraphCursor.Current);
+        }
+        else
+        {
+            // Top of Show
+            SetStatusMessage("TOP OF SHOW", StatusMessageType.Warning);
+            SetTopOfShowUIState();
         }
     }
 
@@ -348,6 +401,9 @@ public class CohortUIManager : MonoBehaviour
             return;
 
         CohortSession.FireCue(currentCueReference.ToCohortCue(CueAction.play));
+
+        if (currentCueReference.VibrateOnCue)
+            CohortSession.FireCue(currentCueReference.GetVibrationCue());
     }
 
     private void StopCue()
@@ -392,14 +448,21 @@ public class CohortUIManager : MonoBehaviour
         CohortSession.TransmitCommand(choice.GroupKeyArray, decisionCommand);
 
         SetStatusMessage("... Waiting for other choices");
-        TryMoveOnFromDecision(DecisionThroughText.Instance[choice]);
+        //TryMoveOnFromDecision(DecisionThroughText.Instance[choice]);
+
+        // Prevent User from making the choice again
+        YesButton.gameObject.SetActive(false);
+        NoButton.gameObject.SetActive(false);
     }
 
     private void DecisionsUpdate(object sender, DecisionThroughText.Decisions e)
     {
         // Validate Eventarguments
         if (ShowGraphSession.Graph.NodeDictionary.ContainsKey(e.NodeID) && ShowGraphSession.Graph.NodeDictionary[e.NodeID] is ChoiceNode)
-            TryMoveOnFromDecision(e);
+        {
+            //TryMoveOnFromDecision(e);
+            DicisionChangeUiUpdate(e);
+        }
         else
             Debug.LogError($"DecisionsUpdate event args invalid [{e.NodeID}]");
     }
@@ -412,6 +475,30 @@ public class CohortUIManager : MonoBehaviour
             {
                 Debug.Log($"Choice Made {choiceNode.ID}.{GraphCursor.Group} ->> into {value}");
                 MoveToNextNode();
+            }
+            else
+            {
+                Debug.LogWarning($"Still waiting for decisions... Please wait");
+                SetStatusMessage($"... Still waiting for other choices\n({string.Join(", ", decisions.Keys.Where(k => !(decisions[k] is null)))} have decided)",
+                    StatusMessageType.Warning);
+            }
+        }
+    }
+
+    private void DicisionChangeUiUpdate(DecisionThroughText.Decisions decisions)
+    {
+        if (GraphCursor.Current is ChoiceNode choiceNode && GraphCursor.Current.ID == decisions.NodeID)
+        {
+            if (decisions.TryGetDecisionsValue(out int value))
+            {
+                NextCue.interactable = true;
+
+                var nextNode = GraphCursor.PeekNextNode(choiceNode.NextShowNodes[value & (choiceNode.NextShowNodes.Length - 1)]);
+                SetStatusMessage($"Ready for next scene\nNEXT >> {nextNode.Title}");
+            }
+            else
+            {
+                SetStatusMessage($"... waiting for remaining choices\nGroups Decided: {string.Join(", ", decisions.Keys.Where(k => !(decisions[k] is null)))}", StatusMessageType.Info);
             }
         }
     }

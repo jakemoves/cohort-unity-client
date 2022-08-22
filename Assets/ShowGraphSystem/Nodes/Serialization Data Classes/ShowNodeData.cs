@@ -34,5 +34,22 @@ namespace ShowGraphSystem.Serialization
     {
         [field: SerializeField] public SerializableDictionary<string, string> GroupChoices { get; set; }
         [field: SerializeField] public List<string> KeyList { get; set; }
+        [field: SerializeField] public SerializableDictionary<string, TransitionCueEntry> TransitionCuesByGroups { get; set; }
+
+        [Serializable]
+        public struct TransitionCueEntry
+        {
+            [field: SerializeField] public CueReference CueReference { get; set; }
+            [field: SerializeField] public bool HasTransition { get; set; }
+
+            public TransitionCueEntry(bool hasTransition, CueReference cueReference)
+            {
+                HasTransition = hasTransition;
+                CueReference = cueReference;
+            }
+
+            //public static implicit operator TransitionCueEntry((bool hasTransition, CueReference CueReference) a) => new TransitionCueEntry { HasTransition = a.hasTransition, CueReference = a.CueReference };
+            //public static implicit operator (bool hasTransition, CueReference CueReference)(TransitionCueEntry entry) => (entry.HasTransition, entry.CueReference);
+        }
     }
 }

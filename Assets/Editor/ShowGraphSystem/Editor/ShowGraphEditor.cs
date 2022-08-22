@@ -140,6 +140,7 @@ namespace ShowGraphSystem.Editor
             {
                 // NOTE: This doesnt really help users other than to inform them an error occured
                 EditorUtility.DisplayDialog("Error Occurred While Saving!", $"{ex.Message}\n(See Console for more details)", "OK");
+                throw ex;
             }
         }
 

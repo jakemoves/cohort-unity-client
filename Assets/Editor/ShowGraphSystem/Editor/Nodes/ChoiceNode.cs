@@ -6,16 +6,20 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 using System;
+using System.Collections.Specialized;
+using TransitionCueEntry = ShowGraphSystem.Serialization.ChoiceNodeData.TransitionCueEntry;
 
 namespace ShowGraphSystem.Editor
 {
     // TODO: Add Questions to a container to display when node is collapsed
-    public class ChoiceNode : ShowGraphNode
+    public partial class ChoiceNode : ShowGraphNode
     {
         public static readonly Color DarkBlueGray = new Color(108f / 255f, 105f / 255f, 141f / 255f);
 
         protected ChoiceElement choiceContainer;
         protected Foldout portDescriptionContainer;
+        protected Foldout transitionCuesFoldout;
+        protected Dictionary<string, TransitionCueContainer> transitionCueContainers;
 
         // TODO: Public Properties for the choice data
         public ChoiceElement ChoiceContainer => choiceContainer;
@@ -45,6 +49,12 @@ namespace ShowGraphSystem.Editor
                     Debug.LogError($"An error occured while loading choices for node {choiceNode.ID}: A choice for the group {group} already exists.");
             }
 
+            foreach (KeyValuePair<string, TransitionCueEntry> kv in choiceNodeData.TransitionCuesByGroups)
+            {
+                choiceNode.transitionCueContainers[kv.Key].HasTransition = kv.Value.HasTransition;
+                choiceNode.transitionCueContainers[kv.Key].CueData = kv.Value.CueReference;
+            }
+
             return choiceNode;
         }
 
@@ -60,15 +70,53 @@ namespace ShowGraphSystem.Editor
             choiceFoldout.value = false;
             extensionContainer.Add(choiceFoldout);
 
-            portDescriptionContainer = new Foldout() { text = "Port Descriptions" };
-            portDescriptionContainer.value = false;
+            // Transition Cues
+            transitionCuesFoldout = new Foldout()
+            {
+                text = "Transition Cues"
+            };
+            transitionCuesFoldout.style.backgroundColor = new StyleColor(new Color(0, 0.05f, 0.05f));
+            extensionContainer.Add(transitionCuesFoldout);
+
+            // Port Descriptions
+            portDescriptionContainer = new Foldout
+            {
+                text = "Port Descriptions",
+                value = false
+            };
             extensionContainer.Add(portDescriptionContainer);
 
             /* Event Subs */
             choiceContainer.ChoicesChanged += OnChoicesChanged;
 
-            // TODO: CUES
             base.InitializeUi();
+        }
+
+        protected override void Groups_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            base.Groups_CollectionChanged(sender, e);
+
+            if (Groups != null)
+            {
+                transitionCuesFoldout.Clear();
+
+                transitionCueContainers ??= new Dictionary<string, TransitionCueContainer>(Groups.Count);
+
+                foreach (var groupName in Groups)
+                {
+                    if(!transitionCueContainers.ContainsKey(groupName))
+                    {
+                        var transitionCueContainer = new TransitionCueContainer(Groups, groupName)
+                        {
+                            visible = true
+                        };
+                        transitionCueContainers[groupName] = transitionCueContainer;
+                    }
+
+                    transitionCueContainers[groupName].style.borderBottomColor = new StyleColor(Color.white);
+                    transitionCueContainers[groupName].style.borderBottomWidth = new StyleFloat(1);
+                }
+            }
         }
 
         protected virtual void OnChoicesChanged(object sender, EventArgs e)
@@ -84,7 +132,7 @@ namespace ShowGraphSystem.Editor
             {
                 if (keyValue.Value == true && choiceContainer.AddChoice(keyValue.Key))
                 {
-                    
+
                 }
                 else if (keyValue.Value == false && choiceContainer.RemoveChoice(keyValue.Key))
                 {
@@ -92,12 +140,20 @@ namespace ShowGraphSystem.Editor
                 }
             }
             InitializePorts();
+
+            foreach (var keyValuePair in e.GroupSelection)
+            {
+                if (keyValuePair.Value && !transitionCuesFoldout.Contains(transitionCueContainers[keyValuePair.Key]))
+                    transitionCuesFoldout.Add(transitionCueContainers[keyValuePair.Key]);
+                else if (!keyValuePair.Value && transitionCuesFoldout.Contains(transitionCueContainers[keyValuePair.Key]))
+                    transitionCuesFoldout.Remove(transitionCueContainers[keyValuePair.Key]);
+            }
         }
 
         protected void InitializePorts()
         {
             // Clear Ports
-            foreach (Port port in outputContainer.Children())
+            foreach (Port port in outputContainer.Children().Where(ve => ve is Port))
             {
                 var edges = port.connections.ToList();
 
@@ -135,7 +191,7 @@ namespace ShowGraphSystem.Editor
             portDescriptionContainer.Clear();
 
             // Generate the descriptions
-            foreach (Port port in outputContainer.Children())
+            foreach (Port port in outputContainer.Children().Where(ve => ve is Port))
             {
                 // This assumes that the port names are just numbers
                 int i = int.Parse(port.portName);
@@ -164,89 +220,23 @@ namespace ShowGraphSystem.Editor
 
         public Serialization.ChoiceNodeData ToChoiceNodeData()
         {
+            // TODO: Add Transition Cue Data
             Serialization.ChoiceNodeData nodeData = ToShowNodeData<Serialization.ChoiceNodeData>();
 
             nodeData.KeyList = new List<string>(choiceContainer.KeyList);
             nodeData.GroupChoices = new SerializableDictionary<string, string>(choiceContainer.GroupChoices);
+            nodeData.TransitionCuesByGroups = new SerializableDictionary<string, TransitionCueEntry>(
+                nodeData
+                .GroupSelection
+                .Where(kv => kv.Value)
+                .Select(kv => kv.Key)
+                .ToDictionary(groupName => groupName,
+                groupName => new TransitionCueEntry(transitionCueContainers[groupName].HasTransition, transitionCueContainers[groupName].CueData)));
 
             return nodeData;
         }
 
         public static explicit operator Serialization.ChoiceNodeData(ChoiceNode choiceNode) => choiceNode.ToChoiceNodeData();
 
-        public class ChoiceElement : VisualElement
-        {
-            protected Dictionary<string, string> groupChoices = new Dictionary<string, string>();
-            
-            // We need this to ensure the order of the keys
-            public List<string> keyList = new List<string>();
-
-            public Dictionary<string, string> GroupChoices => groupChoices;
-            public List<string> KeyList => keyList;
-
-            public event System.EventHandler ChoicesChanged;
-
-            public bool AddChoice(string group) => AddChoice(group, $"{group} does somthing?");
-
-            public bool AddChoice(string group, string question)
-            {
-                if (groupChoices.ContainsKey(group))
-                {
-                    // The Logging was going to get annoying 
-                    //Debug.Log($"Choice for the group {group} already exists");
-                    return false;
-                }
-
-                // Create Choice UI
-                var choiceVE = new VisualElement() { name = $"{group}Choice" };
-                choiceVE.Add(new Label($"{group}'s Question:"));
-
-                var field = new TextField()
-                {
-                    name = $"{group}ChoiceTextField",
-                    value = question,
-                    tooltip = "Enter a yes/no question."
-                };
-                field.RegisterCallback<ChangeEvent<string>, string>(ValueChanged, group);
-                choiceVE.Add(field);
-
-                // Insert the Element
-                this.Add(choiceVE);
-                groupChoices.Add(group, field.value);
-                keyList.Add(group);
-                return true;
-            }
-
-            public bool RemoveChoice(string group)
-            {
-                if (!groupChoices.ContainsKey(group))
-                {
-                    // The Logging was going to get annoying 
-                    //Debug.Log($"Choice for the group {group} already doesn't exist");
-                    return false;
-                }
-
-                // Get Appropriate Child
-                var child = Children().Single(ve => ve.name.StartsWith(group));
-
-                // Unregister Value Change Callback
-                // I decided to go the safer route when finding the TextField
-                var field = child.Children().Single(ve => ve is TextField) as TextField;
-                field.UnregisterCallback<ChangeEvent<string>, string>(ValueChanged);
-
-                this.Remove(child);
-                groupChoices.Remove(group);
-                keyList.Remove(group);
-                return true;
-            }
-
-            public void ValueChanged(ChangeEvent<string> changeEvent, string group)
-            {
-                groupChoices[group] = changeEvent.newValue;
-
-                ChoicesChanged?.Invoke(this, new System.EventArgs());
-            }
-        }
-
-    } 
+    }
 }

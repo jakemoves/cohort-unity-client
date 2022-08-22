@@ -12,7 +12,7 @@ namespace ShowGraphSystem
         [field: SerializeField] public MediaDomain MediaDomain { get; set; }
         [field: SerializeField] public SerializableDictionary<string, bool> GroupSelection { get; set; }
         [field: SerializeField] public int CueID { get; set; }
-
+        [field: SerializeField] public bool VibrateOnCue { get; set; }
         public string[] GetSelectedGroups()
         {
             if (GroupSelection == null)
