@@ -971,41 +971,24 @@ namespace Cohort
 
                 case MediaDomain.text:
                     // Intercept A Cue with the cueNumber in the negative
-                    if (msg.cueNumber < 0 && msg.targetTags.Any( str => str.StartsWith(CHCommand.CommandHeader))) // TODO: Test
+                    if (msg.cueNumber < 0) // TODO: Test
                     {
-                        Debug.Log($"Parsing commands.... {string.Join(", ", msg.targetTags.ToArray())}");
-                        // Try Parsesing Command 
-                        foreach (var commandString in msg.targetTags.Where(str => str.StartsWith(CHCommand.CommandHeader)))
+                        var cmdInTargets = msg.targetTags.Any(str => str.StartsWith(CHCommand.CommandHeader));
+                        var cmdInContent = msg.cueContent?.Trim().StartsWith(CHCommand.CommandHeader) ?? false;
+
+                        if (cmdInTargets)
                         {
-                            foreach (var command in commandString.Split(new char[] { CHCommand.CommandSeparator }, StringSplitOptions.RemoveEmptyEntries))
+                            Debug.Log($"Parsing commands.... {string.Join(", ", msg.targetTags.ToArray())}");
+                            foreach (var commandString in msg.targetTags.Where(str => str.StartsWith(CHCommand.CommandHeader)))
                             {
-                                if (DecisionCommand.TryParse(command, out DecisionCommand decisionCommand))
-                                {
-#warning If the DecisionThroughText.Instance is not populated this will throw and error
-                                    Debug.Log($"Received Decision -> {command}");
-
-                                    // Command Validation
-                                    if (!DecisionThroughText.Instance.ContainsKey(decisionCommand.NodeId))
-                                    {
-                                        Debug.LogError($"{nameof(DecisionThroughText)}.{nameof(DecisionThroughText.Instance)} does not contain {decisionCommand.NodeId}");
-                                        continue;
-                                    }
-
-                                    if (!DecisionThroughText.Instance[decisionCommand.NodeId].ContainsKey(decisionCommand.Group))
-                                    {
-                                        Debug.LogError($"{nameof(DecisionThroughText)}.{nameof(DecisionThroughText.Instance)}[{decisionCommand.NodeId}] does not contain group {decisionCommand.Group}\n" +
-                                            $"The only valid groups are {string.Join(", ", DecisionThroughText.Instance[decisionCommand.NodeId].Keys)}");
-                                        continue;
-                                    }
-
-                                    // Apply the decisions to the Instance
-                                    DecisionThroughText.Instance[decisionCommand.NodeId][decisionCommand.Group] = decisionCommand.Decision;
-                                }
-                                else
-                                {
-                                    Debug.LogWarning($"Command not found: {command}");
-                                }
+                                ParseCmdString(commandString);
                             }
+                        }
+
+                        if (cmdInContent)
+                        {
+                            Debug.Log($"Parsing commands.... {msg.cueContent}");
+                            ParseCmdString(msg.cueContent.Trim());
                         }
                         return;
                     }
@@ -1070,6 +1053,39 @@ namespace Cohort
                 case MediaDomain.haptic:
                     UnityEngine.Handheld.Vibrate();
                     break;
+            }
+        }
+
+        private static void ParseCmdString(string commandString)
+        {
+            foreach (var command in commandString.Split(new char[] { CHCommand.CommandSeparator }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (DecisionCommand.TryParse(command, out DecisionCommand decisionCommand))
+                {
+#warning If the DecisionThroughText.Instance is not populated this will throw and error
+                    Debug.Log($"Received Decision -> {command}");
+
+                    // Command Validation
+                    if (!DecisionThroughText.Instance.ContainsKey(decisionCommand.NodeId))
+                    {
+                        Debug.LogError($"{nameof(DecisionThroughText)}.{nameof(DecisionThroughText.Instance)} does not contain {decisionCommand.NodeId}");
+                        continue;
+                    }
+
+                    if (!DecisionThroughText.Instance[decisionCommand.NodeId].ContainsKey(decisionCommand.Group))
+                    {
+                        Debug.LogError($"{nameof(DecisionThroughText)}.{nameof(DecisionThroughText.Instance)}[{decisionCommand.NodeId}] does not contain group {decisionCommand.Group}\n" +
+                            $"The only valid groups are {string.Join(", ", DecisionThroughText.Instance[decisionCommand.NodeId].Keys)}");
+                        continue;
+                    }
+
+                    // Apply the decisions to the Instance
+                    DecisionThroughText.Instance[decisionCommand.NodeId][decisionCommand.Group] = decisionCommand.Decision;
+                }
+                else
+                {
+                    Debug.LogWarning($"Command not found: {command}");
+                }
             }
         }
 

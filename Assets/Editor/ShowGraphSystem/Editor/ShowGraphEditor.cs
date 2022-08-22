@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace ShowGraphSystem.Editor
 {
@@ -109,6 +110,10 @@ namespace ShowGraphSystem.Editor
             { text = "Validate" };
             toolbar.Add(validateButton);
 
+            var qlabOsc = new ToolbarButton(() => ExportQLabInfo(showGraphView, graphFilePath))
+            { text = "Q-Lab OSC" };
+            toolbar.Add(qlabOsc);
+
             rootVisualElement.Add(toolbar);
         }
 
@@ -187,6 +192,49 @@ namespace ShowGraphSystem.Editor
             {
                 EditorUtility.DisplayDialog("Error Occurred while loading", $"{ex.Message}\n(See Console for more details)", "OK");
             }
+        }
+    
+        public static void ExportQLabInfo(ShowGraphView showGraphView, string assetPath = null)
+        {
+            System.Text.StringBuilder output = new System.Text.StringBuilder();
+            output.AppendLine("Q-Lab Ouput for OSC via CoHort-OSC-Bridge");
+            output.AppendLine("CoHot-OSC-Bridge: https://github.com/jakemoves/cohort-osc-bridge");
+            output.AppendLine("\n");
+            output.AppendLine($"Graph: {assetPath}");
+            output.AppendLine($"Information Valid as of {DateTime.UtcNow} UTC");
+            output.AppendLine("\n");
+
+            showGraphView.nodes.ForEach(node =>
+            {
+                if (!(node is ChoiceNode))
+                    return;
+
+                var choiceNodeData = (node as ChoiceNode).ToChoiceNodeData();
+
+                output.AppendLine("\n========== CHOICE NODE ==========");
+                output.AppendLine($"\tID:\t{choiceNodeData.ID}");
+
+                foreach (var groupID in choiceNodeData.GroupSelection.Where(kv => kv.Value).Select(kv => kv.Key))
+                {
+                    var decisionCommand = new DecisionCommand(choiceNodeData.ID, groupID);
+
+                    output.AppendLine($"\n\t\t**** GROUP: {groupID} ****");
+                    output.AppendLine($"\t\tQuestion:{choiceNodeData.GroupChoices[groupID]}");
+                    output.AppendLine($"\n\t\t\t** OSC STRINGS **");
+                    output.AppendLine($"/cohort 3 -1 0 \"all\" \"{decisionCommand}\"");
+
+                    decisionCommand.Decision = !decisionCommand.Decision;
+                    output.AppendLine($"/cohort 3 -1 0 \"all\" \"{decisionCommand}\"");
+                }
+            });
+
+            var fn = !(assetPath is null) ? Path.GetFileNameWithoutExtension(assetPath) : "";
+            using (var writer = new StreamWriter($"./{fn}-QLab_OSC.txt"))
+            {
+                writer.Write(output);
+            }
+
+            //System.Diagnostics.Process.Start($"./{fn}-QLab_OSC.txt");
         }
     } 
 }
