@@ -889,7 +889,18 @@ MonoBehaviour:
       - Key: Qas
         Value: []
       - Key: Gemma
-        Value: []
+        Value:
+        - <MediaDomain>k__BackingField: 0
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 0
+          <VibrateOnCue>k__BackingField: 0
       - Key: Roselyn
         Value: []
   <ChoiceNodes>k__BackingField:

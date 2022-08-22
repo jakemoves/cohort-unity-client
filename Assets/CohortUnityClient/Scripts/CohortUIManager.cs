@@ -27,7 +27,7 @@ public class CohortUIManager : MonoBehaviour
     [field: SerializeField] public GameObject CohortUI { get; private set; }
     [field: SerializeField] public TMPro.TextMeshProUGUI TextCueDisplay { get; set; }
     [field: SerializeField] public TMPro.TextMeshProUGUI StatusDisplay { get; set; }
-    [field: SerializeField] public TMPro.TextMeshPro ToggleUiText { get; set; }
+    [field: SerializeField] public Button ToggleUiButton { get; set; }
 
     // Show Controls
     [field: Header("Show Controls")]
@@ -69,7 +69,6 @@ public class CohortUIManager : MonoBehaviour
 
     private void InitializeUi()
     {
-
         // NOTE: I switched to a better programming paradigm because this was too time consuming.
 
         // Initialize Status Display
@@ -176,6 +175,9 @@ public class CohortUIManager : MonoBehaviour
         if (GroupSelector != null)
             GroupSelector.interactable = false;
 
+        if (!(ToggleUiButton is null))
+            ToggleUiButton.interactable = false;
+
         // This might not be necessary, but just incase
         ShowGraphSession?.SetGroup(GroupSelector?.options[GroupSelector.value].text);
 
@@ -195,7 +197,7 @@ public class CohortUIManager : MonoBehaviour
     public void EnterShowNode(ShowNode showNode)
     {
         // TODO: finish the behaviour for this case
-        if (showNode == null)
+        if (showNode is null)
             return;
 
         StartShowButton?.gameObject.SetActive(false);
@@ -226,19 +228,18 @@ public class CohortUIManager : MonoBehaviour
         else if (showNode is ChoiceNode choiceNode)
         {
             ChoiceContainer.SetActive(true);
+            CueContainer.SetActive(true);
 
             // The if is intended to make this supper robust
             if (!(choiceNode.GroupTransitionCues is null) && choiceNode.GroupTransitionCues.ContainsKey(GraphCursor.Group))
             {
-                CueContainer.SetActive(!(choiceNode.GroupTransitionCues[GraphCursor.Group] is null));
-                //currentCueReference = choiceNode.GroupTransitionCues[GraphCursor.Group];
+                CurrentAssetText.text = "< No Transition >";
                 SetCue(choiceNode.GroupTransitionCues[GraphCursor.Group]);
             }
             else
             {
                 currentCueReference = null;
-                CueContainer.SetActive(false);
-                CurrentAssetText.text = "";
+                CurrentAssetText.text = "< No Transition >";
             }
 
             Decisions decisions = DecisionThroughText.Instance[choiceNode];
@@ -279,13 +280,15 @@ public class CohortUIManager : MonoBehaviour
         // Sets the selected Asset text to the CueDescription
         if (CurrentAssetText != null)
         {
-            CurrentAssetText.text = cueReference.MediaDomain switch
+            string assetDescritption = cueReference.MediaDomain switch
             {
-                ShowGraphSystem.MediaDomain.Sound => CohortSession.soundCues.Find(cue => cue.cueNumber == cueReference.CueID).accessibleAlternative,
-                ShowGraphSystem.MediaDomain.Image => CohortSession.imageCues.Find(cue => cue.cueNumber == cueReference.CueID).accessibleAlternative,
-                ShowGraphSystem.MediaDomain.Text => CohortSession.textCues.Find(cue => cue.cueNumber == cueReference.CueID).text,
+                ShowGraphSystem.MediaDomain.Sound => CohortSession.soundCues.Find(cue => cue.cueNumber == cueReference.CueID)?.accessibleAlternative,
+                ShowGraphSystem.MediaDomain.Image => CohortSession.imageCues.Find(cue => cue.cueNumber == cueReference.CueID)?.accessibleAlternative,
+                ShowGraphSystem.MediaDomain.Text => CohortSession.textCues.Find(cue => cue.cueNumber == cueReference.CueID)?.text,
                 _ => cueReference.ToString(),
             };
+
+            CurrentAssetText.text = assetDescritption ?? $"<< Invalid Cue: {cueReference.MediaDomain} Cue {cueReference.CueID} Was Not Found >>";
         }
     }
 
@@ -385,14 +388,25 @@ public class CohortUIManager : MonoBehaviour
 
     private void SetTopOfShowUIState()
     {
-#warning Method not implemented
-        throw new NotImplementedException();
+        StartShowButton?.gameObject.SetActive(true);
+
+        if (GroupSelector != null)
+            GroupSelector.interactable = true;
+
+        if (!(ToggleUiButton is null))
+            ToggleUiButton.interactable = true;
+
+        CueContainer?.SetActive(false);
+        ChoiceContainer?.SetActive(false);
+
+        if (GraphCursor.Status != ShowGraphSession.GraphCursor.GraphCursorStatus.AtRoot)
+            GraphCursor.Reset();
     }
 
     private void SetEndOfShowUIState()
     {
 #warning Method not implemented
-        throw new NotImplementedException();
+        Debug.LogWarning(new NotImplementedException());
     }
 
     private void PlayCue()
@@ -479,7 +493,11 @@ public class CohortUIManager : MonoBehaviour
             else
             {
                 Debug.LogWarning($"Still waiting for decisions... Please wait");
-                SetStatusMessage($"... Still waiting for other choices\n({string.Join(", ", decisions.Keys.Where(k => !(decisions[k] is null)))} have decided)",
+
+                var getDecidedGroups = decisions.Keys.Where(k => !(decisions[k] is null));
+                var getDecidedGroupsText = (getDecidedGroups.Any() ? string.Join(", ", getDecidedGroups) : "None");
+
+                SetStatusMessage($"... Still waiting for other choices\n({getDecidedGroupsText} have decided)",
                     StatusMessageType.Warning);
             }
         }
