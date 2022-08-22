@@ -50,7 +50,7 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: <ToggleUiText>k__BackingField
+    propertyPath: <ToggleUiButton>k__BackingField
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
