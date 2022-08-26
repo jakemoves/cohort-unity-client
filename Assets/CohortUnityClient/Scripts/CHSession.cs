@@ -658,7 +658,10 @@ namespace Cohort
             cohortSocket.OnMessage += OnWebSocketMessage;
             cohortSocket.OnClosed += OnWebSocketClosed;
             cohortSocket.OnError += OnWebSocketError;
+
+#if UNITY_EDITOR
             cohortSocket.StartPingThread = true;
+#endif
 
             // Connection Indicator
             connectionIndicator.WebSocket = cohortSocket;
@@ -828,10 +831,10 @@ namespace Cohort
 
                     yield return new WaitUntil(() => token.IsCancellationRequested || (chSession.CohortSocket.IsOpen && chSession.CohortSocket.State == WebSocketStates.Open));
                 }
-                chSession.AttemptingToAutoReconnect = false;
             }
             finally
             {
+                chSession.AttemptingToAutoReconnect = false;
             }
         }
 
