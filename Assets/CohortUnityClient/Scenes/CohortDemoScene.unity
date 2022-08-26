@@ -2355,6 +2355,7 @@ MonoBehaviour:
   <YesButton>k__BackingField: {fileID: 1985210053}
   <NoButton>k__BackingField: {fileID: 756791011}
   <CancelButton>k__BackingField: {fileID: 0}
+  connectionIndicator: {fileID: 1608979875}
 --- !u!1 &658422809
 GameObject:
   m_ObjectHideFlags: 0
@@ -3354,6 +3355,7 @@ MonoBehaviour:
   <YesButton>k__BackingField: {fileID: 0}
   <NoButton>k__BackingField: {fileID: 0}
   <CancelButton>k__BackingField: {fileID: 0}
+  connectionIndicator: {fileID: 0}
 --- !u!114 &864500950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4616,6 +4618,7 @@ MonoBehaviour:
   <YesButton>k__BackingField: {fileID: 0}
   <NoButton>k__BackingField: {fileID: 0}
   <CancelButton>k__BackingField: {fileID: 0}
+  connectionIndicator: {fileID: 0}
 --- !u!114 &1385437558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5132,6 +5135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f55c90975f678449d2b6b03a8b9620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoHide: 0
   <Image>k__BackingField: {fileID: 1608979877}
   <AutomaticallyCheckConnection>k__BackingField: 1
   <CheckConnectionInterval>k__BackingField: 1
@@ -5178,7 +5182,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1608979877}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1711676748}
+        m_TargetAssemblyTypeName: Cohort.CHSession, Assembly-CSharp
+        m_MethodName: ManualReconnect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1608979877
 MonoBehaviour:
   m_ObjectHideFlags: 0

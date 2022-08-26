@@ -9,6 +9,9 @@ public class ConnectionIndicator : MonoBehaviour
 {
     private WebSocket webSocket = null;
 
+    [SerializeField]
+    private bool autoHide = false;
+
     public static Color StateOpenColor = Color.green;
     public static Color StateClosedColor = Color.red;
     public static Color StateUnknownColor = Color.grey;
@@ -37,6 +40,18 @@ public class ConnectionIndicator : MonoBehaviour
         }
     }
 
+    public bool AutoHide
+    {
+        get => autoHide;
+
+        set
+        {
+            autoHide = value;
+
+            SetIndication(WebSocketState);
+        }
+    }
+
     private State WebSocketState 
     { 
         get 
@@ -48,14 +63,13 @@ public class ConnectionIndicator : MonoBehaviour
         } 
     }
 
-
     [field: SerializeField] public Image Image { get; set; }
     [field: SerializeField] public bool AutomaticallyCheckConnection { get; set; } = true;
     [field: SerializeField] public float CheckConnectionInterval { get; set; } = 1f;
 
     private void OnEnable()
     {
-        SetIndicationColor(WebSocketState);
+        SetIndication(WebSocketState);
         if (AutomaticallyCheckConnection)
             StartCoroutine(CheckPeriodically(CheckConnectionInterval));
     }
@@ -72,7 +86,7 @@ public class ConnectionIndicator : MonoBehaviour
 
     }
 
-    private void SetIndicationColor(State state)
+    private void SetIndication(State state)
     {
         if (!(Image is null))
         {
@@ -82,6 +96,9 @@ public class ConnectionIndicator : MonoBehaviour
                 State.Closed => StateClosedColor,
                 _ => StateUnknownColor
             };
+
+            if (autoHide)
+                Image.enabled = WebSocketState != State.Open;
         }
     }
 
@@ -90,14 +107,14 @@ public class ConnectionIndicator : MonoBehaviour
         for (;;)
         {
             yield return new WaitForSeconds(interval);
-            SetIndicationColor(WebSocketState);
+            SetIndication(WebSocketState);
         }
     }
 
     #region Websocket Delegates
     private void OnWebSocketError(WebSocket webSocket, Exception ex)
     {
-        SetIndicationColor(State.Closed);
+        SetIndication(State.Closed);
 
         Debug.Log($"State: {webSocket.State} | IsOpen: {webSocket.IsOpen}");
         Debug.Log(ex);
@@ -105,12 +122,12 @@ public class ConnectionIndicator : MonoBehaviour
 
     private void OnWebSocketClosed(BestHTTP.WebSocket.WebSocket webSocket, ushort code, string message)
     {
-        SetIndicationColor(State.Closed);
+        SetIndication(State.Closed);
     }
 
     private void OnWebSocketOpen(BestHTTP.WebSocket.WebSocket webSocket)
     {
-        SetIndicationColor(State.Open);
+        SetIndication(State.Open);
     }
     #endregion
 

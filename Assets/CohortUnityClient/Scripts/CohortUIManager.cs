@@ -51,6 +51,9 @@ public class CohortUIManager : MonoBehaviour
 #warning CancelButton is currently not used
     [field: SerializeField] public Button CancelButton { get; set; }
 
+    [SerializeField]
+    private ConnectionIndicator connectionIndicator;
+
     // Actions
     private UnityAction showStartAction;
     private ShowGraphSystem.CueReference currentCueReference = null;
@@ -603,12 +606,18 @@ public class CohortUIManager : MonoBehaviour
     public void onShowUI()
     {
         CohortUI.SetActive(true);
+
+        if (!(connectionIndicator is null))
+            connectionIndicator.AutoHide = false;
     }
 
     public void onHideUI()
     {
         CohortUI = GameObject.Find("CohortUI");
         CohortUI.SetActive(false);
+
+        if (!(connectionIndicator is null))
+            connectionIndicator.AutoHide = true;
     }
 
     public void toggleUI()

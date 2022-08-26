@@ -149,6 +149,7 @@ namespace Cohort
         private WebSocket cohortSocket;
         public WebSocket CohortSocket => cohortSocket;
         private bool AttemptingToAutoReconnect = false;
+        private bool AllowForcedReconnection = true;
 
         private string deviceGUID; // eventually moves to CHDevice
         private int deviceID; // eventually moves to CHDevice
@@ -663,6 +664,16 @@ namespace Cohort
             connectionIndicator.WebSocket = cohortSocket;
 
             cohortSocket.Open();
+
+            try
+            {
+                StartCoroutine(DisableForcedReconnectionForTime());
+            }
+            catch(Exception ex)
+            {
+                AllowForcedReconnection = true;
+                throw ex;
+            }
         }
 
         void OnWebSocketOpen(WebSocket cs)
@@ -752,10 +763,44 @@ namespace Cohort
                 return;
             }
 
-            StartCoroutine(AttemptAutoReconnection(this));
+            try
+            {
+                StartCoroutine(AttemptAutoReconnection(this));
+            }
+            catch (Exception ex)
+            {
+                AttemptingToAutoReconnect = false;
+
+                throw ex;
+            }
+        }
+
+        public void ManualReconnect()
+        {
+            if (!AllowForcedReconnection)
+                return;
+
+            if (!(cohortSocket is null) && cohortSocket.IsOpen && cohortSocket.State == WebSocketStates.Open)
+                return;
+
+            openWebSocketConnection();
         }
 
         #region Reconnection Logic
+        public IEnumerator DisableForcedReconnectionForTime(float seconds = 1.5f)
+        {
+            try
+            {
+                AllowForcedReconnection = false;
+                yield return new WaitForSeconds(seconds);
+                AllowForcedReconnection = true;
+            }
+            finally
+            {
+                AllowForcedReconnection = true;
+            }
+        }
+
         public static IEnumerator AttemptAutoReconnection(Cohort.CHSession chSession, IEnumerable<TimeSpan> intervals = null, int milliTimeOut = 1000)
         {
             try
@@ -783,10 +828,10 @@ namespace Cohort
 
                     yield return new WaitUntil(() => token.IsCancellationRequested || (chSession.CohortSocket.IsOpen && chSession.CohortSocket.State == WebSocketStates.Open));
                 }
+                chSession.AttemptingToAutoReconnect = false;
             }
             finally
             {
-                chSession.AttemptingToAutoReconnect = false;
             }
         }
 
