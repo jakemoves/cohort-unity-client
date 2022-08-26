@@ -17,6 +17,8 @@ using BestHTTP.WebSocket;
 using LitJson;
 using UnityEditor;
 using UnityEngine.Networking;
+using System.Threading;
+using Random = UnityEngine.Random;
 
 namespace Cohort
 {
@@ -145,6 +147,9 @@ namespace Cohort
         private string webSocketPath = "/sockets";
         private VideoClip nullVideo;
         private WebSocket cohortSocket;
+        public WebSocket CohortSocket => cohortSocket;
+        private bool AttemptingToAutoReconnect = false;
+
         private string deviceGUID; // eventually moves to CHDevice
         private int deviceID; // eventually moves to CHDevice
         public string grouping = ""; // TODO: Remove?
@@ -171,6 +176,9 @@ namespace Cohort
 
         // for control bar
         private int currentAssetIndex = 0;
+
+        [SerializeField]
+        private ConnectionIndicator connectionIndicator;
 
         // For filtered Assets
         //private List<CueReference> filteredOrderedAssets;
@@ -627,16 +635,33 @@ namespace Cohort
         /* 
          *   WebSockets
          */
+        #region Web Sockets
+        public void openWebSocketConnection() => openWebSocketConnection(out _);
 
-        void openWebSocketConnection()
+        public void openWebSocketConnection(out WebSocket socket)
         {
+            if (!(cohortSocket is null))
+            {
+                cohortSocket.OnOpen -= OnWebSocketOpen;
+                cohortSocket.OnMessage -= OnWebSocketMessage;
+                cohortSocket.OnClosed -= OnWebSocketClosed;
+                cohortSocket.OnError -= OnWebSocketError;
+                cohortSocket.StartPingThread = false;
+            }
+
             System.UriBuilder socketURL = (UriWithOptionalPort(httpPort, webSocketPath));
             Debug.Log(socketURL);
-            cohortSocket = new WebSocket(UriWithOptionalPort(httpPort, webSocketPath).Uri);
+            socket = new WebSocket(UriWithOptionalPort(httpPort, webSocketPath).Uri);
+            cohortSocket = socket;
             cohortSocket.OnOpen += OnWebSocketOpen;
             cohortSocket.OnMessage += OnWebSocketMessage;
             cohortSocket.OnClosed += OnWebSocketClosed;
-            cohortSocket.OnErrorDesc += OnWebSocketErrorDescription;
+            cohortSocket.OnError += OnWebSocketError;
+            cohortSocket.StartPingThread = true;
+
+            // Connection Indicator
+            connectionIndicator.WebSocket = cohortSocket;
+
             cohortSocket.Open();
         }
 
@@ -698,24 +723,112 @@ namespace Cohort
 
         void OnWebSocketClosed(WebSocket cs, ushort code, string msg)
         {
-            Debug.Log("closed websocket connection, code: " + code.ToString() + ", reason: " + msg);
+            Debug.Log($"closed websocket connection, code: {Enum.GetName(typeof(WebSocketStausCodes), code)} ({code}) reason: {msg}");
             socketConnectionActive = false;
-            onStatusChanged("Lost connection. Error code: " + code.ToString() + ", reason: " + msg);
+            onStatusChanged($"Lost connection. Error code: {Enum.GetName(typeof(WebSocketStausCodes), code)} ({code}) reason: {msg}");
             //connectionIndicator.SetActive(false);
+
+            AutoReconnect();
         }
 
-        void OnWebSocketErrorDescription(WebSocket cs, string error)
+        void OnWebSocketError(WebSocket cs, System.Exception ex)
         {
-            Debug.Log("Error: WebSocket: " + error);
+            Debug.Log("Error: WebSocket: " + ex);
             socketConnectionActive = false;
-            onStatusChanged("Lost connection. WebSocket error: " + error);
+            onStatusChanged($"Lost connection. WebSocket error: {ex?.Message}");
             //connectionIndicator.SetActive(false);
+
+            AutoReconnect();
         }
+
+        private void AutoReconnect()
+        {
+            if (AttemptingToAutoReconnect)
+                return;
+
+            if (!(cohortSocket is null) && cohortSocket.IsOpen && cohortSocket.State == WebSocketStates.Open)
+            {
+                Debug.LogWarning("Socket is already connected");
+                return;
+            }
+
+            StartCoroutine(AttemptAutoReconnection(this));
+        }
+
+        #region Reconnection Logic
+        public static IEnumerator AttemptAutoReconnection(Cohort.CHSession chSession, IEnumerable<TimeSpan> intervals = null, int milliTimeOut = 1000)
+        {
+            try
+            {
+                chSession.AttemptingToAutoReconnect = true;
+
+                intervals ??= RetryInterval();
+                var timeout = TimeSpan.FromMilliseconds(milliTimeOut);
+
+                CancellationToken token;
+
+                foreach (var interval in intervals)
+                {
+                    if (!(chSession.CohortSocket is null) && chSession.CohortSocket.IsOpen && chSession)
+                    {
+                        Debug.Log("Reconnection Success!");
+                        break;
+                    }
+                    else
+                        Debug.Log("Reconnection FAILED");
+
+                    Debug.Log("Attempting to reconnect...");
+                    chSession.openWebSocketConnection();
+                    token = new CancellationTokenSource(interval < timeout ? timeout : interval).Token;
+
+                    yield return new WaitUntil(() => token.IsCancellationRequested || (chSession.CohortSocket.IsOpen && chSession.CohortSocket.State == WebSocketStates.Open));
+                }
+            }
+            finally
+            {
+                chSession.AttemptingToAutoReconnect = false;
+            }
+        }
+
+        private static IEnumerable<TimeSpan> RetryInterval(IEnumerable<TimeSpan> intervals = null, int? count = null, float variation = 0.2f)
+        {
+            intervals ??= PowersOf2().Take(10);
+
+            if (count != null)
+                intervals = intervals.Take(count.Value);
+
+            intervals = intervals.Select((interval) =>
+            {
+                if (variation <= 0)
+                    return interval;
+
+                var offset = Mathf.Clamp(variation, 0, 1) * (float)interval.TotalSeconds;
+
+                return interval + TimeSpan.FromSeconds(Random.Range(-offset, offset));
+            });
+
+            foreach (var interval in intervals)
+                yield return interval;
+        }
+
+        private static IEnumerable<TimeSpan> PowersOf2()
+        {
+            yield return TimeSpan.Zero;
+
+            int n = 0;
+            while (n < 31)
+            {
+                yield return TimeSpan.FromSeconds(Mathf.Pow(n, 2));
+                n++;
+            }
+        }
+        #endregion
+        #endregion
 
         /*
          *   Remote notifications 
          */
-
+        #region Remote Notifications
         //void registerForRemoteNotifications(){
         //  /*
         //   * Register it for remote push notifications
@@ -1161,11 +1274,12 @@ namespace Cohort
 
             return true;
         }
+        #endregion
 
         /* 
          *   for control bar 
          */
-
+        #region Cue Triggering
         //void updateControlBar()
         //{
         //    Button nextBtn = GameObject.Find("Next Asset").GetComponent<Button>();
@@ -1335,6 +1449,7 @@ namespace Cohort
 
             }
         }
+        #endregion
     }
 
     public class CHDeviceCreateResponse
