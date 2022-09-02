@@ -51,6 +51,9 @@ public class CohortUIManager : MonoBehaviour
 #warning CancelButton is currently not used
     [field: SerializeField] public Button CancelButton { get; set; }
 
+    [SerializeField]
+    private ConnectionIndicator connectionIndicator;
+
     // Actions
     private UnityAction showStartAction;
     private ShowGraphSystem.CueReference currentCueReference = null;
@@ -455,7 +458,7 @@ public class CohortUIManager : MonoBehaviour
         // Make the Decision
         // Instansiate the command BEFORE we set our decision as it will cause the event to be raised
         var decisionCommand = new DecisionCommand(GraphCursor.Current.ID, GraphCursor.Group) { Decision = yes };
-        DecisionThroughText.Instance[choice][GraphCursor.Group] = yes;
+        //DecisionThroughText.Instance[choice][GraphCursor.Group] = yes;
 
         Debug.Log($"Sending Command: {decisionCommand}");
 
@@ -463,10 +466,6 @@ public class CohortUIManager : MonoBehaviour
 
         SetStatusMessage("... Waiting for other choices");
         //TryMoveOnFromDecision(DecisionThroughText.Instance[choice]);
-
-        // Prevent User from making the choice again
-        YesButton.gameObject.SetActive(false);
-        NoButton.gameObject.SetActive(false);
     }
 
     private void DecisionsUpdate(object sender, DecisionThroughText.Decisions e)
@@ -507,6 +506,11 @@ public class CohortUIManager : MonoBehaviour
     {
         if (GraphCursor.Current is ChoiceNode choiceNode && GraphCursor.Current.ID == decisions.NodeID)
         {
+            // Prevent User from making the choice again
+            var shouldEnableButtons = decisions[GraphCursor.Group] is null;
+            YesButton.gameObject.SetActive(shouldEnableButtons);
+            NoButton.gameObject.SetActive(shouldEnableButtons);
+
             if (decisions.TryGetDecisionsValue(out int value))
             {
                 NextCue.interactable = true;
@@ -603,12 +607,18 @@ public class CohortUIManager : MonoBehaviour
     public void onShowUI()
     {
         CohortUI.SetActive(true);
+
+        if (!(connectionIndicator is null))
+            connectionIndicator.AutoHide = false;
     }
 
     public void onHideUI()
     {
         CohortUI = GameObject.Find("CohortUI");
         CohortUI.SetActive(false);
+
+        if (!(connectionIndicator is null))
+            connectionIndicator.AutoHide = true;
     }
 
     public void toggleUI()
