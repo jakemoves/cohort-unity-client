@@ -287,6 +287,7 @@ public class CohortUIManager : MonoBehaviour
             {
                 ShowGraphSystem.MediaDomain.Sound => CohortSession.soundCues.Find(cue => cue.cueNumber == cueReference.CueID)?.accessibleAlternative,
                 ShowGraphSystem.MediaDomain.Image => CohortSession.imageCues.Find(cue => cue.cueNumber == cueReference.CueID)?.accessibleAlternative,
+                ShowGraphSystem.MediaDomain.Video => CohortSession.videoCues.Find(cue => cue.cueNumber == cueReference.CueID)?.accessibleAlternative,
                 ShowGraphSystem.MediaDomain.Text => CohortSession.textCues.Find(cue => cue.cueNumber == cueReference.CueID)?.text,
                 _ => cueReference.ToString(),
             };

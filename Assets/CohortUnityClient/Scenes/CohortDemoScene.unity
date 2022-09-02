@@ -5670,14 +5670,10 @@ MonoBehaviour:
   videoCues:
   - videoClip: {fileID: 32900000, guid: 001ec10bc0f601241975a68886f762e8, type: 3}
     cueNumber: 1
+    accessibleAlternative: Qas' Profile
   - videoClip: {fileID: 32900000, guid: f023d846e3d04554ab8bf8748eb88aaf, type: 3}
     cueNumber: 2
-  - videoClip: {fileID: 32900000, guid: 7b05fa7f2cf8141f38830b88347d694f, type: 3}
-    cueNumber: 3
-  - videoClip: {fileID: 32900000, guid: 28a905024427548ea8b97d5e19b1259b, type: 3}
-    cueNumber: 4
-  - videoClip: {fileID: 32900000, guid: 5bbee3cedd3f74917931f34706bcceb9, type: 3}
-    cueNumber: 5
+    accessibleAlternative: Gemma's Profile
   imageCues:
   - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 0

@@ -13,6 +13,9 @@ namespace Cohort {
     // public AudioClip accessibleAlternative;
     // described video, captions...
 
+    [SerializeField]
+    public string accessibleAlternative;
+
     public CHVideoCue() { }
 
     public CHVideoCue(VideoClip clip) {
