@@ -49,6 +49,11 @@ public class CueReferenceEnumerator : IEnumerator<CueReference>
         return position > -1;
     }
 
+    public void GoToEnd()
+    {
+        position = _cues.Count;
+    }
+
     public void Reset()
     {
         position = -1;

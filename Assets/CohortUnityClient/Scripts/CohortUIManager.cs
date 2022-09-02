@@ -320,11 +320,16 @@ public class CohortUIManager : MonoBehaviour
         }
         else
         {
-            CurrentAssetText.text = "END OF SCENE - Press Next Scene/Choice to proceed";
-            // NOTE: It may be usful to add a PeekNext to the graph cursor
-            // inorder for this to provide information to the user
-            NextCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Next Scene/Choice";
+            SetCueControlUiEndState();
         }
+    }
+
+    private void SetCueControlUiEndState()
+    {
+        CurrentAssetText.text = "END OF SCENE - Press Next Scene/Choice to proceed";
+        // NOTE: It may be usful to add a PeekNext to the graph cursor
+        // inorder for this to provide information to the user
+        NextCue.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Next Scene/Choice";
     }
 
     private void MoveToNextNode()
@@ -381,6 +386,18 @@ public class CohortUIManager : MonoBehaviour
         if (GraphCursor.MovePrevious())
         {
             EnterShowNode(GraphCursor.Current);
+
+            if (GraphCursor.Current is SceneNode sceneNode)
+                {
+                // Cue Cursor GoToEnd
+                cueCursor.GoToEnd();
+
+                // Set Cue Cursor To Last Cue
+                SetCueControlUiEndState();
+
+                var cueCount = sceneNode.CueListByGroups[GraphCursor.Group].Length;
+                currentCueReference = cueCount > 0 ? sceneNode.CueListByGroups[GraphCursor.Group][cueCount - 1] : null;
+            }
         }
         else
         {
