@@ -5635,7 +5635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 15cdcaa72161667428dda3d8d22456d3,
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 774c91d0144bdbb4fa8e547a58203783,
     type: 2}
   <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
@@ -5658,62 +5658,44 @@ MonoBehaviour:
   eventId: 15
   clientOccasion: 21
   soundCues:
-  - audioClip: {fileID: 8300000, guid: 69219bdb74dd0f642ace73c892089757, type: 3}
-    cueNumber: 1
-    accessibleAlternative: '[placeholder for The Current podcast]'
-  - audioClip: {fileID: 8300000, guid: 69219bdb74dd0f642ace73c892089757, type: 3}
-    cueNumber: 2
-    accessibleAlternative: Marco's transition music
-  - audioClip: {fileID: 8300000, guid: 4c7b4caa31e3a7a43984141230c6884e, type: 3}
-    cueNumber: 3
-    accessibleAlternative: Roslyn's transition music
+  - audioClip: {fileID: 8300000, guid: dfcd49beac81ef8488acc35135ef39a5, type: 3}
+    cueNumber: 1020
+    accessibleAlternative: BBoi Call - Holy shit, he's so hot
+  - audioClip: {fileID: 8300000, guid: 88d0ae708d5c85645b381abb0ac62b3b, type: 3}
+    cueNumber: 1030
+    accessibleAlternative: BShare Podcast - This is Riptide
+  - audioClip: {fileID: 8300000, guid: fdea3337f2679e54a91d16284eaaa77b, type: 3}
+    cueNumber: 1050
+    accessibleAlternative: Marty VM - Declines to participate
+  - audioClip: {fileID: 8300000, guid: c1c6a1438a4f637498e64b54e7b0a229, type: 3}
+    cueNumber: 1070
+    accessibleAlternative: Ed VM - Pizza and Lower Body Cast
+  - audioClip: {fileID: 8300000, guid: 0849f8787db41a94897af1ec6bdfe0aa, type: 3}
+    cueNumber: 1080
+    accessibleAlternative: Kevin CBC - Interview with Roslyn / Feminist Anthem
   videoCues:
-  - videoClip: {fileID: 32900000, guid: 001ec10bc0f601241975a68886f762e8, type: 3}
-    cueNumber: 1
-    accessibleAlternative: Qas' Profile
-  - videoClip: {fileID: 32900000, guid: f023d846e3d04554ab8bf8748eb88aaf, type: 3}
-    cueNumber: 2
-    accessibleAlternative: Gemma's Profile
+  - videoClip: {fileID: 32900000, guid: 7dadd0defc45c96409dabd5abb6c9528, type: 3}
+    cueNumber: 4010
+    accessibleAlternative: instagram camera/Instagram story of her gallery
+  - videoClip: {fileID: 32900000, guid: 62dff4d8ee069f848885ad4267456c8f, type: 3}
+    cueNumber: 4040
+    accessibleAlternative: instagram comments
   imageCues:
   - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 0
     accessibleAlternative: Introduction
-  - image: {fileID: 21300000, guid: 08e2ae0a2a3449a41b1899b1025441c5, type: 3}
-    cueNumber: 1
-    accessibleAlternative: Gemma selfie
-  - image: {fileID: 21300000, guid: 800907f9b896be243a42e2fd45d2d219, type: 3}
-    cueNumber: 2
-    accessibleAlternative: Qas texts Roz "so I can flirt with her"
-  - image: {fileID: 21300000, guid: eb51b4aac741d624a8a598c19494e4c1, type: 3}
-    cueNumber: 3
-    accessibleAlternative: Roz texts Qas
-  - image: {fileID: 21300000, guid: de9fdb5af08ca1543b3951bb7b3c6cb3, type: 3}
-    cueNumber: 4
-    accessibleAlternative: Gemma Masterbating
-  - image: {fileID: 21300000, guid: 8076f192b4cfe8f4a8e6745923243e60, type: 3}
-    cueNumber: 5
-    accessibleAlternative: Port 0
-  - image: {fileID: 21300000, guid: 5988beed6d776ea41b7a7e88eca43abb, type: 3}
-    cueNumber: 6
-    accessibleAlternative: Port 1
-  - image: {fileID: 21300000, guid: 3f1cd5d8a8bc36e43825919ecb5f3755, type: 3}
-    cueNumber: 7
-    accessibleAlternative: Port 2
-  - image: {fileID: 21300000, guid: 8f35dcf57fe189a4db108e543c5f9012, type: 3}
-    cueNumber: 8
-    accessibleAlternative: Port 3
-  - image: {fileID: 21300000, guid: 301a41d0a865e4a70a3edb1d7af04d3f, type: 3}
-    cueNumber: 10
-    accessibleAlternative: 'Marco: "You can tag me..."'
-  - image: {fileID: 21300000, guid: 98cb7e8cecd464e50b229f8885ca9aba, type: 3}
-    cueNumber: 11
-    accessibleAlternative: 'Gemma: "I''ll take my chances..."'
-  - image: {fileID: 21300000, guid: d0ace001d1f744dfabb27858c2ec1e5e, type: 3}
-    cueNumber: 12
-    accessibleAlternative: 'Marco: "come sit on me again"'
-  - image: {fileID: 21300000, guid: d5aba113bb02b44b183a17896dd0e152, type: 3}
-    cueNumber: 20
-    accessibleAlternative: Gemma sends sex video to Roz
+  - image: {fileID: 21300000, guid: 3f86949641e9e5748b8c47416a82f7df, type: 3}
+    cueNumber: 2010
+    accessibleAlternative: Instagram post/ Post of her instagram sorry of her office
+  - image: {fileID: 21300000, guid: 17defc102a58f2244821e98ce0522e77, type: 3}
+    cueNumber: 2020
+    accessibleAlternative: Instagram comments
+  - image: {fileID: 21300000, guid: b5377168923f59242a81bb2bc39386e1, type: 3}
+    cueNumber: 2030
+    accessibleAlternative: Qas' instagram
+  - image: {fileID: 21300000, guid: 75b0bdd3a54e4c64697accc43f63b074, type: 3}
+    cueNumber: 2040
+    accessibleAlternative: text message Butterly
   textCues:
   - text: Right...There..
     cueNumber: 1
