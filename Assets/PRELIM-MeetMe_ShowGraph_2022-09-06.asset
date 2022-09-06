@@ -945,6 +945,17 @@ MonoBehaviour:
               Value: 0
           <CueID>k__BackingField: 2020
           <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 0
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roselyn
+              Value: 0
+          <CueID>k__BackingField: 1010
+          <VibrateOnCue>k__BackingField: 0
         - <MediaDomain>k__BackingField: 2
           <GroupSelection>k__BackingField:
             list:
