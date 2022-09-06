@@ -134,6 +134,7 @@ namespace ShowGraphSystem.Editor
 
                 ui.AddManipulator(new ContextualMenuManipulator(menuBuilder =>
                 {
+                    // Delete Cue
                     menuBuilder.menu.AppendAction("Delete Cue", (action) =>
                     {
 #if TESTING
@@ -144,6 +145,27 @@ namespace ShowGraphSystem.Editor
                         Debug.Log($"Cue Size = {CueReferences.Count}");
 #endif
                     });
+
+                    // Add Cue After
+                    menuBuilder.menu.AppendAction("Add Cue Before", (action) =>
+                    {
+#if TESTING
+                        Debug.Log($"Adding Cue before {cueRef.MediaDomain} Cue #{cueRef.CueID}");
+#endif
+                        // Add Cue
+                        var nextCueRef = new CueReference()
+                        {
+                            MediaDomain = MediaDomain.Image,
+                            GroupSelection = cueRef.GroupSelection,
+                            VibrateOnCue = false
+                        };
+
+                        CueReferences.Insert(CueReferences.IndexOf(cueRef), nextCueRef);
+#if TESTING
+                        Debug.Log($"Cue Size = {CueReferences.Count}");
+#endif
+                    });
+
                     menuBuilder.StopPropagation();
                 }));
                 return ui;

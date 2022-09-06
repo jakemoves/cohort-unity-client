@@ -709,7 +709,7 @@ namespace Cohort
                     {
                         groupingStatus = ", grouping: " + grouping;
                     }
-                    onStatusChanged("Connected to Cohort (occasion id:" + occasion + groupingStatus + ")");
+                    onStatusChanged?.Invoke("Connected to Cohort (occasion id:" + occasion + groupingStatus + ")");
                     socketConnectionActive = true;
                     //connectionIndicator.SetActive(true);
                 }
@@ -739,7 +739,7 @@ namespace Cohort
         {
             Debug.Log($"closed websocket connection, code: {Enum.GetName(typeof(WebSocketStausCodes), code)} ({code}) reason: {msg}");
             socketConnectionActive = false;
-            onStatusChanged($"Lost connection. Error code: {Enum.GetName(typeof(WebSocketStausCodes), code)} ({code}) reason: {msg}");
+            onStatusChanged?.Invoke($"Lost connection. Error code: {Enum.GetName(typeof(WebSocketStausCodes), code)} ({code}) reason: {msg}");
             //connectionIndicator.SetActive(false);
 
             AutoReconnect();

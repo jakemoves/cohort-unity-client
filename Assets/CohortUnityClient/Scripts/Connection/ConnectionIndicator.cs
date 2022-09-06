@@ -88,7 +88,7 @@ public class ConnectionIndicator : MonoBehaviour
 
     private void SetIndication(State state)
     {
-        if (!(Image is null))
+        if (Image != null)
         {
             Image.color = state switch
             {
