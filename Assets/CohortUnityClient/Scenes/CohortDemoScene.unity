@@ -5658,6 +5658,9 @@ MonoBehaviour:
   eventId: 15
   clientOccasion: 21
   soundCues:
+  - audioClip: {fileID: 8300000, guid: c370ca79b3b25c642bec271ae5efc9ba, type: 3}
+    cueNumber: 1010
+    accessibleAlternative: Gustav VM - Spectrafest Artist Statement
   - audioClip: {fileID: 8300000, guid: dfcd49beac81ef8488acc35135ef39a5, type: 3}
     cueNumber: 1020
     accessibleAlternative: BBoi Call - Holy shit, he's so hot
