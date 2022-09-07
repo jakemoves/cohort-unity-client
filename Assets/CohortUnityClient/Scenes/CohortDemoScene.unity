@@ -4746,7 +4746,7 @@ MonoBehaviour:
   scrollRect: {fileID: 1385437562}
   aspectRatioFitter: {fileID: 26072272}
   imageComponent: {fileID: 26072270}
-  aspectRatioThreshold: 0.35
+  aspectRatioThreshold: 0.45
   screenAspectRatio: 0
 --- !u!1 &1392766430
 GameObject:
