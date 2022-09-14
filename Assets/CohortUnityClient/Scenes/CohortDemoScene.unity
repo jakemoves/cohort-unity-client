@@ -5660,19 +5660,22 @@ MonoBehaviour:
   soundCues:
   - audioClip: {fileID: 8300000, guid: e80a7e464f500ef4b88353624a050a3c, type: 3}
     cueNumber: 50
-    accessibleAlternative: "RBarker Podcast - What\u2019s up folks!"
+    accessibleAlternative: "Audio: RBarker Podcast - What\u2019s up folks!"
   - audioClip: {fileID: 8300000, guid: fdea3337f2679e54a91d16284eaaa77b, type: 3}
     cueNumber: 100
-    accessibleAlternative: Marty VM - Declines to participate
+    accessibleAlternative: 'Audio: Marty VM - Declines to participate'
   - audioClip: {fileID: 8300000, guid: 0849f8787db41a94897af1ec6bdfe0aa, type: 3}
     cueNumber: 108
     accessibleAlternative: Kevin CBC - Interview with Roslyn
   - audioClip: {fileID: 8300000, guid: 3a69db267bfcf3e45bc7bbce3cb9f883, type: 3}
     cueNumber: 162
-    accessibleAlternative: Roslyn Leaves Marty a voice memo
+    accessibleAlternative: 'Audio: Roslyn Leaves Marty a voice memo'
   - audioClip: {fileID: 8300000, guid: cd3cb0e87a43b3148bae6ee438bad24a, type: 3}
     cueNumber: 164
     accessibleAlternative: Ed VM Inbox Welcome
+  - audioClip: {fileID: 0}
+    cueNumber: 166
+    accessibleAlternative: "Roslyn Leaves Ed a voice memo\r"
   - audioClip: {fileID: 8300000, guid: 94fed6e8d0a042a4b8e13c4bf658d658, type: 3}
     cueNumber: 168
     accessibleAlternative: CBC After Dark (LightsOut)
@@ -5790,10 +5793,10 @@ MonoBehaviour:
     accessibleAlternative: BShare Podcast - This is Riptide
   - videoClip: {fileID: 32900000, guid: 69db942382f9869419c22a8d9254d95d, type: 3}
     cueNumber: 50
-    accessibleAlternative: "RBarker Podcast - What\u2019s up folks!"
+    accessibleAlternative: "Video: RBarker Podcast - What\u2019s up folks!"
   - videoClip: {fileID: 32900000, guid: bc4298d17ca70f64d911ae17a3742dbf, type: 3}
     cueNumber: 100
-    accessibleAlternative: Marty VM - Declines to participate
+    accessibleAlternative: 'Video: Marty VM - Declines to participate'
   - videoClip: {fileID: 32900000, guid: 6f7a5a21afb42da46a09dc3632465246, type: 3}
     cueNumber: 104
     accessibleAlternative: Ed VM - Pizza and Lower Body Cast
@@ -5809,6 +5812,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 730d2f89a2ba46b409e4b9f74a2b7513, type: 3}
     cueNumber: 2106
     accessibleAlternative: Roslyn texts qas middle finger
+  - videoClip: {fileID: 0}
+    cueNumber: 2158
+    accessibleAlternative: A.Text Exchage 1:Qas I want to know everything
   - videoClip: {fileID: 32900000, guid: 58f0209c900fcf34cba0e2d988762963, type: 3}
     cueNumber: 2160
     accessibleAlternative: B Text exchange 1:Qas I want to know everything
@@ -5818,18 +5824,45 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 210b4813a0bda0049a34d628fec6deae, type: 3}
     cueNumber: 2182
     accessibleAlternative: Dm from ED body cast
+  - videoClip: {fileID: 0}
+    cueNumber: 2184
+    accessibleAlternative: Checks gemma comments
   - videoClip: {fileID: 32900000, guid: 227372c2453765d4ca7028dc667ab2a8, type: 3}
     cueNumber: 2212
     accessibleAlternative: screenshot and sent to friend
+  - videoClip: {fileID: 0}
+    cueNumber: 2230
+    accessibleAlternative: Checks gemma comments
   - videoClip: {fileID: 32900000, guid: ba2b2e7dca55cce479cccbf1c2c151be, type: 3}
     cueNumber: 2268
     accessibleAlternative: screenshot to Butterli
+  - videoClip: {fileID: 0}
+    cueNumber: 2286
+    accessibleAlternative: 'Checks gemma comments '
+  - videoClip: {fileID: 0}
+    cueNumber: 2330
+    accessibleAlternative: 'Checks gemma comments '
+  - videoClip: {fileID: 0}
+    cueNumber: 2406
+    accessibleAlternative: 'Qas commenting on post '
+  - videoClip: {fileID: 0}
+    cueNumber: 2416
+    accessibleAlternative: 'Checks gemma comments '
   - videoClip: {fileID: 32900000, guid: 4c9e6e86cf2b9774d848fd8689fdbf5f, type: 3}
     cueNumber: 2454
     accessibleAlternative: 'A: Text exchange w/ G: I want to know everthing'
   - videoClip: {fileID: 32900000, guid: d455538781ef9844081eaaa07368157f, type: 3}
     cueNumber: 2456
     accessibleAlternative: 'B: Text exchange w/ G: I want to know everything'
+  - videoClip: {fileID: 0}
+    cueNumber: 2480
+    accessibleAlternative: 'Checks gemma comments '
+  - videoClip: {fileID: 0}
+    cueNumber: 2502
+    accessibleAlternative: 'Qas commenting on post '
+  - videoClip: {fileID: 0}
+    cueNumber: 2512
+    accessibleAlternative: 'Checks gemma comments '
   imageCues:
   - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 0
@@ -5839,7 +5872,7 @@ MonoBehaviour:
     accessibleAlternative: posts cbc interview on facebook
   - image: {fileID: 21300000, guid: 6ba7578c06e7c2e48acff5a6b57a7b4f, type: 3}
     cueNumber: 162
-    accessibleAlternative: Roslyn Leaves Marty a voice memo
+    accessibleAlternative: 'Image: Roslyn Leaves Marty a voice memo'
   - image: {fileID: 21300000, guid: 28c02152fc118e5409e88330552757c1, type: 3}
     cueNumber: 172
     accessibleAlternative: Text sent to Roslyn
@@ -5901,6 +5934,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 9cdb083cd65da0b408623b6717f359e4, type: 3}
     cueNumber: 2056
     accessibleAlternative: Previous text message exchange Roslyn
+  - image: {fileID: 21300000, guid: 9cdb083cd65da0b408623b6717f359e4, type: 3}
+    cueNumber: 2056
+    accessibleAlternative: Previous text message exchange Roslyn
   - image: {fileID: 21300000, guid: 585bbb29c3fc7184baffcd12bfd67154, type: 3}
     cueNumber: 2062
     accessibleAlternative: Instagram post comments
@@ -5913,6 +5949,12 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: caee3fcdf11dbf640b53264c4412a715, type: 3}
     cueNumber: 2104
     accessibleAlternative: Q & R Full text exchange
+  - image: {fileID: 21300000, guid: 7220475a0e2a05546b4281fb6eb36670, type: 3}
+    cueNumber: 2152
+    accessibleAlternative: 'masturbation in tub '
+  - image: {fileID: 0}
+    cueNumber: 2154
+    accessibleAlternative: Selfie Shot
   - image: {fileID: 21300000, guid: c810361a3cde5c543afa742fbef548d2, type: 3}
     cueNumber: 2156
     accessibleAlternative: Instagram post of selfie
@@ -5943,6 +5985,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: f9deb1bd4a43ffb4d896609cb4c6df0f, type: 3}
     cueNumber: 2180
     accessibleAlternative: 'Dm from Qas mom: Rishta'
+  - image: {fileID: 0}
+    cueNumber: 2202
+    accessibleAlternative: Selfie Picture
   - image: {fileID: 21300000, guid: b223769ce3168ca4a9a6a5822de7b161, type: 3}
     cueNumber: 2204
     accessibleAlternative: Instagram post of selfie
@@ -6009,9 +6054,21 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: eec241814c365794faeb7888ed468603, type: 3}
     cueNumber: 2280
     accessibleAlternative: Checks her insta post
+  - image: {fileID: 0}
+    cueNumber: 2302
+    accessibleAlternative: Selfie
+  - image: {fileID: 0}
+    cueNumber: 2402
+    accessibleAlternative: Selfie Shot
+  - image: {fileID: 0}
+    cueNumber: 2408
+    accessibleAlternative: 'reply from butterboi '
   - image: {fileID: 21300000, guid: df942e885895b784783d4723d19b4259, type: 3}
     cueNumber: 2410
     accessibleAlternative: Checks her insta post
+  - image: {fileID: 0}
+    cueNumber: 2450
+    accessibleAlternative: Selfie Shot
   - image: {fileID: 21300000, guid: 9ebe43ebb841e104c8cc841c40334cd5, type: 3}
     cueNumber: 2458
     accessibleAlternative: 'A: Text to G: What are you doing later?'
@@ -6030,6 +6087,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: d837e4013de9f7048aee1229c573c041, type: 3}
     cueNumber: 2470
     accessibleAlternative: 'B.Text to G: A Plethora'
+  - image: {fileID: 0}
+    cueNumber: 2504
+    accessibleAlternative: reply from butterboi
   textCues: []
   audioPlayer: {fileID: 1392766431}
   videoPlayer: {fileID: 1357722706}
