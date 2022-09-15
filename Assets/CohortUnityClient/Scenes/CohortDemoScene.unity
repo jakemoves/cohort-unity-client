@@ -656,7 +656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.287}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -26.44998}
+  m_AnchoredPosition: {x: 0, y: -26.449982}
   m_SizeDelta: {x: -340, y: -52.90001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &103073508
@@ -5635,7 +5635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 38a1bba3ee1c73648a77c3c7a1763b6d,
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 279a66855713cd444beef7e49faa70f8,
     type: 2}
   <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
@@ -5800,6 +5800,12 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 6f7a5a21afb42da46a09dc3632465246, type: 3}
     cueNumber: 104
     accessibleAlternative: Ed VM - Pizza and Lower Body Cast
+  - videoClip: {fileID: 32900000, guid: b11f4723b5f528848a16f7018556b53e, type: 3}
+    cueNumber: 558
+    accessibleAlternative: Does it turn you on Video
+  - videoClip: {fileID: 32900000, guid: de950e0861022834b956d501c2f2b54c, type: 3}
+    cueNumber: 559
+    accessibleAlternative: Sex Video
   - videoClip: {fileID: 32900000, guid: 7dadd0defc45c96409dabd5abb6c9528, type: 3}
     cueNumber: 2000
     accessibleAlternative: Instagram story of gallery
@@ -5863,6 +5869,21 @@ MonoBehaviour:
   - videoClip: {fileID: 0}
     cueNumber: 2512
     accessibleAlternative: 'Checks gemma comments '
+  - videoClip: {fileID: 0}
+    cueNumber: 2550
+    accessibleAlternative: 'Qas takes  3 photo''s of Gemma on Fence '
+  - videoClip: {fileID: 0}
+    cueNumber: 2552
+    accessibleAlternative: 'Qas takes  3 photo''s of Gemma outside enterance to building '
+  - videoClip: {fileID: 0}
+    cueNumber: 2554
+    accessibleAlternative: 'Gemma takes 3 sexy pics of Qas '
+  - videoClip: {fileID: 0}
+    cueNumber: 2556
+    accessibleAlternative: 'Gemma Posts Pic''s to Insta and tags Q '
+  - videoClip: {fileID: 0}
+    cueNumber: 2558
+    accessibleAlternative: 'Gemma Tags Qas in Post (Qas gets notification) '
   imageCues:
   - image: {fileID: 21300000, guid: 6a6deeed20793794893a2dc46692fe4b, type: 3}
     cueNumber: 0
@@ -5907,6 +5928,12 @@ MonoBehaviour:
     cueNumber: 776
     accessibleAlternative: 'Qas sends screen shot of Roslyn Text excahnge sc1: "I''ll
       add your recrutung services to the budget.'
+  - image: {fileID: 21300000, guid: 6f45bec7799b2ce47b9b781edb1b2857, type: 3}
+    cueNumber: 777
+    accessibleAlternative: Incoming Call Screen
+  - image: {fileID: 21300000, guid: 068dbd63bce1f4840978334e9286ec96, type: 3}
+    cueNumber: 778
+    accessibleAlternative: Text to Qas (Public)
   - image: {fileID: 21300000, guid: 3f86949641e9e5748b8c47416a82f7df, type: 3}
     cueNumber: 2002
     accessibleAlternative: instagram post/ Post of her instagram sorry of her office
