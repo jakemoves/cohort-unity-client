@@ -51,6 +51,9 @@ public class CohortUIManager : MonoBehaviour
 #warning CancelButton is currently not used
     [field: SerializeField] public Button CancelButton { get; set; }
 
+    [field: Header("Other")]
+    [field: SerializeField] public bool VibrateOnAllCues { get; set; }
+
     [SerializeField]
     private ConnectionIndicator connectionIndicator;
 
@@ -437,7 +440,7 @@ public class CohortUIManager : MonoBehaviour
 
         CohortSession.FireCue(currentCueReference.ToCohortCue(CueAction.play));
 
-        if (currentCueReference.VibrateOnCue)
+        if (VibrateOnAllCues || currentCueReference.VibrateOnCue)
             CohortSession.FireCue(currentCueReference.GetVibrationCue());
     }
 
