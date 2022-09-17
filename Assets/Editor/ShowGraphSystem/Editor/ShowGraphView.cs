@@ -16,7 +16,7 @@ namespace ShowGraphSystem.Editor
 
         public bool HasRootNode => (from n in nodes.ToList() where n is RootNode select n).Any();
 
-        public ObservableCollection<string> Groups { get; set; } = new ObservableCollection<string>(new List<string> { "Qas", "Gemma", "Roselyn" });
+        public ObservableCollection<string> Groups { get; set; } = new ObservableCollection<string>(new List<string> { "Qas", "Gemma", "Roslyn" });
 
         // TODO: ADD Drag and drop
         public ShowGraphView() : base()
