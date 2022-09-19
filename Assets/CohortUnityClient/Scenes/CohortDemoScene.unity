@@ -5820,7 +5820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 24907ad2cd72d5744bc63422d15c15f6,
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 30a7d43b57801794aad9241b3ae9f257,
     type: 2}
   <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
@@ -6014,6 +6014,9 @@ MonoBehaviour:
     cueNumber: 260
     accessibleAlternative: Sex video
   imageCues:
+  - image: {fileID: 21300000, guid: 49ac5082275594c42a242da4448108b8, type: 3}
+    cueNumber: 0
+    accessibleAlternative: BBC Electronic Card (CC-BY-SA-4.0)
   - image: {fileID: 21300000, guid: c665611e1b764f844b256c91e8f2f251, type: 3}
     cueNumber: 36
     accessibleAlternative: posts cbc interview on facebook
