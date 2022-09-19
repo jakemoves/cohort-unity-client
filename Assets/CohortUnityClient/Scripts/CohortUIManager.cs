@@ -273,6 +273,12 @@ public class CohortUIManager : MonoBehaviour
                 SetStatusMessage("CHOICE NODE\nNo decisions made...");
 
             // TODO: Should we disable the Next button?
+
+            if (decisions[GraphCursor.Group] is null && choiceNode.GroupChoices[GraphCursor.Group].Trim() == "null")
+            {
+                ChoiceText.text = "PLEASE WAIT";
+                MakeDecisionAction(true);
+            }
         }
     }
 

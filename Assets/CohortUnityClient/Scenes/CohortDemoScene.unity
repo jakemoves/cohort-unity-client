@@ -2602,7 +2602,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Start Show (NOTE: The Group can not be changed after)'
+  m_Text: Start Show
 --- !u!222 &662450875
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5820,7 +5820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 30a7d43b57801794aad9241b3ae9f257,
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 488f1ac5f3a7552479d4095accf7ba90,
     type: 2}
   <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
