@@ -5,6 +5,7 @@ using UnityEditor.UIElements;
 using System;
 using System.IO;
 using System.Linq;
+using static UnityEditor.Progress;
 
 namespace ShowGraphSystem.Editor
 {
@@ -135,10 +136,87 @@ namespace ShowGraphSystem.Editor
 
                     ExportNodeDataTsv(new FileInfo(path), graphView);
                 });
+
+            dataDropdown.menu.AppendAction(
+                "Import Cue Data from TSV",
+                (action) =>
+                {
+                    var path = EditorUtility.OpenFilePanel(
+                        "Import TSV",
+                        Path.GetDirectoryName(GraphFilePath),
+                        "tsv"
+                        );
+
+                    if (path == null) return;
+                    var file = new FileInfo(path);
+                    if (!file.Exists) return;
+
+                    ImportCueDataTsv(file, graphView);
+                });
             toolbar.Add(dataDropdown);
 
             rootVisualElement.Add(fileLabel);
             rootVisualElement.Add(toolbar);
+        }
+
+        private void ImportCueDataTsv(FileInfo file, ShowGraphView graphView)
+        {
+            var nodes = graphView.nodes.ToList();
+            using var reader = file.OpenText();
+
+            while(!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+
+                var data = line.Split('\t');
+
+                if (data.Length != 5)
+                {
+                    Debug.LogError($"Could not import line - length mismatch: {line}");
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(data[0]))
+                {
+                    Debug.LogError($"Could not import line - node null: {line}");
+                    continue;
+                }
+
+                var node = nodes
+                    .Where(n => n is ShowGraphNode)
+                    .Select(n => n as ShowGraphNode)
+                    .SingleOrDefault(sgn => sgn.ID == data[0].Trim());
+
+                if (node is null)
+                {
+                    Debug.LogError($"Could not import line - invalid node guid: {line}");
+                    continue;
+                }
+
+                if (node is SceneNode scene && scene.CueListsByGroup.ContainsKey(data[1].Trim()))
+                {
+                    scene.CueListsByGroup[data[1].Trim()].Add(new CueReference()
+                    {
+                        CueID = int.Parse(data[2].Trim()),
+                        VibrateOnCue = false,
+                        MediaDomain = GetFromMime(data[3].Trim()),
+                        GroupSelection = 
+                            new SerializableDictionary<string, bool>(graphView.Groups.ToDictionary<string, string, bool>(g => g, g => data[4].Contains(g)))
+                    });;
+                }
+            }
+
+            MediaDomain GetFromMime(string s) 
+            {
+                s = s.Trim();
+                if (s.StartsWith("audio"))
+                    return MediaDomain.Sound;
+                else if (s.StartsWith("video"))
+                    return MediaDomain.Video;
+                else if (s.StartsWith("image"))
+                    return MediaDomain.Image;
+                else throw new NotSupportedException($"Mime Type Not Supported: {s}");
+            }
         }
 
         private void SaveGraph(ShowGraphView graphView)

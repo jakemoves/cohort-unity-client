@@ -16,7 +16,7 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - Qas
   - Gemma
-  - Roselyn
+  - Roslyn
   <Root>k__BackingField:
     <Position>k__BackingField: {x: 164, y: 487}
   <SceneNodes>k__BackingField:
@@ -28,12 +28,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 322, y: 416}
     <CueListByGroups>k__BackingField:
       list:
@@ -41,7 +41,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: dab5ae6c-3584-4466-81d6-7e0784c3329f
     <Title>k__BackingField: 'Scene 1C: Roslyn in Office'
@@ -51,12 +51,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 715, y: 707}
     <CueListByGroups>k__BackingField:
       list:
@@ -64,7 +64,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: ae322936-cf18-41d5-991a-7027e6661891
     <Title>k__BackingField: 'Scene 1A: Gemma in Gallery'
@@ -74,12 +74,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 0
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 715, y: 149}
     <CueListByGroups>k__BackingField:
       list:
@@ -87,7 +87,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: efb0db3a-bafc-48db-8c7d-9b77c98b720c
     <Title>k__BackingField: 'Scene 1B: Qas at Bar'
@@ -97,12 +97,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 0
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 715, y: 416}
     <CueListByGroups>k__BackingField:
       list:
@@ -110,7 +110,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: c8bb76ca-f37b-48d4-b0d7-464646e44cf2
     <Title>k__BackingField: Scene 2A
@@ -120,12 +120,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1686, y: -283}
     <CueListByGroups>k__BackingField:
       list:
@@ -133,7 +133,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: e78dfd7e-8067-45b6-83d3-d63d2e2b46d1
     <Title>k__BackingField: Scene 2C
@@ -143,12 +143,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1686, y: 177}
     <CueListByGroups>k__BackingField:
       list:
@@ -156,7 +156,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 3d8dde2a-3c0e-450d-ba48-effb4ee1ec85
     <Title>k__BackingField: Scene 2G
@@ -166,12 +166,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1686, y: 1097}
     <CueListByGroups>k__BackingField:
       list:
@@ -179,7 +179,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: a5bfb9ee-b651-4ff2-a82e-7c1c82a3358d
     <Title>k__BackingField: Scene 2E
@@ -189,12 +189,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1686, y: 637}
     <CueListByGroups>k__BackingField:
       list:
@@ -202,7 +202,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 5e105ff1-d002-4b52-90b6-f909ba616c30
     <Title>k__BackingField: Scene 2B
@@ -212,12 +212,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1956, y: -53}
     <CueListByGroups>k__BackingField:
       list:
@@ -225,7 +225,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: ab0763b2-2ada-49a0-9421-63f5ab28f8a8
     <Title>k__BackingField: Scene 2D
@@ -235,12 +235,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1956, y: 407}
     <CueListByGroups>k__BackingField:
       list:
@@ -248,7 +248,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 8f8fccf7-8e7f-4dfe-97d8-a68d342627bc
     <Title>k__BackingField: Scene 2F
@@ -258,12 +258,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1956, y: 867}
     <CueListByGroups>k__BackingField:
       list:
@@ -271,7 +271,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 81324f7e-b784-467c-a438-2149e5244bab
     <Title>k__BackingField: Scene 2H
@@ -281,12 +281,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1956, y: 1327}
     <CueListByGroups>k__BackingField:
       list:
@@ -294,7 +294,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 608e97a4-05d4-4c85-bf32-108056dce9e3
     <Title>k__BackingField: 'Scene 3A '
@@ -304,12 +304,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 0
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 2723, y: 35}
     <CueListByGroups>k__BackingField:
       list:
@@ -317,7 +317,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 675b926f-3a35-436b-8719-798abcb18b6e
     <Title>k__BackingField: 'Scene 3B: Roslyn''s Consultaion'
@@ -327,12 +327,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 2723, y: 502}
     <CueListByGroups>k__BackingField:
       list:
@@ -340,7 +340,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: ef46c277-f16e-4028-87cf-f4fb65b2e01d
     <Title>k__BackingField: 'Scene 3C: Qas'' Consultation'
@@ -350,12 +350,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 0
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 2723, y: 867}
     <CueListByGroups>k__BackingField:
       list:
@@ -363,7 +363,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 55898063-6d06-499e-9c0c-c839e4cd0a76
     <Title>k__BackingField: 'Scene 4A: Gemma''s Dilemma'
@@ -373,12 +373,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 0
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 3370, y: 35}
     <CueListByGroups>k__BackingField:
       list:
@@ -386,7 +386,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: a2de2c41-82da-4099-b330-6d04fed1e54b
     <Title>k__BackingField: Scene 4B
@@ -396,12 +396,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 3370, y: 502}
     <CueListByGroups>k__BackingField:
       list:
@@ -409,7 +409,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 9ae00cec-3422-4c57-9688-27c09e355639
     <Title>k__BackingField: Scene 4E
@@ -419,12 +419,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 3631, y: 1192}
     <CueListByGroups>k__BackingField:
       list:
@@ -432,7 +432,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 1d59e19b-2191-48ea-a84c-d720d1e69c09
     <Title>k__BackingField: Scene 4D
@@ -442,12 +442,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 3370, y: 962}
     <CueListByGroups>k__BackingField:
       list:
@@ -455,7 +455,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: e4e9e8cb-0193-49df-ab2e-927794c13a3b
     <Title>k__BackingField: Scene 4C
@@ -465,12 +465,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 3631, y: 732}
     <CueListByGroups>k__BackingField:
       list:
@@ -478,7 +478,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: f2e253db-ab9d-4ecb-a4c6-3845ca85e370
     <Title>k__BackingField: Scene 5C
@@ -488,12 +488,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 4521, y: 378}
     <CueListByGroups>k__BackingField:
       list:
@@ -501,7 +501,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 12f89475-ca34-41ec-8e31-a1ee221916da
     <Title>k__BackingField: Scene 5D
@@ -511,12 +511,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 4761, y: 608}
     <CueListByGroups>k__BackingField:
       list:
@@ -524,7 +524,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 7b80cf53-f559-48f3-91b9-bd7b45b7f7e4
     <Title>k__BackingField: Scene 5E
@@ -534,12 +534,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 4521, y: 838}
     <CueListByGroups>k__BackingField:
       list:
@@ -547,7 +547,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: e62657da-7636-4cc7-981d-6b0c8749b2b6
     <Title>k__BackingField: Scene 5F
@@ -557,12 +557,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 4761, y: 1068}
     <CueListByGroups>k__BackingField:
       list:
@@ -570,7 +570,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 87d96e05-973d-4108-80b4-0b94843cb368
     <Title>k__BackingField: 'Scene 5G: Roslyn''s Consultation'
@@ -580,12 +580,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 5286, y: 378}
     <CueListByGroups>k__BackingField:
       list:
@@ -593,7 +593,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 6661f432-5a73-4c54-9a51-f975eac91a90
     <Title>k__BackingField: 'Scene 5H: Gemma''s Consultation'
@@ -603,12 +603,12 @@ MonoBehaviour:
         Value: 0
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 0
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 5286, y: 1068}
     <CueListByGroups>k__BackingField:
       list:
@@ -616,7 +616,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 15d80df4-20df-46d3-bda6-c6a0254b20d5
     <Title>k__BackingField: Scene 5B
@@ -626,12 +626,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 0
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 4881, y: 9}
     <CueListByGroups>k__BackingField:
       list:
@@ -639,7 +639,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: a30e79eb-d210-4fe4-888e-ca98da672c10
     <Title>k__BackingField: Scene 5A
@@ -649,12 +649,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 0
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 4881, y: -374}
     <CueListByGroups>k__BackingField:
       list:
@@ -662,7 +662,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 01db291c-0e2a-450b-aa12-3f42d4718c3e
     <Title>k__BackingField: Scene 6B
@@ -672,12 +672,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 6702, y: -450}
     <CueListByGroups>k__BackingField:
       list:
@@ -685,7 +685,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: ce5587b7-b7b5-40fa-bb0e-e001d83ea223
     <Title>k__BackingField: Scene 6C
@@ -695,12 +695,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 6429, y: -220}
     <CueListByGroups>k__BackingField:
       list:
@@ -708,7 +708,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: ccb19096-13fc-4d11-a654-7de52b254090
     <Title>k__BackingField: Scene 6E
@@ -718,12 +718,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 6429, y: 240}
     <CueListByGroups>k__BackingField:
       list:
@@ -731,7 +731,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: b1f912c5-1084-4eaa-9e8c-a4bcbdda25f1
     <Title>k__BackingField: Scene 6F
@@ -741,12 +741,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 6702, y: 470}
     <CueListByGroups>k__BackingField:
       list:
@@ -754,7 +754,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: e8f374bd-b11a-4c7c-9dee-69caae2fab07
     <Title>k__BackingField: Scene 6G
@@ -764,12 +764,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 6429, y: 700}
     <CueListByGroups>k__BackingField:
       list:
@@ -777,7 +777,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: eb840ca2-01cb-4cf9-8e19-a46680eb1c2a
     <Title>k__BackingField: Scene 6H
@@ -787,12 +787,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 6702, y: 930}
     <CueListByGroups>k__BackingField:
       list:
@@ -800,7 +800,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: 7b824d75-2479-4c76-93b6-a9f7e05cee5f
     <Title>k__BackingField: Scene 6A
@@ -810,12 +810,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 6429, y: -680}
     <CueListByGroups>k__BackingField:
       list:
@@ -823,7 +823,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   - <ID>k__BackingField: c7f7b73c-350d-4aa8-8948-05727cd1d7a7
     <Title>k__BackingField: Scene 6D
@@ -833,12 +833,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 6702, y: 10}
     <CueListByGroups>k__BackingField:
       list:
@@ -846,7 +846,7 @@ MonoBehaviour:
         Value: []
       - Key: Gemma
         Value: []
-      - Key: Roselyn
+      - Key: Roslyn
         Value: []
   <ChoiceNodes>k__BackingField:
   - <ID>k__BackingField: 782b2a06-4101-4cf3-be3e-4a70df77abf9
@@ -857,12 +857,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 1186, y: 416}
     <GroupChoices>k__BackingField:
       list:
@@ -870,12 +870,12 @@ MonoBehaviour:
         Value: Qas Flirts With Gemma?
       - Key: Gemma
         Value: Gemma Flirts with Qas?
-      - Key: Roselyn
-        Value: Roselyn asks Gemma directly?
+      - Key: Roslyn
+        Value: Roslyn asks Gemma directly?
     <KeyList>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <TransitionCuesByGroups>k__BackingField:
       list: []
   - <ID>k__BackingField: d565ff0f-a806-4f44-9fd4-ee3cda3bcc4b
@@ -886,22 +886,22 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 0
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 3055, y: 732}
     <GroupChoices>k__BackingField:
       list:
       - Key: Qas
         Value: Qas Reveals to Roslyn?
-      - Key: Roselyn
-        Value: Roselyn Supports Gemma?
+      - Key: Roslyn
+        Value: Roslyn Supports Gemma?
     <KeyList>k__BackingField:
     - Qas
-    - Roselyn
+    - Roslyn
     <TransitionCuesByGroups>k__BackingField:
       list: []
   - <ID>k__BackingField: b9bee654-6ed3-438c-9428-0cb2ea341fb9
@@ -912,12 +912,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 4083, y: 209}
     <GroupChoices>k__BackingField:
       list:
@@ -925,12 +925,12 @@ MonoBehaviour:
         Value: Placeholer
       - Key: Gemma
         Value: Gemma Goes Public?
-      - Key: Roselyn
-        Value: Roselyn Supports Gemma?
+      - Key: Roslyn
+        Value: Roslyn Supports Gemma?
     <KeyList>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <TransitionCuesByGroups>k__BackingField:
       list: []
   - <ID>k__BackingField: b338598f-3cf1-4cc6-8c47-ed93da038088
@@ -941,12 +941,12 @@ MonoBehaviour:
         Value: 1
       - Key: Gemma
         Value: 1
-      - Key: Roselyn
+      - Key: Roslyn
         Value: 1
     <Groups>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <Position>k__BackingField: {x: 5792, y: -374}
     <GroupChoices>k__BackingField:
       list:
@@ -954,12 +954,12 @@ MonoBehaviour:
         Value: Qas takes responsibility?
       - Key: Gemma
         Value: Gemma Goes Public?
-      - Key: Roselyn
-        Value: Roselyn Supports Gemma?
+      - Key: Roslyn
+        Value: Roslyn Supports Gemma?
     <KeyList>k__BackingField:
     - Qas
     - Gemma
-    - Roselyn
+    - Roslyn
     <TransitionCuesByGroups>k__BackingField:
       list: []
   <ShowEdges>k__BackingField:
