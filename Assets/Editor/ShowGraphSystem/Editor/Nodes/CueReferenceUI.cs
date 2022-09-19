@@ -180,9 +180,15 @@ namespace ShowGraphSystem.Editor
             }
             else
                 setGroupsButton.text = $"Groups: {string.Join(",", GetSelectedGroups())}";
+
+            UpdateFoldoutText();
         }
 
-        private string UpdateFoldoutText() => foldout.text = $"{mediaDomainField.text} Cue #{cueNumberField.value} {GetVibrationLabelText()}";
+        private string UpdateFoldoutText()
+        {
+            return foldout.text = $"{mediaDomainField.text} Cue #{cueNumberField.value} -> {string.Join(", ", GetSelectedGroups())} {GetVibrationLabelText()}";
+        }
+
         private string GetVibrationLabelText() => CueData.VibrateOnCue ? "(w/ Vibrate)" : null;
 
         private void Groups_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
