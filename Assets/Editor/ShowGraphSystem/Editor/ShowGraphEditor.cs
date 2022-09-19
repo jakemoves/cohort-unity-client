@@ -99,21 +99,45 @@ namespace ShowGraphSystem.Editor
             { text = "Load" };
             toolbar.Add(loadButton);
 
-            var fileLabel = new Label();
+            var fileLabel = new Label() { };
             PathChanged += (sender, s) =>
             {
                 fileLabel.text = $"{Path.GetFileNameWithoutExtension(s)} ({s})";
             };
-            toolbar.Add(fileLabel);
+            //toolbar.Add(fileLabel);
+
+            //var qlabOsc = new ToolbarButton(() => ExportQLabInfo(showGraphView, graphFilePath))
+            //{ text = "Export Q-Lab OSC" };
+
+            toolbar.Add(new ToolbarSpacer() { flex = true });
 
             var validateButton = new ToolbarButton(() => Validation.ShowGraphValidator.ValidateGraph(this.showGraphView))
             { text = "Validate" };
             toolbar.Add(validateButton);
 
-            var qlabOsc = new ToolbarButton(() => ExportQLabInfo(showGraphView, graphFilePath))
-            { text = "Q-Lab OSC" };
-            toolbar.Add(qlabOsc);
+            var dataDropdown = new ToolbarMenu() { text = "Data" };
+            dataDropdown.menu.AppendAction(
+                "Export Q-Lab Choice Command OSC", 
+                (action) => ExportQLabInfo(showGraphView, graphFilePath));
 
+            dataDropdown.menu.AppendAction(
+                "Export Node Data to TSV", 
+                (action) =>
+                {
+                    var path = EditorUtility.SaveFilePanelInProject(
+                        "Save TSV",
+                        $"node-data_{Path.GetFileNameWithoutExtension(GraphFilePath)}",
+                        "tsv",
+                        "Enter Show Graph Filename",
+                        Path.GetDirectoryName(GraphFilePath));
+
+                    if (string.IsNullOrEmpty(path)) return;
+
+                    ExportNodeDataTsv(new FileInfo(path), graphView);
+                });
+            toolbar.Add(dataDropdown);
+
+            rootVisualElement.Add(fileLabel);
             rootVisualElement.Add(toolbar);
         }
 
@@ -131,7 +155,7 @@ namespace ShowGraphSystem.Editor
                 SaveGraphAs(graphView);
                 return;
             }
-            
+
             // Overwrite Warning
             if (File.Exists(GraphFilePath) &&
                 !EditorUtility.DisplayDialog("Confirm Save", $"{Path.GetFileName(GraphFilePath)} already exists.\nDo you want to overwrite it?", "Yes", "Cancel"))
@@ -154,10 +178,10 @@ namespace ShowGraphSystem.Editor
             // Save File Dialogue
             // TODO: Error Checking
             var path = EditorUtility.SaveFilePanelInProject(
-                "Save Show Graph As", 
-                Path.GetFileNameWithoutExtension(GraphFilePath), 
-                DefaultExtention, 
-                "Enter Show Graph Filename", 
+                "Save Show Graph As",
+                Path.GetFileNameWithoutExtension(GraphFilePath),
+                DefaultExtention,
+                "Enter Show Graph Filename",
                 Path.GetDirectoryName(GraphFilePath));
 
             if (!string.IsNullOrWhiteSpace(path))
@@ -193,7 +217,7 @@ namespace ShowGraphSystem.Editor
                 EditorUtility.DisplayDialog("Error Occurred while loading", $"{ex.Message}\n(See Console for more details)", "OK");
             }
         }
-    
+
         public static void ExportQLabInfo(ShowGraphView showGraphView, string assetPath = null)
         {
             System.Text.StringBuilder output = new System.Text.StringBuilder();
@@ -236,5 +260,30 @@ namespace ShowGraphSystem.Editor
 
             //System.Diagnostics.Process.Start($"./{fn}-QLab_OSC.txt");
         }
-    } 
+
+        public static void ExportNodeDataTsv(FileInfo file, ShowGraphView showGraph)
+        {
+            using var writer = file.CreateText();
+
+            showGraph.nodes.ForEach((node) =>
+            {
+                if (!(node is ShowGraphNode showNode)) return;
+
+                // Columns are GUID, Name, Groups <Array>, Type
+                var data = new string[4]
+                {
+                    showNode.ID,
+                    showNode.title,
+                    string.Join(",", showNode.GetGroupSelection().Where(kv => kv.Value).Select(kv => kv.Key)),
+                    showNode switch {
+                        SceneNode scene => "Scene",
+                        ChoiceNode choiceNode => "Choice",
+                        _ => "Abstract"
+                    }
+                };
+
+                writer.WriteLine(string.Join("\t", data));
+            });
+        }
+    }
 }
