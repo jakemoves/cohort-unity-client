@@ -5861,10 +5861,6 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: a3ac793b90de67647b48623339c7aa12, type: 3}
     cueNumber: 600
     accessibleAlternative: Gemma Video Chat - Roslyn I need to talk to you
-  - audioClip: {fileID: 8300000, guid: 4d37d5e5cf34e9e4392ac8d4f056c863, type: 3}
-    cueNumber: 608
-    accessibleAlternative: 'Roslyn leaves Ed a voice memo: Hi Ed, Something has happened
-      with Gemma..'
   - audioClip: {fileID: 8300000, guid: b06374daa5cf09442ae9d98db8b619da, type: 3}
     cueNumber: 676
     accessibleAlternative: 'Qas voice Message to Asma: haha very funny'
@@ -5905,6 +5901,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: e81851d806af34c45b7f1ffa022004a1, type: 3}
     cueNumber: 1
     accessibleAlternative: Gustav VM - Spectrafest Artist Statement
+  - videoClip: {fileID: 32900000, guid: 77ad85c6f750d87458ff1a797b29d905, type: 3}
+    cueNumber: 26
+    accessibleAlternative: Text exchange with Roslyn
   - videoClip: {fileID: 32900000, guid: 69db942382f9869419c22a8d9254d95d, type: 3}
     cueNumber: 50
     accessibleAlternative: "RBarker Podcast - What\u2019s up folks!"
@@ -5929,6 +5928,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: c9637da587e81184fa16a8805194aca9, type: 3}
     cueNumber: 261
     accessibleAlternative: Insta message from Ros
+  - videoClip: {fileID: 32900000, guid: 76943fb855d57784195cf08dffd0b446, type: 3}
+    cueNumber: 266
+    accessibleAlternative: Qas recives video & pic Notification
   - videoClip: {fileID: 32900000, guid: de950e0861022834b956d501c2f2b54c, type: 3}
     cueNumber: 267
     accessibleAlternative: Roslyn see's Sex Video
@@ -5938,6 +5940,16 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 7f88fd0b628bdae48b10d8d186340086, type: 3}
     cueNumber: 604
     accessibleAlternative: Marty Voice Memo - Monday latest
+  - videoClip: {fileID: 32900000, guid: ec893694bbe82484ca8b4ce5f8033c1e, type: 3}
+    cueNumber: 608
+    accessibleAlternative: 'Roslyn leaves Ed a voice memo: Hi Ed, Something has happened
+      with Gemma..'
+  - videoClip: {fileID: 32900000, guid: d49509504a9023a478524d1f77e88f83, type: 3}
+    cueNumber: 610
+    accessibleAlternative: Roslyn Declines a call from ED SFX
+  - videoClip: {fileID: 32900000, guid: 85ef6529669941846ba034fc30521c20, type: 3}
+    cueNumber: 610
+    accessibleAlternative: 'Ed Texts Roslyn: I know it''s hard for you.'
   - videoClip: {fileID: 32900000, guid: 59e15f6c04df514438ccf4348d05f2ed, type: 3}
     cueNumber: 650
     accessibleAlternative: Asma VM - Hey there professor
@@ -5950,8 +5962,15 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: dc2c779ab4f996d469fa8476029bea5f, type: 3}
     cueNumber: 672
     accessibleAlternative: Annie VM - We should catch dinner
+  - videoClip: {fileID: 32900000, guid: 25076aacafcea6d42b1fff141ac9255d, type: 3}
+    cueNumber: 682
+    accessibleAlternative: Q looking at pictures he send himself and his and Gemma's
+      text exchange
   - videoClip: {fileID: 32900000, guid: b786975088cc9ea40bbf49964ebc0098, type: 3}
     cueNumber: 720
+    accessibleAlternative: QAS VM - There's been a misunderstanding
+  - videoClip: {fileID: 32900000, guid: 1c20b9b0aacaa2641b9f659beb117587, type: 3}
+    cueNumber: 722
     accessibleAlternative: QAS VM - There's been a misunderstanding
   - videoClip: {fileID: 32900000, guid: 7f68887a5efad1b43a7924503c9b1f17, type: 3}
     cueNumber: 950
@@ -5962,6 +5981,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 00ef88fd0381f774f907f1daf66cdd95, type: 3}
     cueNumber: 962
     accessibleAlternative: Voice Memo from Auntie
+  - videoClip: {fileID: 32900000, guid: ab914ddc3cc4d30479fefd5d73432fbc, type: 3}
+    cueNumber: 964
+    accessibleAlternative: Qas deletes Sex Video and pictures
   - videoClip: {fileID: 32900000, guid: 7dadd0defc45c96409dabd5abb6c9528, type: 3}
     cueNumber: 2000
     accessibleAlternative: Instagram story of gallery
@@ -5998,6 +6020,12 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: ba2b2e7dca55cce479cccbf1c2c151be, type: 3}
     cueNumber: 2268
     accessibleAlternative: screenshot to Butterli
+  - videoClip: {fileID: 32900000, guid: e7c45f7c78d406046ad5d360699d1cdd, type: 3}
+    cueNumber: 2407
+    accessibleAlternative: Screenshot and send to Butterly
+  - videoClip: {fileID: 32900000, guid: 34bbd8606c8352e41bd25eb42bd649d8, type: 3}
+    cueNumber: 2408
+    accessibleAlternative: reply from butterboi
   - videoClip: {fileID: 32900000, guid: 4c9e6e86cf2b9774d848fd8689fdbf5f, type: 3}
     cueNumber: 2454
     accessibleAlternative: 'A: Text exchange w/ G: I want to know everthing'
@@ -6010,6 +6038,10 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 2be050c1d68828245bd8ef0a593e8607, type: 3}
     cueNumber: 2552
     accessibleAlternative: Qas takes  3 photo's of Gemma outside enterance to building
+  - videoClip: {fileID: 32900000, guid: e220a6e5502c2e24a82b93f0d1837e16, type: 3}
+    cueNumber: 2556
+    accessibleAlternative: Qas takes  3 phoGemma Posts Pic's to Insta and tags Qto's
+      of Gemma outside enterance to building
   - videoClip: {fileID: 32900000, guid: 54f22ccb57dab1f4ca84445e7c0bb5db, type: 3}
     cueNumber: 260
     accessibleAlternative: Sex video
@@ -6026,6 +6058,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 93652cb16f0106a43803614380ab5433, type: 3}
     cueNumber: 266
     accessibleAlternative: 'Text from gemma: taken without my consent'
+  - image: {fileID: 21300000, guid: a5ab097c5920ff443bf3372ce75533ef, type: 3}
+    cueNumber: 267
+    accessibleAlternative: Qas recives video & pics
   - image: {fileID: 21300000, guid: 03c732934d038b84cbb9ac6bbf95f0b0, type: 3}
     cueNumber: 269
     accessibleAlternative: 'Facebook comment: Ode to queen Roslyn'
@@ -6050,16 +6085,28 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 03ddb679f40312949873797ce8b127ba, type: 3}
     cueNumber: 364
     accessibleAlternative: Voice memo/ Text message Asma
-  - image: {fileID: 21300000, guid: e350e5631a1d4844f9e862cbed0284ad, type: 3}
+  - image: {fileID: 21300000, guid: cee72e29a5e975c4c82594a71df8e225, type: 3}
     cueNumber: 376
     accessibleAlternative: Text to Qas (Private)
-  - image: {fileID: 21300000, guid: 068dbd63bce1f4840978334e9286ec96, type: 3}
+  - image: {fileID: 21300000, guid: f6dd6fca6c79f6641bd6a92336540880, type: 3}
     cueNumber: 382
     accessibleAlternative: Text to Qas (Public)
   - image: {fileID: 21300000, guid: 6e65eedcb8379f747b3bd12932745515, type: 3}
     cueNumber: 441
     accessibleAlternative: 'Qas sends screen shot of Roslyn Text excahnge sc1: "I''ll
       add your recrutung services to the budget.'
+  - image: {fileID: 21300000, guid: a8fba7599933e994c8fef2a0e3787b1c, type: 3}
+    cueNumber: 706
+    accessibleAlternative: Text from Qas
+  - image: {fileID: 21300000, guid: bb61be0bdb1e8c344bbae36d88c3e5d4, type: 3}
+    cueNumber: 968
+    accessibleAlternative: Text from Gemma (private)
+  - image: {fileID: 21300000, guid: 08b9f51cc092b58468bcb68e6d093645, type: 3}
+    cueNumber: 969
+    accessibleAlternative: Text from Gemma (Public)
+  - image: {fileID: 21300000, guid: b28c5dd82ba184c4aaf249772b6c41b9, type: 3}
+    cueNumber: 1052
+    accessibleAlternative: Gemma shares instagram comment
   - image: {fileID: 21300000, guid: 3f86949641e9e5748b8c47416a82f7df, type: 3}
     cueNumber: 2002
     accessibleAlternative: instagram post/ Post of her instagram sorry of her office
@@ -6093,6 +6140,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: caee3fcdf11dbf640b53264c4412a715, type: 3}
     cueNumber: 2104
     accessibleAlternative: Q & R Full text exchange
+  - image: {fileID: 21300000, guid: c0e1112b6a0139f41ba4d6fb48d8febb, type: 3}
+    cueNumber: 2106
+    accessibleAlternative: Qas commenting on post
   - image: {fileID: 21300000, guid: e4054cb5ed2ed02408b8e5ef75766438, type: 3}
     cueNumber: 2154
     accessibleAlternative: Selfie shot
