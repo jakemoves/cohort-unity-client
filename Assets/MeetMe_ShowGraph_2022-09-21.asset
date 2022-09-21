@@ -2068,261 +2068,6 @@ MonoBehaviour:
               Value: 1
           <CueID>k__BackingField: 36
           <VibrateOnCue>k__BackingField: 0
-  - <ID>k__BackingField: 5e105ff1-d002-4b52-90b6-f909ba616c30
-    <Title>k__BackingField: '2B: Gemma plays cool, Qas flirts with Gemma, Roslyn
-      does not ask Gemma'
-    <GroupSelection>k__BackingField:
-      list:
-      - Key: Qas
-        Value: 1
-      - Key: Gemma
-        Value: 1
-      - Key: Roslyn
-        Value: 1
-    <Groups>k__BackingField:
-    - Qas
-    - Gemma
-    - Roslyn
-    <Position>k__BackingField: {x: 1956, y: -53}
-    <CueListByGroups>k__BackingField:
-      list:
-      - Key: Qas
-        Value:
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 1
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2206
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 1
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2208
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2210
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 1
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2218
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2220
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 1
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2180
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 0
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 1
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 172
-          <VibrateOnCue>k__BackingField: 0
-      - Key: Gemma
-        Value:
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2154
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 1
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 1
-          <CueID>k__BackingField: 2204
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 1
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2212
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2214
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 1
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2216
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2222
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 2224
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 0
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 1
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 172
-          <VibrateOnCue>k__BackingField: 0
-      - Key: Roslyn
-        Value:
-        - <MediaDomain>k__BackingField: 1
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 1
-          <CueID>k__BackingField: 2182
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 1
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 1
-          <CueID>k__BackingField: 2184
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 1
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 1
-          <CueID>k__BackingField: 162
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 0
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 1
-          <CueID>k__BackingField: 164
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 0
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 1
-          <CueID>k__BackingField: 168
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 0
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 1
-          <CueID>k__BackingField: 170
-          <VibrateOnCue>k__BackingField: 0
   - <ID>k__BackingField: 8f8fccf7-8e7f-4dfe-97d8-a68d342627bc
     <Title>k__BackingField: '2F: Gemma plays cool with Qas, Roslyn does not ask Gemma,
       Qas plays cool with Gemma'
@@ -3910,6 +3655,261 @@ MonoBehaviour:
             - Key: Roslyn
               Value: 1
           <CueID>k__BackingField: 2182
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 1
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 1
+          <CueID>k__BackingField: 162
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 0
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 1
+          <CueID>k__BackingField: 164
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 0
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 1
+          <CueID>k__BackingField: 168
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 0
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 1
+          <CueID>k__BackingField: 170
+          <VibrateOnCue>k__BackingField: 0
+  - <ID>k__BackingField: 5e105ff1-d002-4b52-90b6-f909ba616c30
+    <Title>k__BackingField: '2B: Gemma plays cool, Qas flirts with Gemma, Roslyn
+      does not ask Gemma'
+    <GroupSelection>k__BackingField:
+      list:
+      - Key: Qas
+        Value: 1
+      - Key: Gemma
+        Value: 1
+      - Key: Roslyn
+        Value: 1
+    <Groups>k__BackingField:
+    - Qas
+    - Gemma
+    - Roslyn
+    <Position>k__BackingField: {x: 1956, y: -53}
+    <CueListByGroups>k__BackingField:
+      list:
+      - Key: Qas
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2206
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2208
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2210
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2218
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2220
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2180
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 0
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 172
+          <VibrateOnCue>k__BackingField: 0
+      - Key: Gemma
+        Value:
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2154
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 1
+          <CueID>k__BackingField: 2204
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 1
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2212
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2214
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2216
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2222
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 2
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 2224
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 0
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 1
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 172
+          <VibrateOnCue>k__BackingField: 0
+      - Key: Roslyn
+        Value:
+        - <MediaDomain>k__BackingField: 1
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 1
+          <CueID>k__BackingField: 2182
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 1
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 0
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 1
+          <CueID>k__BackingField: 2184
           <VibrateOnCue>k__BackingField: 0
         - <MediaDomain>k__BackingField: 1
           <GroupSelection>k__BackingField:
