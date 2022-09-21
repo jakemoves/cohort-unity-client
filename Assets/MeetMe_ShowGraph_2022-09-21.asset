@@ -3920,17 +3920,6 @@ MonoBehaviour:
               Value: 0
             - Key: Roslyn
               Value: 1
-          <CueID>k__BackingField: 2184
-          <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 1
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 0
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 1
           <CueID>k__BackingField: 162
           <VibrateOnCue>k__BackingField: 0
         - <MediaDomain>k__BackingField: 0
