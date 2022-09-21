@@ -5925,6 +5925,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: b11f4723b5f528848a16f7018556b53e, type: 3}
     cueNumber: 259
     accessibleAlternative: Does it turn you on Video
+  - videoClip: {fileID: 32900000, guid: 54f22ccb57dab1f4ca84445e7c0bb5db, type: 3}
+    cueNumber: 260
+    accessibleAlternative: Sex video
   - videoClip: {fileID: 32900000, guid: c9637da587e81184fa16a8805194aca9, type: 3}
     cueNumber: 261
     accessibleAlternative: Insta message from Ros
@@ -5932,7 +5935,7 @@ MonoBehaviour:
     cueNumber: 266
     accessibleAlternative: Qas recives video & pic Notification
   - videoClip: {fileID: 32900000, guid: de950e0861022834b956d501c2f2b54c, type: 3}
-    cueNumber: 267
+    cueNumber: 270
     accessibleAlternative: Roslyn see's Sex Video
   - videoClip: {fileID: 32900000, guid: 2be468b0925dafe44ac5254646dcfa4e, type: 3}
     cueNumber: 375
@@ -5944,9 +5947,6 @@ MonoBehaviour:
     cueNumber: 608
     accessibleAlternative: 'Roslyn leaves Ed a voice memo: Hi Ed, Something has happened
       with Gemma..'
-  - videoClip: {fileID: 32900000, guid: d49509504a9023a478524d1f77e88f83, type: 3}
-    cueNumber: 610
-    accessibleAlternative: Roslyn Declines a call from ED SFX
   - videoClip: {fileID: 32900000, guid: 85ef6529669941846ba034fc30521c20, type: 3}
     cueNumber: 610
     accessibleAlternative: 'Ed Texts Roslyn: I know it''s hard for you.'
@@ -6042,9 +6042,6 @@ MonoBehaviour:
     cueNumber: 2556
     accessibleAlternative: Qas takes  3 phoGemma Posts Pic's to Insta and tags Qto's
       of Gemma outside enterance to building
-  - videoClip: {fileID: 32900000, guid: 54f22ccb57dab1f4ca84445e7c0bb5db, type: 3}
-    cueNumber: 260
-    accessibleAlternative: Sex video
   imageCues:
   - image: {fileID: 21300000, guid: 49ac5082275594c42a242da4448108b8, type: 3}
     cueNumber: 0
@@ -6055,12 +6052,12 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 226455ee54f4b5c43a28e3f09378309b, type: 3}
     cueNumber: 264
     accessibleAlternative: Insta message from Ros
-  - image: {fileID: 21300000, guid: 93652cb16f0106a43803614380ab5433, type: 3}
-    cueNumber: 266
-    accessibleAlternative: 'Text from gemma: taken without my consent'
   - image: {fileID: 21300000, guid: a5ab097c5920ff443bf3372ce75533ef, type: 3}
     cueNumber: 267
     accessibleAlternative: Qas recives video & pics
+  - image: {fileID: 21300000, guid: 93652cb16f0106a43803614380ab5433, type: 3}
+    cueNumber: 268
+    accessibleAlternative: 'Text from gemma: taken without my consent'
   - image: {fileID: 21300000, guid: 03c732934d038b84cbb9ac6bbf95f0b0, type: 3}
     cueNumber: 269
     accessibleAlternative: 'Facebook comment: Ode to queen Roslyn'
@@ -6119,6 +6116,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 21048b6e85a4bf44aa64d1b3656c200d, type: 3}
     cueNumber: 2050
     accessibleAlternative: publicist message/ Hotdocs
+  - image: {fileID: 21300000, guid: dd41378478d05be4cb5820761768181d, type: 3}
+    cueNumber: 2060
+    accessibleAlternative: Gemmas instagram
   - image: {fileID: 21300000, guid: 25264b73e49cccf43b956d4a8c8a2349, type: 3}
     cueNumber: 2052
     accessibleAlternative: Instagram post with invitation
@@ -6143,6 +6143,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: c0e1112b6a0139f41ba4d6fb48d8febb, type: 3}
     cueNumber: 2106
     accessibleAlternative: Qas commenting on post
+  - image: {fileID: 21300000, guid: f6b369e55ee712149aa5b0de39f088f7, type: 3}
+    cueNumber: 2152
+    accessibleAlternative: masturbation in tub
   - image: {fileID: 21300000, guid: e4054cb5ed2ed02408b8e5ef75766438, type: 3}
     cueNumber: 2154
     accessibleAlternative: Selfie shot
@@ -6242,6 +6245,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: eec241814c365794faeb7888ed468603, type: 3}
     cueNumber: 2280
     accessibleAlternative: Checks her insta post
+  - image: {fileID: 21300000, guid: c0e1112b6a0139f41ba4d6fb48d8febb, type: 3}
+    cueNumber: 2406
+    accessibleAlternative: Qas commenting on post
   - image: {fileID: 21300000, guid: df942e885895b784783d4723d19b4259, type: 3}
     cueNumber: 2410
     accessibleAlternative: Checks her insta post
@@ -6266,12 +6272,6 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 93d1b487e1aeff847a0cfb0a5a857a04, type: 3}
     cueNumber: 2558
     accessibleAlternative: Gemma Tags Qas in Post (Qas gets notification)
-  - image: {fileID: 21300000, guid: dd41378478d05be4cb5820761768181d, type: 3}
-    cueNumber: 2060
-    accessibleAlternative: Gemmas instagram
-  - image: {fileID: 21300000, guid: f6b369e55ee712149aa5b0de39f088f7, type: 3}
-    cueNumber: 2152
-    accessibleAlternative: masturbation in tub
   textCues: []
   audioPlayer: {fileID: 1392766431}
   videoPlayer: {fileID: 1357722706}
