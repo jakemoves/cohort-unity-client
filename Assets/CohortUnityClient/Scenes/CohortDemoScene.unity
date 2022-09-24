@@ -1343,7 +1343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.22700001, g: 0.22700001, b: 0.22700001, a: 1}
+  m_Color: {r: 0.305, g: 0.305, b: 0.305, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4136,6 +4136,7 @@ GameObject:
   - component: {fileID: 1277446906}
   - component: {fileID: 1277446905}
   - component: {fileID: 1277446904}
+  - component: {fileID: 1277446903}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -4143,6 +4144,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1277446903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277446902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe8fce8f7197bb48afb3a6a2c1d66a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroupDropdown: {fileID: 1981180488}
+  Background: {fileID: 317803050}
+  <Qas>k__BackingField: {fileID: 21300000, guid: 7624fdd508eb6c349bd76a336b54a7cb,
+    type: 3}
+  <Gemma>k__BackingField: {fileID: 21300000, guid: 15542937b87da034ebcc002f0a66824f,
+    type: 3}
+  <Roslyn>k__BackingField: {fileID: 21300000, guid: dfabcc35c0b847c46ad1d4960acae496,
+    type: 3}
 --- !u!222 &1277446904
 CanvasRenderer:
   m_ObjectHideFlags: 0
