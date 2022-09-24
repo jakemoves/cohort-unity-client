@@ -5898,12 +5898,12 @@ MonoBehaviour:
     cueNumber: 1054
     accessibleAlternative: Roslyn Phone Ringing SFX
   videoCues:
-  - videoClip: {fileID: 32900000, guid: e81851d806af34c45b7f1ffa022004a1, type: 3}
-    cueNumber: 1
-    accessibleAlternative: Gustav VM - Spectrafest Artist Statement
   - videoClip: {fileID: 32900000, guid: 77ad85c6f750d87458ff1a797b29d905, type: 3}
     cueNumber: 26
     accessibleAlternative: Text exchange with Roslyn
+  - videoClip: {fileID: 32900000, guid: e81851d806af34c45b7f1ffa022004a1, type: 3}
+    cueNumber: 1
+    accessibleAlternative: Gustav VM - Spectrafest Artist Statement
   - videoClip: {fileID: 32900000, guid: 69db942382f9869419c22a8d9254d95d, type: 3}
     cueNumber: 50
     accessibleAlternative: "RBarker Podcast - What\u2019s up folks!"
@@ -6116,9 +6116,6 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 21048b6e85a4bf44aa64d1b3656c200d, type: 3}
     cueNumber: 2050
     accessibleAlternative: publicist message/ Hotdocs
-  - image: {fileID: 21300000, guid: dd41378478d05be4cb5820761768181d, type: 3}
-    cueNumber: 2060
-    accessibleAlternative: Gemmas instagram
   - image: {fileID: 21300000, guid: 25264b73e49cccf43b956d4a8c8a2349, type: 3}
     cueNumber: 2052
     accessibleAlternative: Instagram post with invitation
@@ -6128,6 +6125,9 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: 9cdb083cd65da0b408623b6717f359e4, type: 3}
     cueNumber: 2056
     accessibleAlternative: Previous text message exchange Roslyn
+  - image: {fileID: 21300000, guid: 4794190f56c12f1499a1d1170dc10c03, type: 3}
+    cueNumber: 2060
+    accessibleAlternative: Gemmas instagram
   - image: {fileID: 21300000, guid: 585bbb29c3fc7184baffcd12bfd67154, type: 3}
     cueNumber: 2062
     accessibleAlternative: Instagram post comments
