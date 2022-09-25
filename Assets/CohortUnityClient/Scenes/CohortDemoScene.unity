@@ -656,7 +656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.287}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -26.44998}
+  m_AnchoredPosition: {x: 0, y: -26.449982}
   m_SizeDelta: {x: -340, y: -52.90001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &103073508
@@ -5841,7 +5841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb594a3f53210c4f8058332152bf193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 599b3e10ff805f04cbb0df9f8740f5ff,
+  <ShowGraphData>k__BackingField: {fileID: 11400000, guid: 863f3ae8320fbfc488c58ac6d75c7dcb,
     type: 2}
   <CHSession>k__BackingField: {fileID: 1711676748}
 --- !u!114 &1711676748
@@ -5890,7 +5890,7 @@ MonoBehaviour:
     accessibleAlternative: Roslyn Video Chat - Roslyn I need to talk to you
   - audioClip: {fileID: 8300000, guid: aadd897402573f646b467565f30c724d, type: 3}
     cueNumber: 750
-    accessibleAlternative: Gemma VM Inbox Welcome 1
+    accessibleAlternative: Gemma VM Inbox Welcome
   - audioClip: {fileID: 8300000, guid: 4e53739363487104f80d24f46d80312a, type: 3}
     cueNumber: 954
     accessibleAlternative: Voice Memo from Asma
@@ -5900,9 +5900,6 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: a9af0cd9cfec9774db05cb49b95f6144, type: 3}
     cueNumber: 970
     accessibleAlternative: Qas Sexy Music Shared Earphones Distort
-  - audioClip: {fileID: 8300000, guid: 5495e04d5ea87064b901ec19d64ec9cb, type: 3}
-    cueNumber: 1054
-    accessibleAlternative: Roslyn Calls Office (Sound - Ring)
   videoCues:
   - videoClip: {fileID: 32900000, guid: 77ad85c6f750d87458ff1a797b29d905, type: 3}
     cueNumber: 26
@@ -5939,10 +5936,10 @@ MonoBehaviour:
     accessibleAlternative: Insta message from Ros
   - videoClip: {fileID: 32900000, guid: 76943fb855d57784195cf08dffd0b446, type: 3}
     cueNumber: 266
-    accessibleAlternative: Qas recives video & pic Notification
+    accessibleAlternative: Qas sends video & pics to himself on Gemma's phone
   - videoClip: {fileID: 32900000, guid: 54f22ccb57dab1f4ca84445e7c0bb5db, type: 3}
     cueNumber: 270
-    accessibleAlternative: Roslyn Views Sex Video
+    accessibleAlternative: Roslyn Part of The Sex Video
   - videoClip: {fileID: 32900000, guid: 799671798bd255a48920ca7c363ebbe4, type: 3}
     cueNumber: 351
     accessibleAlternative: Text message annie
@@ -5989,7 +5986,8 @@ MonoBehaviour:
     accessibleAlternative: QAS VM - There's been a misunderstanding
   - videoClip: {fileID: 32900000, guid: 1c20b9b0aacaa2641b9f659beb117587, type: 3}
     cueNumber: 722
-    accessibleAlternative: QAS VM - There's been a misunderstanding
+    accessibleAlternative: Gemma tries to fill in artist statment/ comments come
+      in abotu pics of her and Qas
   - videoClip: {fileID: 32900000, guid: 421e1c9750dbf7b4b944deac0fe4251f, type: 3}
     cueNumber: 758
     accessibleAlternative: 'Voice Memo from Ed: You don''t need his bullshit.'
