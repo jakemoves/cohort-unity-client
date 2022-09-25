@@ -102,6 +102,9 @@ namespace Cohort
         [SerializeField]
         private UnityEngine.UI.Image imageCueSurface;
 
+        [SerializeField]
+        private UnityEngine.UI.Image imageCueBackground;
+
         [Header("Group Settings")]
 
         [SerializeField]
@@ -502,6 +505,7 @@ namespace Cohort
 
             // this value is set to transparent in the editor to avoid showing a big white rectangle when the imageCueDisplay is empty
             // so we set it back to opaque here
+            imageCueBackground?.gameObject.SetActive(false);
             imageCueSurface.gameObject.SetActive(false);
             imageCueSurface.color = Color.white;
 
@@ -1113,9 +1117,11 @@ namespace Cohort
                             case CueAction.play:
                                 Debug.Log("got image cue");
                                 imageCueSurface.sprite = imageCue.image;
+                                imageCueBackground?.gameObject.SetActive(true);
                                 imageCueSurface.gameObject.SetActive(true);
                                 break;
                             case CueAction.stop:
+                                imageCueBackground?.gameObject.SetActive(false);
                                 imageCueSurface.gameObject.SetActive(false);
                                 imageCueSurface.sprite = null;
                                 break;
