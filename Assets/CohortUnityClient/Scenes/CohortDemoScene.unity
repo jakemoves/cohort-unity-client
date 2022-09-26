@@ -5880,9 +5880,6 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: df406cfc930b18f47acea911fbded52a, type: 3}
     cueNumber: 273
     accessibleAlternative: Roslyn Declines a call from ED SFX
-  - audioClip: {fileID: 8300000, guid: 9bf2f9d1b04b39647a42ff9fc5f5a993, type: 3}
-    cueNumber: 708
-    accessibleAlternative: Roslyn Video Chat - Roslyn I need to talk to you
   - audioClip: {fileID: 8300000, guid: aadd897402573f646b467565f30c724d, type: 3}
     cueNumber: 750
     accessibleAlternative: Gemma VM Inbox Welcome
@@ -5979,6 +5976,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 76469f6ae86fe98489c22b0c4cc351ef, type: 3}
     cueNumber: 704
     accessibleAlternative: Ronnie Youtube - What really stuck out to me
+  - videoClip: {fileID: 32900000, guid: 23d1fb9b31408454db1c4e361cbc4dbc, type: 3}
+    cueNumber: 708
+    accessibleAlternative: Roslyn Video Chat - Roslyn I need to talk to you
   - videoClip: {fileID: 32900000, guid: 58800e73454cb974293b114db5c31a88, type: 3}
     cueNumber: 712
     accessibleAlternative: Qas Calls G Phone Ring SFX
@@ -5988,7 +5988,7 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 6b6591b4409e27e48a06ee1f6cfa13c4, type: 3}
     cueNumber: 720
     accessibleAlternative: QAS VM - There's been a misunderstanding
-  - videoClip: {fileID: 32900000, guid: 1c20b9b0aacaa2641b9f659beb117587, type: 3}
+  - videoClip: {fileID: 32900000, guid: 29b3b8550512b384fbd3ab9126e0abad, type: 3}
     cueNumber: 722
     accessibleAlternative: Gemma tries to fill in artist statment/ comments come
       in abotu pics of her and Qas
@@ -6118,6 +6118,9 @@ MonoBehaviour:
     cueNumber: 441
     accessibleAlternative: 'Qas sends screen shot of Roslyn Text excahnge sc1: "I''ll
       add your recrutung services to the budget.'
+  - image: {fileID: 21300000, guid: 63f95eb1bd2174640b82544167658798, type: 3}
+    cueNumber: 705
+    accessibleAlternative: Message from Qas Lockscreen
   - image: {fileID: 21300000, guid: a8fba7599933e994c8fef2a0e3787b1c, type: 3}
     cueNumber: 706
     accessibleAlternative: Text from Qas
