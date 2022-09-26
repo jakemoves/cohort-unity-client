@@ -5880,12 +5880,6 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: df406cfc930b18f47acea911fbded52a, type: 3}
     cueNumber: 273
     accessibleAlternative: Roslyn Declines a call from ED SFX
-  - audioClip: {fileID: 8300000, guid: a3ac793b90de67647b48623339c7aa12, type: 3}
-    cueNumber: 600
-    accessibleAlternative: Gemma Video Chat - Roslyn I need to talk to you
-  - audioClip: {fileID: 8300000, guid: b06374daa5cf09442ae9d98db8b619da, type: 3}
-    cueNumber: 676
-    accessibleAlternative: 'Qas voice Message to Asma: haha very funny'
   - audioClip: {fileID: 8300000, guid: 9bf2f9d1b04b39647a42ff9fc5f5a993, type: 3}
     cueNumber: 708
     accessibleAlternative: Roslyn Video Chat - Roslyn I need to talk to you
@@ -5938,6 +5932,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 76943fb855d57784195cf08dffd0b446, type: 3}
     cueNumber: 266
     accessibleAlternative: Qas sends video & pics to himself on Gemma's phone
+  - videoClip: {fileID: 32900000, guid: 3dac0e96b8292cc42b265d08b6215a7e, type: 3}
+    cueNumber: 268
+    accessibleAlternative: 'Text from gemma: taken without my consent'
   - videoClip: {fileID: 32900000, guid: 332ec113e43d65446af9a3496fab5f03, type: 3}
     cueNumber: 270
     accessibleAlternative: Roslyn Part of The Sex Video
@@ -5947,6 +5944,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 2be468b0925dafe44ac5254646dcfa4e, type: 3}
     cueNumber: 375
     accessibleAlternative: Incoming call screen
+  - videoClip: {fileID: 32900000, guid: c4ba09ab18ac0c54fac66f407e37274a, type: 3}
+    cueNumber: 600
+    accessibleAlternative: Gemma Video Chat - Roslyn I need to talk to you
   - videoClip: {fileID: 32900000, guid: 7f88fd0b628bdae48b10d8d186340086, type: 3}
     cueNumber: 604
     accessibleAlternative: Marty Voice Memo - Monday latest
@@ -5969,7 +5969,10 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: dc2c779ab4f996d469fa8476029bea5f, type: 3}
     cueNumber: 672
     accessibleAlternative: Annie VM - We should catch dinner
-  - videoClip: {fileID: 32900000, guid: 25076aacafcea6d42b1fff141ac9255d, type: 3}
+  - videoClip: {fileID: 32900000, guid: ab83a75c327a5304bb8c7265784be5fc, type: 3}
+    cueNumber: 676
+    accessibleAlternative: 'Qas voice Message to Asma: haha very funny'
+  - videoClip: {fileID: 32900000, guid: 13a9ec26009c9874280fd6ddcd601a62, type: 3}
     cueNumber: 682
     accessibleAlternative: Q looking at pictures he send himself and his and Gemma's
       text exchange
@@ -6084,9 +6087,6 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: a5ab097c5920ff443bf3372ce75533ef, type: 3}
     cueNumber: 267
     accessibleAlternative: Qas recives video & pics
-  - image: {fileID: 21300000, guid: 93652cb16f0106a43803614380ab5433, type: 3}
-    cueNumber: 268
-    accessibleAlternative: 'Text from gemma: taken without my consent'
   - image: {fileID: 21300000, guid: 03c732934d038b84cbb9ac6bbf95f0b0, type: 3}
     cueNumber: 269
     accessibleAlternative: 'Facebook comment: Ode to queen Roslyn'
