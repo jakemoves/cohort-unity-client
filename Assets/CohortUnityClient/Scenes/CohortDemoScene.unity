@@ -5923,13 +5923,13 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 1703318d77575864f8c6566df6fa4002, type: 3}
     cueNumber: 162
     accessibleAlternative: Roslyn Leaves Marty a voice memo
-  - videoClip: {fileID: 32900000, guid: 067ce333473bfd84482051fab134bf2c, type: 3}
+  - videoClip: {fileID: 32900000, guid: 3da9193e669091348b1c412b74bd49b3, type: 3}
     cueNumber: 258
     accessibleAlternative: G takes 3 pics of Q
-  - videoClip: {fileID: 32900000, guid: b11f4723b5f528848a16f7018556b53e, type: 3}
+  - videoClip: {fileID: 32900000, guid: 5a89c15b1e78b9a4aac7db81b1e2b21a, type: 3}
     cueNumber: 259
     accessibleAlternative: Does it turn you on Video
-  - videoClip: {fileID: 32900000, guid: 54f22ccb57dab1f4ca84445e7c0bb5db, type: 3}
+  - videoClip: {fileID: 32900000, guid: 332ec113e43d65446af9a3496fab5f03, type: 3}
     cueNumber: 260
     accessibleAlternative: Sex video
   - videoClip: {fileID: 32900000, guid: c9637da587e81184fa16a8805194aca9, type: 3}
@@ -5938,7 +5938,7 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 76943fb855d57784195cf08dffd0b446, type: 3}
     cueNumber: 266
     accessibleAlternative: Qas sends video & pics to himself on Gemma's phone
-  - videoClip: {fileID: 32900000, guid: 54f22ccb57dab1f4ca84445e7c0bb5db, type: 3}
+  - videoClip: {fileID: 32900000, guid: 332ec113e43d65446af9a3496fab5f03, type: 3}
     cueNumber: 270
     accessibleAlternative: Roslyn Part of The Sex Video
   - videoClip: {fileID: 32900000, guid: 799671798bd255a48920ca7c363ebbe4, type: 3}
@@ -6058,12 +6058,15 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: d455538781ef9844081eaaa07368157f, type: 3}
     cueNumber: 2456
     accessibleAlternative: 'B: Text exchange w/ G: I want to know everything'
-  - videoClip: {fileID: 32900000, guid: ea3ebdc38e2be8d49a022b54c83a8caa, type: 3}
+  - videoClip: {fileID: 32900000, guid: 60c5696eacb5d194bb619a5a0b1ef8e3, type: 3}
     cueNumber: 2550
     accessibleAlternative: Qas takes  3 photo's of Gemma on Fence
-  - videoClip: {fileID: 32900000, guid: 2be050c1d68828245bd8ef0a593e8607, type: 3}
+  - videoClip: {fileID: 32900000, guid: 36ebb29b8dbe1da469db4bd0be8ca0af, type: 3}
     cueNumber: 2552
     accessibleAlternative: Qas takes  3 photo's of Gemma outside enterance to building
+  - videoClip: {fileID: 32900000, guid: 821fe747b3509134aa2d72eca3bf2ec3, type: 3}
+    cueNumber: 2554
+    accessibleAlternative: Gemma takes 3 sexy pics of Qas on stairs
   - videoClip: {fileID: 32900000, guid: e220a6e5502c2e24a82b93f0d1837e16, type: 3}
     cueNumber: 2556
     accessibleAlternative: Qas takes  3 phoGemma Posts Pic's to Insta and tags Qto's
