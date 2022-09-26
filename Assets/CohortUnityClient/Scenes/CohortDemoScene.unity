@@ -6206,6 +6206,9 @@ MonoBehaviour:
     cueNumber: 2180
     accessibleAlternative: 'Dm from Qas mom: Rishta'
   - image: {fileID: 21300000, guid: b223769ce3168ca4a9a6a5822de7b161, type: 3}
+    cueNumber: 2202
+    accessibleAlternative: Selfie picture
+  - image: {fileID: 21300000, guid: 8279f944bd4c11d4cad637e2cd8b55c6, type: 3}
     cueNumber: 2204
     accessibleAlternative: Instagram post of selfie
   - image: {fileID: 21300000, guid: 846cbb81a2e0842439238b13ed57e8ff, type: 3}
