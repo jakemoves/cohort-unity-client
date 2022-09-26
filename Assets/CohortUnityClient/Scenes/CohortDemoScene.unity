@@ -5892,6 +5892,12 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: a9af0cd9cfec9774db05cb49b95f6144, type: 3}
     cueNumber: 970
     accessibleAlternative: Qas Sexy Music Shared Earphones Distort
+  - audioClip: {fileID: 0}
+    cueNumber: 1150
+    accessibleAlternative: Distorted Anthem
+  - audioClip: {fileID: 0}
+    cueNumber: 1155
+    accessibleAlternative: Distorted Riptide
   videoCues:
   - videoClip: {fileID: 32900000, guid: 77ad85c6f750d87458ff1a797b29d905, type: 3}
     cueNumber: 26
