@@ -8,6 +8,7 @@ public class SetStacktrace : MonoBehaviour
     void Start()
     {
         Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+        Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
     }
 
     // Update is called once per frame
