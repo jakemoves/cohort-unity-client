@@ -6156,6 +6156,9 @@ MonoBehaviour:
     cueNumber: 2556
     accessibleAlternative: Qas takes  3 phoGemma Posts Pic's to Insta and tags Qto's
       of Gemma outside enterance to building
+  - videoClip: {fileID: 32900000, guid: ddaec14317bb7cc46bcd532c196c2480, type: 3}
+    cueNumber: 2558
+    accessibleAlternative: Gemma Tags Qas in Post (Qas gets notification)
   imageCues:
   - image: {fileID: 21300000, guid: 49ac5082275594c42a242da4448108b8, type: 3}
     cueNumber: 0
@@ -6395,9 +6398,6 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: d837e4013de9f7048aee1229c573c041, type: 3}
     cueNumber: 2470
     accessibleAlternative: 'B.Text to G: A Plethora'
-  - image: {fileID: 21300000, guid: 93d1b487e1aeff847a0cfb0a5a857a04, type: 3}
-    cueNumber: 2558
-    accessibleAlternative: Gemma Tags Qas in Post (Qas gets notification)
   textCues: []
   audioPlayer: {fileID: 1392766431}
   videoPlayer: {fileID: 1357722706}

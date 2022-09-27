@@ -2099,7 +2099,7 @@ MonoBehaviour:
               Value: 0
           <CueID>k__BackingField: 2556
           <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 2
+        - <MediaDomain>k__BackingField: 1
           <GroupSelection>k__BackingField:
             list:
             - Key: Qas
