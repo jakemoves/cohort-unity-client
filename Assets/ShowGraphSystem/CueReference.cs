@@ -13,14 +13,14 @@ namespace ShowGraphSystem
         [field: SerializeField] public SerializableDictionary<string, bool> GroupSelection { get; set; }
         [field: SerializeField] public int CueID { get; set; }
         [field: SerializeField] public bool VibrateOnCue { get; set; }
-        public string[] GetSelectedGroups()
+        public IEnumerable<string> GetSelectedGroups()
         {
             if (GroupSelection == null)
                 return new string[0]; ;
 
             return (from kv in GroupSelection
                     where kv.Value
-                    select kv.Key).ToArray();
+                    select kv.Key);
         }
 
         public override string ToString()

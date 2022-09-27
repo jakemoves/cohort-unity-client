@@ -242,17 +242,21 @@ namespace Cohort
             public List<CHMessage> cues { get; set; }
         }
 
+
+        // TODO: Refactor
+        // Instantiate the regular expression objects.
+        static Regex compareUrl = new Regex("(localhost|.local|192.168.)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         string cohortApiUrl(string url)
         {
             // This does url parsing without System.Uri
             // it’s handy to know if we’re pointing at a local or remote URL
 
             //this checks for any of the following words/letter sequences, but I'm not sure how to use /(localhost|.local|192.168.)/mi in this context
-            string urlInput = "(localhost|.local|192.168.)";
+            //string urlInput = "(localhost|.local|192.168.)";
             string cohortUpdatedURL;
 
             // Instantiate the regular expression objects.
-            Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);
+            //Regex compareUrl = new Regex(urlInput, RegexOptions.IgnoreCase);
 
             // Match the regular expression pattern against our URL string.
             Match matchUrl = compareUrl.Match(url);
