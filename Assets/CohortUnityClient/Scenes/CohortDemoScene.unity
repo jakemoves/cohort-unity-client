@@ -6200,6 +6200,9 @@ MonoBehaviour:
     cueNumber: 441
     accessibleAlternative: 'Qas sends screen shot of Roslyn Text excahnge sc1: "I''ll
       add your recrutung services to the budget.'
+  - image: {fileID: 21300000, guid: 854aa6d85396867469155771d32e7bb0, type: 3}
+    cueNumber: 428
+    accessibleAlternative: Media Storm Background
   - image: {fileID: 21300000, guid: 63f95eb1bd2174640b82544167658798, type: 3}
     cueNumber: 705
     accessibleAlternative: Message from Qas Lockscreen
