@@ -6010,13 +6010,16 @@ MonoBehaviour:
     accessibleAlternative: Insta message from Ros
   - videoClip: {fileID: 32900000, guid: 76943fb855d57784195cf08dffd0b446, type: 3}
     cueNumber: 266
-    accessibleAlternative: Qas sends video & pics to himself on Gemma's phone
+    accessibleAlternative: A. Qas sends video & pics to himself on Gemma's phone
   - videoClip: {fileID: 32900000, guid: 3dac0e96b8292cc42b265d08b6215a7e, type: 3}
     cueNumber: 268
     accessibleAlternative: 'Text from gemma: taken without my consent'
-  - videoClip: {fileID: 32900000, guid: 332ec113e43d65446af9a3496fab5f03, type: 3}
+  - videoClip: {fileID: 32900000, guid: 8466a093b38ff1a419c2d60aca0b6f43, type: 3}
     cueNumber: 270
     accessibleAlternative: Roslyn Part of The Sex Video
+  - videoClip: {fileID: 32900000, guid: 85af4c2d448dde443b9db48b29ed7c0f, type: 3}
+    cueNumber: 273
+    accessibleAlternative: Does it turn you on Video
   - videoClip: {fileID: 32900000, guid: 799671798bd255a48920ca7c363ebbe4, type: 3}
     cueNumber: 351
     accessibleAlternative: Text message annie
@@ -6145,13 +6148,13 @@ MonoBehaviour:
     accessibleAlternative: 'B: Text exchange w/ G: I want to know everything'
   - videoClip: {fileID: 32900000, guid: 60c5696eacb5d194bb619a5a0b1ef8e3, type: 3}
     cueNumber: 2550
-    accessibleAlternative: Qas takes  3 photo's of Gemma on Fence
+    accessibleAlternative: ' 4 Fence PICS'
   - videoClip: {fileID: 32900000, guid: 36ebb29b8dbe1da469db4bd0be8ca0af, type: 3}
     cueNumber: 2552
-    accessibleAlternative: Qas takes  3 photo's of Gemma outside enterance to building
+    accessibleAlternative: 3 DOOR PICS
   - videoClip: {fileID: 32900000, guid: 821fe747b3509134aa2d72eca3bf2ec3, type: 3}
     cueNumber: 2554
-    accessibleAlternative: Gemma takes 3 sexy pics of Qas on stairs
+    accessibleAlternative: 3 STAIR PICS
   - videoClip: {fileID: 32900000, guid: e220a6e5502c2e24a82b93f0d1837e16, type: 3}
     cueNumber: 2556
     accessibleAlternative: Qas takes  3 phoGemma Posts Pic's to Insta and tags Qto's
@@ -6171,7 +6174,7 @@ MonoBehaviour:
     accessibleAlternative: Insta message from Ros
   - image: {fileID: 21300000, guid: a5ab097c5920ff443bf3372ce75533ef, type: 3}
     cueNumber: 267
-    accessibleAlternative: Qas recives video & pics
+    accessibleAlternative: B. Qas recives video & pics
   - image: {fileID: 21300000, guid: 03c732934d038b84cbb9ac6bbf95f0b0, type: 3}
     cueNumber: 269
     accessibleAlternative: 'Facebook comment: Ode to queen Roslyn'
