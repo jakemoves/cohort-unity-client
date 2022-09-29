@@ -2716,17 +2716,6 @@ MonoBehaviour:
               Value: 0
           <CueID>k__BackingField: 676
           <VibrateOnCue>k__BackingField: 0
-        - <MediaDomain>k__BackingField: 0
-          <GroupSelection>k__BackingField:
-            list:
-            - Key: Qas
-              Value: 1
-            - Key: Gemma
-              Value: 0
-            - Key: Roslyn
-              Value: 0
-          <CueID>k__BackingField: 170
-          <VibrateOnCue>k__BackingField: 0
         - <MediaDomain>k__BackingField: 1
           <GroupSelection>k__BackingField:
             list:
@@ -2737,6 +2726,17 @@ MonoBehaviour:
             - Key: Roslyn
               Value: 0
           <CueID>k__BackingField: 682
+          <VibrateOnCue>k__BackingField: 0
+        - <MediaDomain>k__BackingField: 0
+          <GroupSelection>k__BackingField:
+            list:
+            - Key: Qas
+              Value: 1
+            - Key: Gemma
+              Value: 0
+            - Key: Roslyn
+              Value: 0
+          <CueID>k__BackingField: 170
           <VibrateOnCue>k__BackingField: 0
       - Key: Gemma
         Value: []
