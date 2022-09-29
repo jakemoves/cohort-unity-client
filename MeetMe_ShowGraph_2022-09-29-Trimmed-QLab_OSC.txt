@@ -1,0 +1,80 @@
+Q-Lab Ouput for OSC via CoHort-OSC-Bridge
+CoHot-OSC-Bridge: https://github.com/jakemoves/cohort-osc-bridge
+
+
+Graph: Assets/MeetMe_ShowGraph_2022-09-2-Trimmed.asset
+Information Valid as of 2022-09-29 12:15:11 AM UTC
+
+
+
+========== CHOICE NODE ==========
+	ID:	b338598f-3cf1-4cc6-8c47-ed93da038088
+
+		**** GROUP: Qas ****
+		Question:Qas takes responsibility?
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.b338598f-3cf1-4cc6-8c47-ed93da038088.Qas=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.b338598f-3cf1-4cc6-8c47-ed93da038088.Qas=True"
+
+		**** GROUP: Gemma ****
+		Question:Gemma Goes Public?
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.b338598f-3cf1-4cc6-8c47-ed93da038088.Gemma=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.b338598f-3cf1-4cc6-8c47-ed93da038088.Gemma=True"
+
+		**** GROUP: Roslyn ****
+		Question:Roslyn Supports Gemma?
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.b338598f-3cf1-4cc6-8c47-ed93da038088.Roslyn=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.b338598f-3cf1-4cc6-8c47-ed93da038088.Roslyn=True"
+
+========== CHOICE NODE ==========
+	ID:	782b2a06-4101-4cf3-be3e-4a70df77abf9
+
+		**** GROUP: Qas ****
+		Question:Qas Flirts With Gemma?
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.782b2a06-4101-4cf3-be3e-4a70df77abf9.Qas=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.782b2a06-4101-4cf3-be3e-4a70df77abf9.Qas=True"
+
+		**** GROUP: Gemma ****
+		Question:Gemma Flirts with Qas?
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.782b2a06-4101-4cf3-be3e-4a70df77abf9.Gemma=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.782b2a06-4101-4cf3-be3e-4a70df77abf9.Gemma=True"
+
+		**** GROUP: Roslyn ****
+		Question:Roslyn asks Gemma directly?
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.782b2a06-4101-4cf3-be3e-4a70df77abf9.Roslyn=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.782b2a06-4101-4cf3-be3e-4a70df77abf9.Roslyn=True"
+
+========== CHOICE NODE ==========
+	ID:	b9bee654-6ed3-438c-9428-0cb2ea341fb9
+
+		**** GROUP: Qas ****
+		Question:null
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.b9bee654-6ed3-438c-9428-0cb2ea341fb9.Qas=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.b9bee654-6ed3-438c-9428-0cb2ea341fb9.Qas=True"
+
+		**** GROUP: Gemma ****
+		Question:Gemma Goes Public?
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.b9bee654-6ed3-438c-9428-0cb2ea341fb9.Gemma=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.b9bee654-6ed3-438c-9428-0cb2ea341fb9.Gemma=True"
+
+		**** GROUP: Roslyn ****
+		Question:Roslyn Supports Gemma?
+
+			** OSC STRINGS **
+/cohort 3 -1 0 "all" "COMMAND::Decision.b9bee654-6ed3-438c-9428-0cb2ea341fb9.Roslyn=False"
+/cohort 3 -1 0 "all" "COMMAND::Decision.b9bee654-6ed3-438c-9428-0cb2ea341fb9.Roslyn=True"
