@@ -6056,8 +6056,7 @@ MonoBehaviour:
     accessibleAlternative: 'Qas voice Message to Asma: haha very funny'
   - videoClip: {fileID: 32900000, guid: 13a9ec26009c9874280fd6ddcd601a62, type: 3}
     cueNumber: 682
-    accessibleAlternative: Q looking at pictures he send himself and his and Gemma's
-      text exchange
+    accessibleAlternative: SEND GEMMA TEXT
   - videoClip: {fileID: 32900000, guid: 76469f6ae86fe98489c22b0c4cc351ef, type: 3}
     cueNumber: 704
     accessibleAlternative: Ronnie Youtube - What really stuck out to me
