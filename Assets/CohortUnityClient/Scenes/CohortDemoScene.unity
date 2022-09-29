@@ -5970,10 +5970,10 @@ MonoBehaviour:
     accessibleAlternative: Qas Sexy Music Shared Earphones Distort
   - audioClip: {fileID: 8300000, guid: 89a22b56da5218946af525e9acba8ea4, type: 3}
     cueNumber: 1150
-    accessibleAlternative: Distorted Anthem
+    accessibleAlternative: Transition Music  Roslyn
   - audioClip: {fileID: 8300000, guid: cfde0db88315ec84791bb23d253fba69, type: 3}
     cueNumber: 1155
-    accessibleAlternative: Distorted Riptide
+    accessibleAlternative: Transition Music  Gemma
   videoCues:
   - videoClip: {fileID: 32900000, guid: 77ad85c6f750d87458ff1a797b29d905, type: 3}
     cueNumber: 26
@@ -6002,9 +6002,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 5a89c15b1e78b9a4aac7db81b1e2b21a, type: 3}
     cueNumber: 259
     accessibleAlternative: Does it turn you on Video
-  - videoClip: {fileID: 32900000, guid: 332ec113e43d65446af9a3496fab5f03, type: 3}
+  - videoClip: {fileID: 32900000, guid: 8466a093b38ff1a419c2d60aca0b6f43, type: 3}
     cueNumber: 260
-    accessibleAlternative: Sex video
+    accessibleAlternative: Sex Video (No Audio)
   - videoClip: {fileID: 32900000, guid: c9637da587e81184fa16a8805194aca9, type: 3}
     cueNumber: 261
     accessibleAlternative: Insta message from Ros
@@ -6014,9 +6014,9 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 3dac0e96b8292cc42b265d08b6215a7e, type: 3}
     cueNumber: 268
     accessibleAlternative: 'Text from gemma: taken without my consent'
-  - videoClip: {fileID: 32900000, guid: 8466a093b38ff1a419c2d60aca0b6f43, type: 3}
+  - videoClip: {fileID: 32900000, guid: 332ec113e43d65446af9a3496fab5f03, type: 3}
     cueNumber: 270
-    accessibleAlternative: Roslyn Part of The Sex Video
+    accessibleAlternative: Sex Video (With Audio)
   - videoClip: {fileID: 32900000, guid: 85af4c2d448dde443b9db48b29ed7c0f, type: 3}
     cueNumber: 273
     accessibleAlternative: Does it turn you on Video
@@ -6307,7 +6307,7 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: f9deb1bd4a43ffb4d896609cb4c6df0f, type: 3}
     cueNumber: 2180
     accessibleAlternative: 'Dm from Qas mom: Rishta'
-  - image: {fileID: 21300000, guid: b223769ce3168ca4a9a6a5822de7b161, type: 3}
+  - image: {fileID: 21300000, guid: 0452cf8760c524a48bb433145a58aa8d, type: 3}
     cueNumber: 2202
     accessibleAlternative: Selfie picture
   - image: {fileID: 21300000, guid: 8279f944bd4c11d4cad637e2cd8b55c6, type: 3}
